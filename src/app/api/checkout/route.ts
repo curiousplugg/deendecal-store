@@ -46,7 +46,21 @@ export async function POST(req: NextRequest) {
     console.log('✅ Checkout session created:', session.id);
     return NextResponse.json({ sessionId: session.id });
   } catch (error) {
-    console.error('Error creating checkout session:', error);
-    return NextResponse.json({ error: 'Error creating checkout session' }, { status: 500 });
+    console.error('❌ Error creating checkout session:', error);
+    console.error('Error type:', error instanceof Error ? error.constructor.name : typeof error);
+    console.error('Error message:', error instanceof Error ? error.message : String(error));
+    console.error('Error stack:', error instanceof Error ? error.stack : 'No stack trace');
+    
+    // Check if it's a Stripe error
+    if (error && typeof error === 'object' && 'type' in error) {
+      console.error('Stripe error type:', error.type);
+      console.error('Stripe error code:', error.code);
+      console.error('Stripe error message:', error.message);
+    }
+    
+    return NextResponse.json({ 
+      error: 'Error creating checkout session',
+      details: error instanceof Error ? error.message : String(error)
+    }, { status: 500 });
   }
 }
