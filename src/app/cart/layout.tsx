@@ -9,3 +9,11 @@ export const metadata: Metadata = {
     follow: true,
   },
 };
+
+export default function CartLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
+  return children;
+}
