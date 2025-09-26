@@ -74,10 +74,18 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
   useEffect(() => {
     const storedCart = localStorage.getItem('cart');
     if (storedCart) {
-      dispatch({ type: 'CLEAR_CART' }); // Clear initial state
-      JSON.parse(storedCart).forEach((item: CartItem) => {
-        dispatch({ type: 'ADD_ITEM', payload: { ...item, quantity: item.quantity - 1 } }); // Add items one by one to trigger quantity logic
-      });
+      try {
+        const cartItems: CartItem[] = JSON.parse(storedCart);
+        // Set the cart items directly instead of using ADD_ITEM
+        cartItems.forEach((item: CartItem) => {
+          // Add the item multiple times to match the quantity
+          for (let i = 0; i < item.quantity; i++) {
+            dispatch({ type: 'ADD_ITEM', payload: item });
+          }
+        });
+      } catch (error) {
+        console.error('Error loading cart from localStorage:', error);
+      }
     }
   }, []);
 
