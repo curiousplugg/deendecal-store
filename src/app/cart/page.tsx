@@ -48,7 +48,7 @@ export default function CartPage() {
   }, {} as Record<string, typeof state.items[0] & { quantity: number }>);
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="cart-page">
       {/* Header */}
       <header className="header">
         <div className="header-top">
@@ -83,12 +83,6 @@ export default function CartPage() {
                 <Link href="/#contact">Contact</Link>
               </div>
               <div className="nav-actions">
-                <button className="search-btn">
-                  <i className="fas fa-search"></i>
-                </button>
-                <button className="account-btn">
-                  <i className="fas fa-user"></i>
-                </button>
                 <Link href="/cart" className="cart-btn">
                   <i className="fas fa-shopping-cart"></i>
                   <span>Cart</span>
@@ -100,73 +94,64 @@ export default function CartPage() {
         </nav>
       </header>
 
-      <div className="container" style={{ paddingTop: '8rem' }}>
-        <h1 className="text-4xl font-bold text-center text-gray-900 mb-10">Your Shopping Cart</h1>
+      <div className="cart-container" style={{ paddingTop: '8rem' }}>
+        <div className="cart-header">
+          <h1>Your Shopping Cart</h1>
+          <p>Review your items and proceed to checkout</p>
+        </div>
 
         {state.items.length === 0 ? (
-          <div className="text-center py-10">
-            <p className="text-xl text-gray-600 mb-6">Your cart is empty.</p>
-            <Link
-              href="/"
-              className="add-to-cart-btn"
-              style={{ display: 'inline-block', textDecoration: 'none' }}
-            >
+          <div className="empty-cart">
+            <h2>Your cart is empty</h2>
+            <p>Add some beautiful Islamic car emblems to get started</p>
+            <Link href="/" className="continue-shopping-btn">
               <i className="fas fa-shopping-cart"></i>
               Continue Shopping
             </Link>
           </div>
         ) : (
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-            <div className="lg:col-span-2 bg-white rounded-lg shadow-md p-6">
+          <div className="cart-content">
+            <div className="cart-items">
               {Object.values(groupedItems).map((item, index) => (
-                <div
-                  key={`${item.id}-${index}`}
-                  className="flex items-center border-b border-gray-200 py-4 last:border-b-0"
-                >
-                  <div className="relative w-24 h-24 mr-4 flex-shrink-0">
+                <div key={`${item.id}-${index}`} className="cart-item">
+                  <div className="cart-item-image">
                     <Image
                       src={item.image}
                       alt={item.name}
-                      width={96}
-                      height={96}
-                      className="object-cover rounded-md"
+                      width={100}
+                      height={100}
                     />
                   </div>
-                  <div className="flex-grow">
-                    <h2 className="text-lg font-semibold text-gray-900">
-                      {item.name}
-                    </h2>
+                  <div className="cart-item-details">
+                    <h3 className="cart-item-title">{item.name}</h3>
                     {item.selectedColor && (
-                      <p className="text-gray-600 text-sm">Color: {item.selectedColor}</p>
+                      <p className="cart-item-color">Color: {item.selectedColor}</p>
                     )}
-                    <p className="text-gray-600 text-sm">{item.description}</p>
-                    <p className="text-green-600 font-bold mt-1">
-                      ${item.price.toFixed(2)}
-                    </p>
+                    <p className="cart-item-description">{item.description}</p>
+                    <p className="cart-item-price">${item.price.toFixed(2)}</p>
                   </div>
-                  <div className="flex items-center space-x-4">
-                    <div className="flex items-center border border-gray-300 rounded-md">
+                  <div className="cart-item-controls">
+                    <div className="quantity-controls">
                       <button
+                        className="quantity-btn"
                         onClick={() => updateQuantity(item.id, item.quantity - 1)}
                         disabled={item.quantity <= 1}
-                        className="px-3 py-1 text-gray-600 hover:bg-gray-100 disabled:opacity-50"
                       >
                         -
                       </button>
-                      <span className="px-3 py-1 border-l border-r border-gray-300">
-                        {item.quantity}
-                      </span>
+                      <div className="quantity-display">{item.quantity}</div>
                       <button
+                        className="quantity-btn"
                         onClick={() => updateQuantity(item.id, item.quantity + 1)}
-                        className="px-3 py-1 text-gray-600 hover:bg-gray-100"
                       >
                         +
                       </button>
                     </div>
                     <button
+                      className="remove-btn"
                       onClick={() => removeItem(item.id)}
-                      className="text-red-600 hover:text-red-800"
                     >
+                      <i className="fas fa-trash"></i>
                       Remove
                     </button>
                   </div>
@@ -174,33 +159,25 @@ export default function CartPage() {
               ))}
             </div>
 
-            <div className="lg:col-span-1 bg-white rounded-lg shadow-md p-6 h-fit">
-              <h2 className="text-2xl font-bold text-gray-900 mb-4">Order Summary</h2>
-              <div className="flex justify-between text-gray-700 mb-2">
-                <span>Subtotal</span>
-                <span>${subtotal.toFixed(2)}</span>
+            <div className="cart-summary">
+              <h2>Order Summary</h2>
+              <div className="summary-line">
+                <span className="summary-label">Subtotal</span>
+                <span className="summary-value">${subtotal.toFixed(2)}</span>
               </div>
-              <div className="flex justify-between text-gray-700 mb-4">
-                <span>Shipping</span>
-                <span>Free</span>
+              <div className="summary-line">
+                <span className="summary-label">Shipping</span>
+                <span className="summary-value">Free</span>
               </div>
-              <div className="flex justify-between text-xl font-bold text-gray-900 border-t border-gray-200 pt-4 mt-4">
-                <span>Total</span>
-                <span>${subtotal.toFixed(2)}</span>
+              <div className="summary-line">
+                <span className="summary-label">Total</span>
+                <span className="summary-value">${subtotal.toFixed(2)}</span>
               </div>
-              <button
-                onClick={handleCheckout}
-                className="add-to-cart-btn"
-                style={{ width: '100%', marginTop: '1.5rem' }}
-              >
+              <button onClick={handleCheckout} className="checkout-btn">
                 <i className="fas fa-credit-card"></i>
                 Proceed to Checkout
               </button>
-              <button
-                onClick={clearCart}
-                className="wishlist-btn"
-                style={{ width: '100%', marginTop: '0.75rem' }}
-              >
+              <button onClick={clearCart} className="clear-cart-btn">
                 <i className="fas fa-trash"></i>
                 Clear Cart
               </button>

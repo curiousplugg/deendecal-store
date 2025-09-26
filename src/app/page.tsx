@@ -71,12 +71,6 @@ export default function Home() {
                 <a href="#contact">Contact</a>
               </div>
               <div className="nav-actions">
-                <button className="search-btn">
-                  <i className="fas fa-search"></i>
-                </button>
-                <button className="account-btn">
-                  <i className="fas fa-user"></i>
-                </button>
                 <Link href="/cart" className="cart-btn">
                   <i className="fas fa-shopping-cart"></i>
                   <span>Cart</span>
@@ -136,9 +130,6 @@ export default function Home() {
                   height={500}
                   className="main-product-image"
                 />
-                <button className="image-zoom">
-                  <i className="fas fa-search-plus"></i>
-                </button>
                 <div className="product-badge">
                   <i className="fas fa-star"></i>
                   <span>Premium Quality</span>
@@ -160,6 +151,36 @@ export default function Home() {
                     <div className="thumbnail-label">{color}</div>
                   </div>
                 ))}
+                <div className="thumbnail">
+                  <video
+                    src="/videos/tiktok_20250926_115253.mp4"
+                    className="thumbnail-video"
+                    muted
+                    loop
+                    playsInline
+                  />
+                  <div className="thumbnail-label">Installation</div>
+                </div>
+                <div className="thumbnail">
+                  <video
+                    src="/videos/tiktok_20250926_120529.mp4"
+                    className="thumbnail-video"
+                    muted
+                    loop
+                    playsInline
+                  />
+                  <div className="thumbnail-label">Application</div>
+                </div>
+                <div className="thumbnail">
+                  <video
+                    src="/videos/tiktok_20250926_120542.mp4"
+                    className="thumbnail-video"
+                    muted
+                    loop
+                    playsInline
+                  />
+                  <div className="thumbnail-label">Final Result</div>
+                </div>
               </div>
             </div>
 
