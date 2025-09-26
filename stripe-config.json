@@ -1,0 +1,10 @@
+{
+  "productId": "prod_T80cuvpRrYLsvS",
+  "priceIds": {
+    "Gold": "price_1SBkbeBJjaZO6BBgJD1bAJvt",
+    "Black": "price_1SBkbeBJjaZO6BBgkuwcTysc",
+    "Red": "price_1SBkbeBJjaZO6BBgUjC7X59s",
+    "Silver": "price_1SBkbeBJjaZO6BBgbNls06pg"
+  },
+  "webhookUrl": "https://deendecal.com/api/webhooks/stripe"
+}
