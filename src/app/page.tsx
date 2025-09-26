@@ -74,7 +74,7 @@ export default function Home() {
                 <Link href="/cart" className="cart-btn">
                   <i className="fas fa-shopping-cart"></i>
                   <span>Cart</span>
-                  <span className="cart-count">{state.items.length}</span>
+                  <span className="cart-count">{state.items.reduce((total, item) => total + item.quantity, 0)}</span>
                 </Link>
               </div>
             </div>
