@@ -53,9 +53,10 @@ export async function POST(req: NextRequest) {
     
     // Check if it's a Stripe error
     if (error && typeof error === 'object' && 'type' in error) {
-      console.error('Stripe error type:', error.type);
-      console.error('Stripe error code:', (error as any).code);
-      console.error('Stripe error message:', (error as any).message);
+      const stripeError = error as { type: string; code?: string; message?: string };
+      console.error('Stripe error type:', stripeError.type);
+      console.error('Stripe error code:', stripeError.code);
+      console.error('Stripe error message:', stripeError.message);
     }
     
     return NextResponse.json({ 

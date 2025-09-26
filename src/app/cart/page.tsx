@@ -10,9 +10,16 @@ export default function CartPage() {
   const { state, updateQuantity, removeItem, clearCart } = useCart();
 
   const handleCheckout = async () => {
-    if (state.items.length === 0) return;
+    console.log('🛒 Checkout button clicked');
+    console.log('📦 Cart items:', state.items);
+    
+    if (state.items.length === 0) {
+      console.log('❌ No items in cart');
+      return;
+    }
 
     try {
+      console.log('🚀 Sending checkout request...');
       const response = await fetch('/api/checkout', {
         method: 'POST',
         headers: {
@@ -28,12 +35,17 @@ export default function CartPage() {
       }
 
       const { sessionId } = data;
+      console.log('✅ Checkout session created:', sessionId);
+      
       const stripe = await getStripe();
       if (stripe) {
+        console.log('🔄 Redirecting to Stripe checkout...');
         await stripe.redirectToCheckout({ sessionId });
+      } else {
+        console.error('❌ Stripe not loaded');
       }
     } catch (error) {
-      console.error('Error during checkout:', error);
+      console.error('❌ Error during checkout:', error);
       alert('There was an error during checkout. Please try again.');
     }
   };
@@ -118,7 +130,7 @@ export default function CartPage() {
         ) : (
           <div className="cart-content">
             <div className="cart-items">
-              {Object.values(groupedItems).map((item, index) => {
+              {Object.values(groupedItems).map((item) => {
                 const itemKey = `${item.id}-${item.selectedColor || 'default'}`;
                 return (
                   <div key={itemKey} className="cart-item">
