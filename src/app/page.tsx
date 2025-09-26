@@ -11,6 +11,7 @@ export default function Home() {
   const [selectedColor, setSelectedColor] = useState('Gold');
   const [quantity, setQuantity] = useState(1);
   const [currentImage, setCurrentImage] = useState('/images/goldIndy.jpg');
+  const [currentVideo, setCurrentVideo] = useState<string | null>(null);
 
   const product = products[0]; // Single product
 
@@ -24,6 +25,12 @@ export default function Home() {
   const handleColorSelect = (color: string) => {
     setSelectedColor(color);
     setCurrentImage(colorImages[color as keyof typeof colorImages] || '/images/goldIndy.jpg');
+    setCurrentVideo(null); // Clear video when selecting color
+  };
+
+  const handleVideoSelect = (videoSrc: string) => {
+    setCurrentVideo(videoSrc);
+    setCurrentImage('/images/goldIndy.jpg'); // Keep fallback image
   };
 
   const handleAddToCart = () => {
@@ -175,13 +182,27 @@ export default function Home() {
           <div className="product-layout">
             <div className="product-gallery">
               <div className="main-image-container">
-                <Image
-                  src={currentImage}
-                  alt={`Premium Shahada Metal Car Decal - ${selectedColor} - Islamic Car Emblem`}
-                  width={500}
-                  height={500}
-                  className="main-product-image"
-                />
+                {currentVideo ? (
+                  <video
+                    src={currentVideo}
+                    className="main-product-video"
+                    controls
+                    autoPlay
+                    muted
+                    loop
+                    playsInline
+                    width={500}
+                    height={500}
+                  />
+                ) : (
+                  <Image
+                    src={currentImage}
+                    alt={`Premium Shahada Metal Car Decal - ${selectedColor} - Islamic Car Emblem`}
+                    width={500}
+                    height={500}
+                    className="main-product-image"
+                  />
+                )}
                 <div className="product-badge">
                   <i className="fas fa-star"></i>
                   <span>Premium Quality</span>
@@ -203,87 +224,36 @@ export default function Home() {
                     <div className="thumbnail-label">{color}</div>
                   </div>
                 ))}
-                <div className="thumbnail" onClick={(e) => {
-                  e.preventDefault();
-                  const video = e.currentTarget.querySelector('video') as HTMLVideoElement;
-                  const thumbnail = e.currentTarget;
-                  if (video) {
-                    if (video.paused) {
-                      video.play();
-                      thumbnail.classList.add('playing');
-                    } else {
-                      video.pause();
-                      thumbnail.classList.remove('playing');
-                    }
-                  }
-                }}>
+                <div className="thumbnail" onClick={() => handleVideoSelect('/videos/tiktok_20250926_115253.mp4')}>
                   <video
                     src="/videos/tiktok_20250926_115253.mp4"
                     className="thumbnail-video"
                     muted
                     loop
                     playsInline
-                    controls
-                    onEnded={() => {
-                      const thumbnail = document.querySelector('video[src="/videos/tiktok_20250926_115253.mp4"]')?.closest('.thumbnail');
-                      if (thumbnail) thumbnail.classList.remove('playing');
-                    }}
+                    preload="metadata"
                   />
                   <div className="thumbnail-label">Installation</div>
                 </div>
-                <div className="thumbnail" onClick={(e) => {
-                  e.preventDefault();
-                  const video = e.currentTarget.querySelector('video') as HTMLVideoElement;
-                  const thumbnail = e.currentTarget;
-                  if (video) {
-                    if (video.paused) {
-                      video.play();
-                      thumbnail.classList.add('playing');
-                    } else {
-                      video.pause();
-                      thumbnail.classList.remove('playing');
-                    }
-                  }
-                }}>
+                <div className="thumbnail" onClick={() => handleVideoSelect('/videos/tiktok_20250926_120529.mp4')}>
                   <video
                     src="/videos/tiktok_20250926_120529.mp4"
                     className="thumbnail-video"
                     muted
                     loop
                     playsInline
-                    controls
-                    onEnded={() => {
-                      const thumbnail = document.querySelector('video[src="/videos/tiktok_20250926_120529.mp4"]')?.closest('.thumbnail');
-                      if (thumbnail) thumbnail.classList.remove('playing');
-                    }}
+                    preload="metadata"
                   />
                   <div className="thumbnail-label">Application</div>
                 </div>
-                <div className="thumbnail" onClick={(e) => {
-                  e.preventDefault();
-                  const video = e.currentTarget.querySelector('video') as HTMLVideoElement;
-                  const thumbnail = e.currentTarget;
-                  if (video) {
-                    if (video.paused) {
-                      video.play();
-                      thumbnail.classList.add('playing');
-                    } else {
-                      video.pause();
-                      thumbnail.classList.remove('playing');
-                    }
-                  }
-                }}>
+                <div className="thumbnail" onClick={() => handleVideoSelect('/videos/tiktok_20250926_120542.mp4')}>
                   <video
                     src="/videos/tiktok_20250926_120542.mp4"
                     className="thumbnail-video"
                     muted
                     loop
                     playsInline
-                    controls
-                    onEnded={() => {
-                      const thumbnail = document.querySelector('video[src="/videos/tiktok_20250926_120542.mp4"]')?.closest('.thumbnail');
-                      if (thumbnail) thumbnail.classList.remove('playing');
-                    }}
+                    preload="metadata"
                   />
                   <div className="thumbnail-label">Final Result</div>
                 </div>
