@@ -46,7 +46,7 @@ export default function Home() {
             <div className="header-top-content">
               <div className="promo-banner">
                 <i className="fas fa-gift"></i>
-                <span>Free shipping on orders over $50</span>
+                <span>Free shipping on all orders</span>
               </div>
               <div className="header-top-links">
                 <a href="#">Track Order</a>
@@ -203,17 +203,43 @@ export default function Home() {
               <div className="product-pricing">
                 <div className="price-container">
                   <span className="current-price">${product.price}</span>
-                  <span className="original-price">$29.99</span>
-                  <span className="discount-badge">Save 17%</span>
+                  <span className="original-price">${product.originalPrice}</span>
+                  <span className="discount-badge">Save {Math.round(((product.originalPrice! - product.price) / product.originalPrice!) * 100)}%</span>
                 </div>
                 <div className="shipping-info">
                   <i className="fas fa-truck"></i>
-                  <span>Free shipping on orders over $50</span>
+                  <span>Free shipping on all orders</span>
                 </div>
               </div>
 
               <div className="product-description">
                 <p>{product.description}</p>
+              </div>
+
+              <div className="product-specifications">
+                <h3>Product Specifications</h3>
+                <div className="specs-grid">
+                  <div className="spec-item">
+                    <span className="spec-label">Material:</span>
+                    <span className="spec-value">{product.material}</span>
+                  </div>
+                  <div className="spec-item">
+                    <span className="spec-label">Size:</span>
+                    <span className="spec-value">{product.size}</span>
+                  </div>
+                  <div className="spec-item">
+                    <span className="spec-label">Style:</span>
+                    <span className="spec-value">{product.style}</span>
+                  </div>
+                  <div className="spec-item">
+                    <span className="spec-label">Installation Location:</span>
+                    <span className="spec-value">{product.installationLocation}</span>
+                  </div>
+                  <div className="spec-item">
+                    <span className="spec-label">Packing:</span>
+                    <span className="spec-value">{product.packingSpecifications}</span>
+                  </div>
+                </div>
               </div>
 
               <div className="product-options">
@@ -315,27 +341,15 @@ export default function Home() {
             <p>Follow these simple steps to install your emblem</p>
           </div>
           <div className="installation-steps">
-            <div className="step">
-              <div className="step-number">1</div>
-              <div className="step-content">
-                <h3>Clean the Surface</h3>
-                <p>Wash and dry your car&apos;s surface thoroughly. Use rubbing alcohol to remove any wax or residue.</p>
+            {product.installationInstructions?.map((instruction, index) => (
+              <div key={index} className="step">
+                <div className="step-number">{index + 1}</div>
+                <div className="step-content">
+                  <h3>Step {index + 1}</h3>
+                  <p>{instruction}</p>
+                </div>
               </div>
-            </div>
-            <div className="step">
-              <div className="step-number">2</div>
-              <div className="step-content">
-                <h3>Peel and Apply</h3>
-                <p>Peel the backing from the emblem and carefully position it on your desired location.</p>
-              </div>
-            </div>
-            <div className="step">
-              <div className="step-number">3</div>
-              <div className="step-content">
-                <h3>Smooth and Secure</h3>
-                <p>Use a credit card or squeegee to smooth out any air bubbles and ensure a secure bond.</p>
-              </div>
-            </div>
+            ))}
           </div>
         </div>
       </section>

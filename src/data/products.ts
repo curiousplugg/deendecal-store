@@ -3,23 +3,41 @@ export interface Product {
   name: string;
   description: string;
   price: number;
+  originalPrice?: number;
   image: string;
   category: string;
   inStock: boolean;
   colors?: string[];
   selectedColor?: string;
+  material?: string;
+  size?: string;
+  style?: string;
+  installationLocation?: string;
+  packingSpecifications?: string;
+  installationInstructions?: string[];
 }
 
 export const products: Product[] = [
   {
     id: 'indy-decal',
-    name: 'Premium Indy Decal',
-    description: 'Express your faith with our beautifully crafted vinyl decal. Premium quality, weather-resistant, and easy to install.',
+    name: 'Premium Indy Decal Car Sticker',
+    description: 'Premium Indy Decal Car Sticker - Metal material, 16*3.5CM size, Trunk Sticker style. Perfect for Body and Rear installation. Single Pack with detailed installation instructions.',
     price: 24.99,
+    originalPrice: 34.99,
     image: '/images/blackIndy.jpg',
     category: 'Decals',
     inStock: true,
     colors: ['Black', 'Gold', 'Red', 'Silver'],
-    selectedColor: 'Black'
+    selectedColor: 'Black',
+    material: 'Metal',
+    size: '16*3.5CM',
+    style: 'Trunk Sticker',
+    installationLocation: 'Body, Rear',
+    packingSpecifications: 'Single Pack',
+    installationInstructions: [
+      'Clean the area of the vehicle to be applied. Ensure the area is dry, clean, free of oil and moisture, and has not been waxed within three days.',
+      'Carefully peel off the protective film from the adhesive backing of the vehicle logo. Align the sticker with the desired area, pressing downward along the logo and pressing firmly.',
+      'Do not wash the vehicle within 48 hours of application.'
+    ]
   }
 ];
