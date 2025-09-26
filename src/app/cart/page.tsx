@@ -45,7 +45,7 @@ export default function CartPage() {
     }
     acc[key].quantity += item.quantity;
     return acc;
-  }, {} as Record<string, any>);
+  }, {} as Record<string, typeof state.items[0] & { quantity: number }>);
 
   return (
     <div className="min-h-screen bg-white">

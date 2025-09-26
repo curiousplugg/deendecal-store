@@ -298,7 +298,7 @@ export default function Home() {
               <div className="step-number">1</div>
               <div className="step-content">
                 <h3>Clean the Surface</h3>
-                <p>Wash and dry your car's surface thoroughly. Use rubbing alcohol to remove any wax or residue.</p>
+                <p>Wash and dry your car&apos;s surface thoroughly. Use rubbing alcohol to remove any wax or residue.</p>
               </div>
             </div>
             <div className="step">
@@ -380,7 +380,7 @@ export default function Home() {
               </div>
               <div className="contact-info">
                 <h3>Get in Touch</h3>
-                <p>Have questions? We'd love to hear from you. Send us a message and we'll respond as soon as possible.</p>
+                <p>Have questions? We&apos;d love to hear from you. Send us a message and we&apos;ll respond as soon as possible.</p>
                 <a href="mailto:info@deendecal.com" className="contact-email">
                   Contact Us
                 </a>
