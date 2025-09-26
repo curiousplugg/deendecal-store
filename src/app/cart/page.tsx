@@ -4,7 +4,6 @@ import React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useCart } from '@/contexts/CartContext';
-import Navigation from '@/components/Navigation';
 import getStripe from '@/lib/stripe-client';
 
 export default function CartPage() {
@@ -38,35 +37,98 @@ export default function CartPage() {
     0
   );
 
+  // Group items by color for better display
+  const groupedItems = state.items.reduce((acc, item) => {
+    const key = `${item.id}-${item.selectedColor || 'default'}`;
+    if (!acc[key]) {
+      acc[key] = { ...item, quantity: 0 };
+    }
+    acc[key].quantity += item.quantity;
+    return acc;
+  }, {} as Record<string, any>);
+
   return (
-    <div className="min-h-screen bg-gray-100">
-      <Navigation />
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <div className="min-h-screen bg-white">
+      {/* Header */}
+      <header className="header">
+        <div className="header-top">
+          <div className="container">
+            <div className="header-top-content">
+              <div className="promo-banner">
+                <i className="fas fa-gift"></i>
+                <span>Free shipping on orders over $50</span>
+              </div>
+              <div className="header-top-links">
+                <a href="#">Track Order</a>
+                <a href="#">Help</a>
+                <a href="#">Contact</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <nav className="main-nav">
+          <div className="container">
+            <div className="nav-content">
+              <div className="logo">
+                <Link href="/">
+                  <h1>DeenDecal</h1>
+                  <p className="tagline">Express Your Faith</p>
+                </Link>
+              </div>
+              <div className="nav-links">
+                <Link href="/#home">Home</Link>
+                <Link href="/#product">Product</Link>
+                <Link href="/#installation">Installation</Link>
+                <Link href="/#about">About</Link>
+                <Link href="/#contact">Contact</Link>
+              </div>
+              <div className="nav-actions">
+                <button className="search-btn">
+                  <i className="fas fa-search"></i>
+                </button>
+                <button className="account-btn">
+                  <i className="fas fa-user"></i>
+                </button>
+                <Link href="/cart" className="cart-btn">
+                  <i className="fas fa-shopping-cart"></i>
+                  <span>Cart</span>
+                  <span className="cart-count">{state.items.length}</span>
+                </Link>
+              </div>
+            </div>
+          </div>
+        </nav>
+      </header>
+
+      <div className="container" style={{ paddingTop: '8rem' }}>
         <h1 className="text-4xl font-bold text-center text-gray-900 mb-10">Your Shopping Cart</h1>
 
         {state.items.length === 0 ? (
           <div className="text-center py-10">
             <p className="text-xl text-gray-600 mb-6">Your cart is empty.</p>
             <Link
-              href="/products"
-              className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-md font-medium transition-colors duration-200"
+              href="/"
+              className="add-to-cart-btn"
+              style={{ display: 'inline-block', textDecoration: 'none' }}
             >
+              <i className="fas fa-shopping-cart"></i>
               Continue Shopping
             </Link>
           </div>
         ) : (
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
             <div className="lg:col-span-2 bg-white rounded-lg shadow-md p-6">
-              {state.items.map((item) => (
+              {Object.values(groupedItems).map((item, index) => (
                 <div
-                  key={item.id}
+                  key={`${item.id}-${index}`}
                   className="flex items-center border-b border-gray-200 py-4 last:border-b-0"
                 >
                   <div className="relative w-24 h-24 mr-4 flex-shrink-0">
                     <Image
                       src={item.image}
                       alt={item.name}
-                      fill
+                      width={96}
+                      height={96}
                       className="object-cover rounded-md"
                     />
                   </div>
@@ -74,6 +136,9 @@ export default function CartPage() {
                     <h2 className="text-lg font-semibold text-gray-900">
                       {item.name}
                     </h2>
+                    {item.selectedColor && (
+                      <p className="text-gray-600 text-sm">Color: {item.selectedColor}</p>
+                    )}
                     <p className="text-gray-600 text-sm">{item.description}</p>
                     <p className="text-green-600 font-bold mt-1">
                       ${item.price.toFixed(2)}
@@ -125,14 +190,18 @@ export default function CartPage() {
               </div>
               <button
                 onClick={handleCheckout}
-                className="w-full bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-md font-medium transition-colors duration-200 mt-6"
+                className="add-to-cart-btn"
+                style={{ width: '100%', marginTop: '1.5rem' }}
               >
+                <i className="fas fa-credit-card"></i>
                 Proceed to Checkout
               </button>
               <button
                 onClick={clearCart}
-                className="w-full bg-red-500 hover:bg-red-600 text-white px-6 py-3 rounded-md font-medium transition-colors duration-200 mt-3"
+                className="wishlist-btn"
+                style={{ width: '100%', marginTop: '0.75rem' }}
               >
+                <i className="fas fa-trash"></i>
                 Clear Cart
               </button>
             </div>

@@ -1,214 +1,440 @@
 'use client';
 
-import React from 'react';
+import React, { useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import Navigation from '@/components/Navigation';
 import { products } from '@/data/products';
 import { useCart } from '@/contexts/CartContext';
 
 export default function Home() {
   const { addItem } = useCart();
+  const [selectedColor, setSelectedColor] = useState('Black');
+  const [quantity, setQuantity] = useState(1);
+  const [currentImage, setCurrentImage] = useState('/images/blackIndy.jpg');
+
+  const product = products[0]; // Single product
+
+  const colorImages = {
+    'Black': '/images/blackIndy.jpg',
+    'Gold': '/images/goldIndy.jpg',
+    'Red': '/images/redIndy.jpg',
+    'Silver': '/images/silverIndy.jpg'
+  };
+
+  const handleColorSelect = (color: string) => {
+    setSelectedColor(color);
+    setCurrentImage(colorImages[color as keyof typeof colorImages] || '/images/blackIndy.jpg');
+  };
+
+  const handleAddToCart = () => {
+    const productToAdd = {
+      ...product,
+      selectedColor,
+      image: currentImage
+    };
+    for (let i = 0; i < quantity; i++) {
+      addItem(productToAdd);
+    }
+  };
 
   return (
     <div className="min-h-screen bg-white">
-      <Navigation />
+      {/* Header */}
+      <header className="header">
+        <div className="header-top">
+          <div className="container">
+            <div className="header-top-content">
+              <div className="promo-banner">
+                <i className="fas fa-gift"></i>
+                <span>Free shipping on orders over $50</span>
+              </div>
+              <div className="header-top-links">
+                <a href="#">Track Order</a>
+                <a href="#">Help</a>
+                <a href="#">Contact</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <nav className="main-nav">
+          <div className="container">
+            <div className="nav-content">
+              <div className="logo">
+                <h1>DeenDecal</h1>
+                <p className="tagline">Express Your Faith</p>
+              </div>
+              <div className="nav-links">
+                <a href="#home">Home</a>
+                <a href="#product">Product</a>
+                <a href="#installation">Installation</a>
+                <a href="#about">About</a>
+                <a href="#contact">Contact</a>
+              </div>
+              <div className="nav-actions">
+                <button className="search-btn">
+                  <i className="fas fa-search"></i>
+                </button>
+                <button className="account-btn">
+                  <i className="fas fa-user"></i>
+                </button>
+                <Link href="/cart" className="cart-btn">
+                  <i className="fas fa-shopping-cart"></i>
+                  <span>Cart</span>
+                  <span className="cart-count">0</span>
+                </Link>
+              </div>
+            </div>
+          </div>
+        </nav>
+      </header>
 
       {/* Hero Section */}
-      <section className="bg-gradient-to-r from-blue-600 to-purple-700 text-white py-20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center">
-            <h1 className="text-5xl font-bold mb-6">
-              Premium Islamic Car Decals
-            </h1>
-            <p className="text-xl mb-8 max-w-3xl mx-auto">
-              Express your faith with beautifully crafted vinyl decals. Premium quality,
-              weather-resistant, and easy to install.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link
-                href="/products"
-                className="bg-white text-blue-600 px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors duration-200"
-              >
-                Shop Now
-              </Link>
-              <Link
-                href="#featured"
-                className="border-2 border-white text-white px-8 py-3 rounded-lg font-semibold hover:bg-white hover:text-blue-600 transition-colors duration-200"
-              >
-                View Products
-              </Link>
+      <section id="home" className="hero">
+        <div className="container">
+          <div className="hero-content">
+            <div className="hero-text">
+              <h1>Premium Islamic Car Emblems</h1>
+              <p>Beautifully crafted Islamic car emblems made from premium materials. Show your devotion with sophistication and grace.</p>
+              <div className="hero-stats">
+                <div className="stat">
+                  <span className="stat-number">10K+</span>
+                  <span className="stat-label">Happy Customers</span>
+                </div>
+                <div className="stat">
+                  <span className="stat-number">4.9</span>
+                  <span className="stat-label">Rating</span>
+                </div>
+                <div className="stat">
+                  <span className="stat-number">24/7</span>
+                  <span className="stat-label">Support</span>
+                </div>
+              </div>
+            </div>
+            <div className="hero-image">
+              <Image
+                src={currentImage}
+                alt="Premium Islamic Car Emblem"
+                width={500}
+                height={500}
+                className="hero-img"
+              />
             </div>
           </div>
         </div>
       </section>
 
-      {/* Featured Products */}
-      <section id="featured" className="py-16 bg-gray-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-gray-900 mb-4">
-              Featured Products
-            </h2>
-            <p className="text-lg text-gray-600">
-              Our most popular decal designs
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-            {products.slice(0, 6).map((product) => (
-              <div
-                key={product.id}
-                className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300"
-              >
-                <div className="relative h-64">
-                  <Image
-                    src={product.image}
-                    alt={product.name}
-                    fill
-                    className="object-cover"
-                  />
+      {/* Product Section */}
+      <section id="product" className="product-section">
+        <div className="container">
+          <div className="product-layout">
+            <div className="product-gallery">
+              <div className="main-image-container">
+                <Image
+                  src={currentImage}
+                  alt={product.name}
+                  width={500}
+                  height={500}
+                  className="main-product-image"
+                />
+                <button className="image-zoom">
+                  <i className="fas fa-search-plus"></i>
+                </button>
+                <div className="product-badge">
+                  <i className="fas fa-star"></i>
+                  <span>Premium Quality</span>
                 </div>
-                <div className="p-6">
-                  <h3 className="text-xl font-semibold text-gray-900 mb-2">
-                    {product.name}
-                  </h3>
-                  <p className="text-gray-600 mb-4 text-sm">
-                    {product.description}
-                  </p>
-                  <div className="flex items-center justify-between">
-                    <span className="text-2xl font-bold text-green-600">
-                      ${product.price}
-                    </span>
+              </div>
+              <div className="thumbnail-gallery">
+                {Object.entries(colorImages).map(([color, image]) => (
+                  <div
+                    key={color}
+                    className={`thumbnail ${selectedColor === color ? 'active' : ''}`}
+                    onClick={() => handleColorSelect(color)}
+                  >
+                    <Image
+                      src={image}
+                      alt={`${color} variant`}
+                      width={80}
+                      height={80}
+                    />
+                    <div className="thumbnail-label">{color}</div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <div className="product-info">
+              <div className="product-header">
+                <div className="product-rating">
+                  <div className="stars">
+                    <i className="fas fa-star"></i>
+                    <i className="fas fa-star"></i>
+                    <i className="fas fa-star"></i>
+                    <i className="fas fa-star"></i>
+                    <i className="fas fa-star"></i>
+                  </div>
+                  <span className="rating-text">(127 reviews)</span>
+                </div>
+                <h1 className="product-title">{product.name}</h1>
+                <div className="new-badge">New Arrival</div>
+              </div>
+
+              <div className="product-pricing">
+                <div className="price-container">
+                  <span className="current-price">${product.price}</span>
+                  <span className="original-price">$29.99</span>
+                  <span className="discount-badge">Save 17%</span>
+                </div>
+                <div className="shipping-info">
+                  <i className="fas fa-truck"></i>
+                  <span>Free shipping on orders over $50</span>
+                </div>
+              </div>
+
+              <div className="product-description">
+                <p>{product.description}</p>
+              </div>
+
+              <div className="product-options">
+                <div className="option-group">
+                  <label className="option-label">Choose Color</label>
+                  <div className="color-options">
+                    {product.colors?.map((color) => (
+                      <div
+                        key={color}
+                        className={`color-option ${selectedColor === color ? 'active' : ''}`}
+                        onClick={() => handleColorSelect(color)}
+                      >
+                        <div className={`color-preview ${color.toLowerCase()}`}></div>
+                        <span>{color}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                <div className="option-group">
+                  <label className="option-label">Quantity</label>
+                  <div className="quantity-selector">
                     <button
-                      onClick={() => addItem(product)}
-                      className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md font-medium transition-colors duration-200"
+                      className="quantity-btn"
+                      onClick={() => setQuantity(Math.max(1, quantity - 1))}
                     >
-                      Add to Cart
+                      -
+                    </button>
+                    <input
+                      type="number"
+                      className="quantity-input"
+                      value={quantity}
+                      onChange={(e) => setQuantity(Math.max(1, parseInt(e.target.value) || 1))}
+                      min="1"
+                    />
+                    <button
+                      className="quantity-btn"
+                      onClick={() => setQuantity(quantity + 1)}
+                    >
+                      +
                     </button>
                   </div>
                 </div>
               </div>
-            ))}
-          </div>
 
-          <div className="text-center mt-12">
-            <Link
-              href="/products"
-              className="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 transition-colors duration-200"
-            >
-              View All Products
-            </Link>
-          </div>
-        </div>
-      </section>
-
-      {/* Features Section */}
-      <section className="py-16 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-gray-900 mb-4">
-              Why Choose DeenDecal?
-            </h2>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div className="text-center">
-              <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                <svg className="w-8 h-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                </svg>
+              <div className="product-features">
+                <h3>Product Features</h3>
+                <div className="features-list">
+                  <div className="feature-item">
+                    <i className="fas fa-shield-alt"></i>
+                    <span>Weather Resistant</span>
+                  </div>
+                  <div className="feature-item">
+                    <i className="fas fa-tools"></i>
+                    <span>Easy Installation</span>
+                  </div>
+                  <div className="feature-item">
+                    <i className="fas fa-award"></i>
+                    <span>Premium Quality</span>
+                  </div>
+                  <div className="feature-item">
+                    <i className="fas fa-heart"></i>
+                    <span>Made with Love</span>
+                  </div>
+                </div>
               </div>
-              <h3 className="text-xl font-semibold text-gray-900 mb-2">
-                Premium Quality
-              </h3>
-              <p className="text-gray-600">
-                High-grade vinyl that withstands all weather conditions
-              </p>
-            </div>
 
-            <div className="text-center">
-              <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                <svg className="w-8 h-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-                </svg>
+              <div className="add-to-cart-section">
+                <button className="add-to-cart-btn" onClick={handleAddToCart}>
+                  <i className="fas fa-shopping-cart"></i>
+                  Add to Cart - ${(product.price * quantity).toFixed(2)}
+                </button>
+                <button className="wishlist-btn">
+                  <i className="fas fa-heart"></i>
+                  Wishlist
+                </button>
               </div>
-              <h3 className="text-xl font-semibold text-gray-900 mb-2">
-                Easy Installation
-              </h3>
-              <p className="text-gray-600">
-                Simple 3-step installation process, no drilling required
-              </p>
-            </div>
 
-            <div className="text-center">
-              <div className="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                <svg className="w-8 h-8 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
-                </svg>
+              <div className="payment-methods">
+                <p>We accept all major payment methods</p>
+                <div className="payment-icons">
+                  <i className="fab fa-cc-visa"></i>
+                  <i className="fab fa-cc-mastercard"></i>
+                  <i className="fab fa-cc-amex"></i>
+                  <i className="fab fa-cc-paypal"></i>
+                  <i className="fab fa-apple-pay"></i>
+                </div>
               </div>
-              <h3 className="text-xl font-semibold text-gray-900 mb-2">
-                Express Your Faith
-              </h3>
-              <p className="text-gray-600">
-                Beautiful designs that honor your Islamic values
-              </p>
             </div>
           </div>
         </div>
       </section>
 
-      {/* CTA Section */}
-      <section className="py-16 bg-blue-600 text-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-3xl font-bold mb-4">
-            Ready to Express Your Faith?
-          </h2>
-          <p className="text-xl mb-8">
-            Join thousands of satisfied customers who trust DeenDecal
-          </p>
-          <Link
-            href="/products"
-            className="bg-white text-blue-600 px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors duration-200"
-          >
-            Shop Now
-          </Link>
+      {/* Installation Section */}
+      <section id="installation" className="installation-section">
+        <div className="container">
+          <div className="section-header">
+            <h2>Easy Installation</h2>
+            <p>Follow these simple steps to install your emblem</p>
+          </div>
+          <div className="installation-steps">
+            <div className="step">
+              <div className="step-number">1</div>
+              <div className="step-content">
+                <h3>Clean the Surface</h3>
+                <p>Wash and dry your car's surface thoroughly. Use rubbing alcohol to remove any wax or residue.</p>
+              </div>
+            </div>
+            <div className="step">
+              <div className="step-number">2</div>
+              <div className="step-content">
+                <h3>Peel and Apply</h3>
+                <p>Peel the backing from the emblem and carefully position it on your desired location.</p>
+              </div>
+            </div>
+            <div className="step">
+              <div className="step-number">3</div>
+              <div className="step-content">
+                <h3>Smooth and Secure</h3>
+                <p>Use a credit card or squeegee to smooth out any air bubbles and ensure a secure bond.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* About Section */}
+      <section id="about" className="about-section">
+        <div className="container">
+          <div className="about-content">
+            <div className="about-text">
+              <h2>About DeenDecal</h2>
+              <p>We are passionate about creating beautiful, high-quality Islamic car emblems that allow you to express your faith with pride and elegance.</p>
+              <p>Our emblems are crafted using premium materials and advanced manufacturing techniques to ensure durability and beauty that lasts.</p>
+              <div className="about-features">
+                <div className="feature">
+                  <div className="feature-icon">
+                    <i className="fas fa-star"></i>
+                  </div>
+                  <div className="feature-content">
+                    <h4>Premium Materials</h4>
+                    <p>High-grade vinyl and adhesive</p>
+                  </div>
+                </div>
+                <div className="feature">
+                  <div className="feature-icon">
+                    <i className="fas fa-truck"></i>
+                  </div>
+                  <div className="feature-content">
+                    <h4>Fast Shipping</h4>
+                    <p>Free shipping on orders over $50</p>
+                  </div>
+                </div>
+                <div className="feature">
+                  <div className="feature-icon">
+                    <i className="fas fa-heart"></i>
+                  </div>
+                  <div className="feature-content">
+                    <h4>Made with Love</h4>
+                    <p>Crafted with care and attention to detail</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className="about-img-container">
+              <Image
+                src="/images/measurements.jpg"
+                alt="About DeenDecal"
+                width={500}
+                height={400}
+                className="about-img"
+              />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Contact Section */}
+      <section id="contact" className="contact-section">
+        <div className="container">
+          <div className="contact-content">
+            <div className="contact-card">
+              <div className="contact-icon">
+                <i className="fas fa-envelope"></i>
+              </div>
+              <div className="contact-info">
+                <h3>Get in Touch</h3>
+                <p>Have questions? We'd love to hear from you. Send us a message and we'll respond as soon as possible.</p>
+                <a href="mailto:info@deendecal.com" className="contact-email">
+                  Contact Us
+                </a>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
 
       {/* Footer */}
-      <footer className="bg-gray-900 text-white py-12">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-            <div>
-              <h3 className="text-xl font-bold mb-4">DeenDecal</h3>
-              <p className="text-gray-400">
-                Premium Islamic car decals for the faithful
-              </p>
+      <footer className="footer">
+        <div className="container">
+          <div className="footer-content">
+            <div className="footer-logo">
+              <h3>DeenDecal</h3>
+              <p>Express your faith with beautifully crafted Islamic car emblems. Premium quality, easy installation, and designed to last.</p>
+              <div className="social-links">
+                <a href="#"><i className="fab fa-facebook"></i></a>
+                <a href="#"><i className="fab fa-twitter"></i></a>
+                <a href="#"><i className="fab fa-instagram"></i></a>
+                <a href="#"><i className="fab fa-youtube"></i></a>
+              </div>
             </div>
-            <div>
-              <h4 className="text-lg font-semibold mb-4">Quick Links</h4>
-              <ul className="space-y-2">
-                <li><Link href="/" className="text-gray-400 hover:text-white">Home</Link></li>
-                <li><Link href="/products" className="text-gray-400 hover:text-white">Products</Link></li>
-                <li><Link href="/cart" className="text-gray-400 hover:text-white">Cart</Link></li>
+            <div className="footer-section">
+              <h4>Quick Links</h4>
+              <ul>
+                <li><a href="#home">Home</a></li>
+                <li><a href="#product">Product</a></li>
+                <li><a href="#installation">Installation</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#contact">Contact</a></li>
               </ul>
             </div>
-            <div>
-              <h4 className="text-lg font-semibold mb-4">Support</h4>
-              <ul className="space-y-2">
-                <li><a href="#" className="text-gray-400 hover:text-white">Shipping Info</a></li>
-                <li><a href="#" className="text-gray-400 hover:text-white">Returns</a></li>
-                <li><a href="#" className="text-gray-400 hover:text-white">FAQ</a></li>
+            <div className="footer-section">
+              <h4>Support</h4>
+              <ul>
+                <li><a href="#">Shipping Info</a></li>
+                <li><a href="#">Returns</a></li>
+                <li><a href="#">FAQ</a></li>
+                <li><a href="#">Size Guide</a></li>
+                <li><a href="#">Installation Guide</a></li>
               </ul>
             </div>
-            <div>
-              <h4 className="text-lg font-semibold mb-4">Contact</h4>
-              <p className="text-gray-400">info@deendecal.com</p>
+            <div className="footer-section">
+              <h4>Contact Info</h4>
+              <ul>
+                <li>Email: info@deendecal.com</li>
+                <li>Phone: (555) 123-4567</li>
+                <li>Hours: Mon-Fri 9AM-6PM</li>
+              </ul>
             </div>
           </div>
-          <div className="border-t border-gray-800 mt-8 pt-8 text-center">
-            <p className="text-gray-400">&copy; 2024 DeenDecal. All rights reserved.</p>
+          <div className="footer-bottom">
+            <p>&copy; 2024 DeenDecal. All rights reserved.</p>
           </div>
         </div>
       </footer>
