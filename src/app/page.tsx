@@ -186,13 +186,20 @@ export default function Home() {
                   <video
                     src={currentVideo}
                     className="main-product-video"
-                    controls
                     autoPlay
                     muted
                     loop
                     playsInline
                     width={500}
                     height={500}
+                    onClick={(e) => {
+                      const video = e.currentTarget;
+                      if (video.paused) {
+                        video.play();
+                      } else {
+                        video.pause();
+                      }
+                    }}
                   />
                 ) : (
                   <Image

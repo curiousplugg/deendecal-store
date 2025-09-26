@@ -118,51 +118,54 @@ export default function CartPage() {
         ) : (
           <div className="cart-content">
             <div className="cart-items">
-              {Object.values(groupedItems).map((item, index) => (
-                <div key={`${item.id}-${index}`} className="cart-item">
-                  <div className="cart-item-image">
-                    <Image
-                      src={item.image}
-                      alt={item.name}
-                      width={100}
-                      height={100}
-                    />
-                  </div>
-                  <div className="cart-item-details">
-                    <h3 className="cart-item-title">{item.name}</h3>
-                    {item.selectedColor && (
-                      <p className="cart-item-color">Color: {item.selectedColor}</p>
-                    )}
-                    <p className="cart-item-description">{item.description}</p>
-                    <p className="cart-item-price">${item.price.toFixed(2)}</p>
-                  </div>
-                  <div className="cart-item-controls">
-                    <div className="quantity-controls">
+              {Object.values(groupedItems).map((item, index) => {
+                const itemKey = `${item.id}-${item.selectedColor || 'default'}`;
+                return (
+                  <div key={itemKey} className="cart-item">
+                    <div className="cart-item-image">
+                      <Image
+                        src={item.image}
+                        alt={item.name}
+                        width={100}
+                        height={100}
+                      />
+                    </div>
+                    <div className="cart-item-details">
+                      <h3 className="cart-item-title">{item.name}</h3>
+                      {item.selectedColor && (
+                        <p className="cart-item-color">Color: {item.selectedColor}</p>
+                      )}
+                      <p className="cart-item-description">{item.description}</p>
+                      <p className="cart-item-price">${item.price.toFixed(2)}</p>
+                    </div>
+                    <div className="cart-item-controls">
+                      <div className="quantity-controls">
+                        <button
+                          className="quantity-btn"
+                          onClick={() => updateQuantity(itemKey, item.quantity - 1)}
+                          disabled={item.quantity <= 1}
+                        >
+                          -
+                        </button>
+                        <div className="quantity-display">{item.quantity}</div>
+                        <button
+                          className="quantity-btn"
+                          onClick={() => updateQuantity(itemKey, item.quantity + 1)}
+                        >
+                          +
+                        </button>
+                      </div>
                       <button
-                        className="quantity-btn"
-                        onClick={() => updateQuantity(item.id, item.quantity - 1)}
-                        disabled={item.quantity <= 1}
+                        className="remove-btn"
+                        onClick={() => removeItem(itemKey)}
                       >
-                        -
-                      </button>
-                      <div className="quantity-display">{item.quantity}</div>
-                      <button
-                        className="quantity-btn"
-                        onClick={() => updateQuantity(item.id, item.quantity + 1)}
-                      >
-                        +
+                        <i className="fas fa-trash"></i>
+                        Remove
                       </button>
                     </div>
-                    <button
-                      className="remove-btn"
-                      onClick={() => removeItem(item.id)}
-                    >
-                      <i className="fas fa-trash"></i>
-                      Remove
-                    </button>
                   </div>
-                </div>
-              ))}
+                );
+              })}
             </div>
 
             <div className="cart-summary">
