@@ -203,33 +203,87 @@ export default function Home() {
                     <div className="thumbnail-label">{color}</div>
                   </div>
                 ))}
-                <div className="thumbnail">
+                <div className="thumbnail" onClick={(e) => {
+                  e.preventDefault();
+                  const video = e.currentTarget.querySelector('video') as HTMLVideoElement;
+                  const thumbnail = e.currentTarget;
+                  if (video) {
+                    if (video.paused) {
+                      video.play();
+                      thumbnail.classList.add('playing');
+                    } else {
+                      video.pause();
+                      thumbnail.classList.remove('playing');
+                    }
+                  }
+                }}>
                   <video
                     src="/videos/tiktok_20250926_115253.mp4"
                     className="thumbnail-video"
                     muted
                     loop
                     playsInline
+                    controls
+                    onEnded={() => {
+                      const thumbnail = document.querySelector('video[src="/videos/tiktok_20250926_115253.mp4"]')?.closest('.thumbnail');
+                      if (thumbnail) thumbnail.classList.remove('playing');
+                    }}
                   />
                   <div className="thumbnail-label">Installation</div>
                 </div>
-                <div className="thumbnail">
+                <div className="thumbnail" onClick={(e) => {
+                  e.preventDefault();
+                  const video = e.currentTarget.querySelector('video') as HTMLVideoElement;
+                  const thumbnail = e.currentTarget;
+                  if (video) {
+                    if (video.paused) {
+                      video.play();
+                      thumbnail.classList.add('playing');
+                    } else {
+                      video.pause();
+                      thumbnail.classList.remove('playing');
+                    }
+                  }
+                }}>
                   <video
                     src="/videos/tiktok_20250926_120529.mp4"
                     className="thumbnail-video"
                     muted
                     loop
                     playsInline
+                    controls
+                    onEnded={() => {
+                      const thumbnail = document.querySelector('video[src="/videos/tiktok_20250926_120529.mp4"]')?.closest('.thumbnail');
+                      if (thumbnail) thumbnail.classList.remove('playing');
+                    }}
                   />
                   <div className="thumbnail-label">Application</div>
                 </div>
-                <div className="thumbnail">
+                <div className="thumbnail" onClick={(e) => {
+                  e.preventDefault();
+                  const video = e.currentTarget.querySelector('video') as HTMLVideoElement;
+                  const thumbnail = e.currentTarget;
+                  if (video) {
+                    if (video.paused) {
+                      video.play();
+                      thumbnail.classList.add('playing');
+                    } else {
+                      video.pause();
+                      thumbnail.classList.remove('playing');
+                    }
+                  }
+                }}>
                   <video
                     src="/videos/tiktok_20250926_120542.mp4"
                     className="thumbnail-video"
                     muted
                     loop
                     playsInline
+                    controls
+                    onEnded={() => {
+                      const thumbnail = document.querySelector('video[src="/videos/tiktok_20250926_120542.mp4"]')?.closest('.thumbnail');
+                      if (thumbnail) thumbnail.classList.remove('playing');
+                    }}
                   />
                   <div className="thumbnail-label">Final Result</div>
                 </div>
