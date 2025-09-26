@@ -1,7 +1,22 @@
-'use client';
-
 import React from 'react';
 import Link from 'next/link';
+import type { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: "FAQ - Shahada Car Decals | Islamic Car Emblems | DeenDecal",
+  description: "Frequently asked questions about our premium Shahada car decals and Islamic car emblems. Shipping, returns, installation, and product information for Muslim car accessories.",
+  keywords: "Shahada car decal FAQ, Islamic car emblem questions, Muslim car accessories help, Shahada decal installation, Islamic car emblem shipping, DeenDecal support",
+  robots: {
+    index: true,
+    follow: true,
+  },
+  openGraph: {
+    title: "FAQ - Shahada Car Decals | Islamic Car Emblems",
+    description: "Frequently asked questions about our premium Shahada car decals and Islamic car emblems. Shipping, returns, installation, and product information.",
+    type: 'website',
+    url: 'https://deendecal.com/faq',
+  },
+};
 
 export default function FAQPage() {
   return (

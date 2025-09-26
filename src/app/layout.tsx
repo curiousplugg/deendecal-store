@@ -6,12 +6,52 @@ import { CartProvider } from '@/contexts/CartContext';
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "DeenDecal - Premium Islamic Car Emblems",
-  description: "Beautifully crafted Islamic car emblems made from premium materials. Show your devotion with sophistication and grace.",
+  title: "Shahada Car Decals | Premium Islamic Metal Emblems | DeenDecal",
+  description: "Shop high-quality Shahada car decals & Islamic metal emblems. Durable, stylish, and faith-inspired. Free shipping on all orders! Premium metal construction.",
+  keywords: "Shahada car decal, Islamic car emblem, Muslim car decal, Halal car sticker, Arabic calligraphy car decal, Shahada metal car emblem, Deen car accessory, Custom Islamic car decal, Islamic car accessories, Muslim car accessories, Islamic metal emblems, Shahada decals, Islamic stickers, Car decals for Muslims, Islamic car badges",
+  authors: [{ name: "DeenDecal" }],
+  creator: "DeenDecal",
+  publisher: "DeenDecal",
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
+  },
+  openGraph: {
+    type: 'website',
+    locale: 'en_US',
+    url: 'https://deendecal.com',
+    title: 'Shahada Car Decals | Premium Islamic Metal Emblems | DeenDecal',
+    description: 'Shop high-quality Shahada car decals & Islamic metal emblems. Durable, stylish, and faith-inspired. Free shipping on all orders!',
+    siteName: 'DeenDecal',
+    images: [
+      {
+        url: '/images/goldIndy.jpg',
+        width: 1200,
+        height: 630,
+        alt: 'Premium Shahada Metal Car Decal - Gold',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Shahada Car Decals | Premium Islamic Metal Emblems',
+    description: 'Shop high-quality Shahada car decals & Islamic metal emblems. Durable, stylish, and faith-inspired. Free shipping on all orders!',
+    images: ['/images/goldIndy.jpg'],
+  },
   icons: {
     icon: "/DDlogo.png",
     shortcut: "/DDlogo.png",
     apple: "/DDlogo.png",
+  },
+  alternates: {
+    canonical: 'https://deendecal.com',
   },
 };
 

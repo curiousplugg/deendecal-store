@@ -37,8 +37,60 @@ export default function Home() {
     }
   };
 
+  const structuredData = {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "DeenDecal",
+    "url": "https://deendecal.com",
+    "logo": "https://deendecal.com/DDlogo.png",
+    "description": "Premium Islamic car emblems and Shahada metal decals. Express your faith with beautifully crafted Islamic car accessories.",
+    "sameAs": [
+      "https://instagram.com/deendecal",
+      "https://tiktok.com/@deendecal"
+    ],
+    "contactPoint": {
+      "@type": "ContactPoint",
+      "email": "info@deendecal.com",
+      "contactType": "customer service"
+    },
+    "offers": {
+      "@type": "Offer",
+      "itemOffered": {
+        "@type": "Product",
+        "name": "Shahada Metal Decal",
+        "description": "Premium Islamic car emblem made from high-quality metal. Available in Gold, Black, Red, and Silver.",
+        "brand": "DeenDecal",
+        "category": "Automotive Accessories",
+        "image": [
+          "https://deendecal.com/images/goldIndy.jpg",
+          "https://deendecal.com/images/blackIndy.jpg",
+          "https://deendecal.com/images/redIndy.jpg",
+          "https://deendecal.com/images/silverIndy.jpg"
+        ],
+        "offers": {
+          "@type": "Offer",
+          "price": "24.99",
+          "priceCurrency": "USD",
+          "availability": "https://schema.org/InStock",
+          "shippingDetails": {
+            "@type": "OfferShippingDetails",
+            "shippingRate": {
+              "@type": "MonetaryAmount",
+              "value": "0",
+              "currency": "USD"
+            }
+          }
+        }
+      }
+    }
+  };
+
   return (
     <div className="min-h-screen bg-white">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
+      />
       {/* Header */}
       <header className="header">
         <div className="header-top">
@@ -87,8 +139,8 @@ export default function Home() {
         <div className="container">
           <div className="hero-content">
             <div className="hero-text">
-              <h1>Premium Shahada Metal Decal</h1>
-              <p>Beautifully crafted Islamic car emblems made from premium materials. Show your devotion with sophistication and grace.</p>
+              <h1>Premium Shahada Metal Car Decal - Islamic Car Emblem</h1>
+              <p>Beautifully crafted Islamic car emblems and Shahada decals made from premium metal materials. Show your devotion with sophistication and grace. Perfect for Muslim car accessories and Islamic car badges.</p>
               <div className="hero-stats">
                 <div className="stat">
                   <span className="stat-number">10K+</span>
@@ -125,7 +177,7 @@ export default function Home() {
               <div className="main-image-container">
                 <Image
                   src={currentImage}
-                  alt={product.name}
+                  alt={`Premium Shahada Metal Car Decal - ${selectedColor} - Islamic Car Emblem`}
                   width={500}
                   height={500}
                   className="main-product-image"
@@ -144,7 +196,7 @@ export default function Home() {
                   >
                     <Image
                       src={image}
-                      alt={`${color} variant`}
+                      alt={`Premium Shahada Metal Car Decal - ${color} - Islamic Car Emblem`}
                       width={80}
                       height={80}
                     />
