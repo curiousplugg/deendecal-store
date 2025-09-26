@@ -46,9 +46,18 @@ export const metadata: Metadata = {
     images: ['/images/goldIndy.jpg'],
   },
   icons: {
-    icon: "/DDlogo.png",
+    icon: [
+      { url: "/DDlogo.png", sizes: "any" },
+      { url: "/DDlogo.png", sizes: "32x32", type: "image/png" },
+      { url: "/DDlogo.png", sizes: "16x16", type: "image/png" }
+    ],
     shortcut: "/DDlogo.png",
-    apple: "/DDlogo.png",
+    apple: [
+      { url: "/DDlogo.png", sizes: "180x180", type: "image/png" }
+    ],
+    other: [
+      { rel: "icon", url: "/DDlogo.png" }
+    ]
   },
   alternates: {
     canonical: 'https://deendecal.com',
@@ -64,6 +73,9 @@ export default function RootLayout({
     <html lang="en">
       <head>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+        <link rel="icon" href="/DDlogo.png" type="image/png" />
+        <link rel="shortcut icon" href="/DDlogo.png" type="image/png" />
+        <link rel="apple-touch-icon" href="/DDlogo.png" />
       </head>
       <body className={inter.className}>
         <CartProvider>
