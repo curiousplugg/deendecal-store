@@ -407,10 +407,8 @@ export default function Home() {
               <h3>DeenDecal</h3>
               <p>Express your faith with beautifully crafted Islamic car emblems. Premium quality, easy installation, and designed to last.</p>
               <div className="social-links">
-                <a href="#"><i className="fab fa-facebook"></i></a>
-                <a href="#"><i className="fab fa-twitter"></i></a>
                 <a href="#"><i className="fab fa-instagram"></i></a>
-                <a href="#"><i className="fab fa-youtube"></i></a>
+                <a href="#"><i className="fab fa-tiktok"></i></a>
               </div>
             </div>
             <div className="footer-section">
@@ -424,21 +422,10 @@ export default function Home() {
               </ul>
             </div>
             <div className="footer-section">
-              <h4>Support</h4>
+              <h4>FAQ (Shipping Info)</h4>
               <ul>
-                <li><a href="#">Shipping Info</a></li>
-                <li><a href="#">Returns</a></li>
-                <li><a href="#">FAQ</a></li>
-                <li><a href="#">Size Guide</a></li>
-                <li><a href="#">Installation Guide</a></li>
-              </ul>
-            </div>
-            <div className="footer-section">
-              <h4>Contact Info</h4>
-              <ul>
-                <li>Email: info@deendecal.com</li>
-                <li>Phone: (555) 123-4567</li>
-                <li>Hours: Mon-Fri 9AM-6PM</li>
+                <li><a href="/faq">Shipping & Returns</a></li>
+                <li><a href="/faq">FAQ</a></li>
               </ul>
             </div>
           </div>
