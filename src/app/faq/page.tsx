@@ -129,7 +129,7 @@ export default function FAQPage() {
 
           <div className="faq-contact">
             <h2>Still Have Questions?</h2>
-            <p>If you can't find the answer you're looking for, please don't hesitate to contact us:</p>
+            <p>If you can&apos;t find the answer you&apos;re looking for, please don&apos;t hesitate to contact us:</p>
             <a href="mailto:info@deendecal.com" className="contact-email">
               <i className="fas fa-envelope"></i>
               Contact Us

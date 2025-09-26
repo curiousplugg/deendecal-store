@@ -8,6 +8,11 @@ const inter = Inter({ subsets: ["latin"] });
 export const metadata: Metadata = {
   title: "DeenDecal - Premium Islamic Car Emblems",
   description: "Beautifully crafted Islamic car emblems made from premium materials. Show your devotion with sophistication and grace.",
+  icons: {
+    icon: "/DDlogo.png",
+    shortcut: "/DDlogo.png",
+    apple: "/DDlogo.png",
+  },
 };
 
 export default function RootLayout({
