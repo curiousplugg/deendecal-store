@@ -8,22 +8,22 @@ import { useCart } from '@/contexts/CartContext';
 
 export default function Home() {
   const { addItem } = useCart();
-  const [selectedColor, setSelectedColor] = useState('Black');
+  const [selectedColor, setSelectedColor] = useState('Gold');
   const [quantity, setQuantity] = useState(1);
-  const [currentImage, setCurrentImage] = useState('/images/blackIndy.jpg');
+  const [currentImage, setCurrentImage] = useState('/images/goldIndy.jpg');
 
   const product = products[0]; // Single product
 
   const colorImages = {
-    'Black': '/images/blackIndy.jpg',
     'Gold': '/images/goldIndy.jpg',
+    'Black': '/images/blackIndy.jpg',
     'Red': '/images/redIndy.jpg',
     'Silver': '/images/silverIndy.jpg'
   };
 
   const handleColorSelect = (color: string) => {
     setSelectedColor(color);
-    setCurrentImage(colorImages[color as keyof typeof colorImages] || '/images/blackIndy.jpg');
+    setCurrentImage(colorImages[color as keyof typeof colorImages] || '/images/goldIndy.jpg');
   };
 
   const handleAddToCart = () => {
@@ -87,7 +87,7 @@ export default function Home() {
         <div className="container">
           <div className="hero-content">
             <div className="hero-text">
-              <h1>Premium Islamic Car Emblems</h1>
+              <h1>Premium Shahada Metal Decal</h1>
               <p>Beautifully crafted Islamic car emblems made from premium materials. Show your devotion with sophistication and grace.</p>
               <div className="hero-stats">
                 <div className="stat">

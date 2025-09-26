@@ -19,16 +19,16 @@ export interface Product {
 
 export const products: Product[] = [
   {
-    id: 'indy-decal',
-    name: 'Premium Indy Decal Car Sticker',
-    description: 'Premium Indy Decal Car Sticker - Metal material, 16*3.5CM size, Trunk Sticker style. Perfect for Body and Rear installation. Single Pack with detailed installation instructions.',
+    id: 'shahada-decal',
+    name: 'Shahada Metal Decal',
+    description: 'Shahada Metal Decal - Metal material, 16*3.5CM size, Trunk Sticker style. Perfect for Body and Rear installation. Single Pack with detailed installation instructions.',
     price: 24.99,
-    originalPrice: 34.99,
-    image: '/images/blackIndy.jpg',
+    originalPrice: 40.00,
+    image: '/images/goldIndy.jpg',
     category: 'Decals',
     inStock: true,
-    colors: ['Black', 'Gold', 'Red', 'Silver'],
-    selectedColor: 'Black',
+    colors: ['Gold', 'Black', 'Red', 'Silver'],
+    selectedColor: 'Gold',
     material: 'Metal',
     size: '16*3.5CM',
     style: 'Trunk Sticker',
