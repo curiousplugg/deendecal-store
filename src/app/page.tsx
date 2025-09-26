@@ -216,32 +216,6 @@ export default function Home() {
                 <p>{product.description}</p>
               </div>
 
-              <div className="product-specifications">
-                <h3>Product Specifications</h3>
-                <div className="specs-grid">
-                  <div className="spec-item">
-                    <span className="spec-label">Material:</span>
-                    <span className="spec-value">{product.material}</span>
-                  </div>
-                  <div className="spec-item">
-                    <span className="spec-label">Size:</span>
-                    <span className="spec-value">{product.size}</span>
-                  </div>
-                  <div className="spec-item">
-                    <span className="spec-label">Style:</span>
-                    <span className="spec-value">{product.style}</span>
-                  </div>
-                  <div className="spec-item">
-                    <span className="spec-label">Installation Location:</span>
-                    <span className="spec-value">{product.installationLocation}</span>
-                  </div>
-                  <div className="spec-item">
-                    <span className="spec-label">Packing:</span>
-                    <span className="spec-value">{product.packingSpecifications}</span>
-                  </div>
-                </div>
-              </div>
-
               <div className="product-options">
                 <div className="option-group">
                   <label className="option-label">Choose Color</label>

@@ -21,7 +21,13 @@ export default function CartPage() {
         body: JSON.stringify({ items: state.items }),
       });
 
-      const { sessionId } = await response.json();
+      const data = await response.json();
+      
+      if (!response.ok) {
+        throw new Error(data.error || 'Checkout failed');
+      }
+
+      const { sessionId } = data;
       const stripe = await getStripe();
       if (stripe) {
         await stripe.redirectToCheckout({ sessionId });

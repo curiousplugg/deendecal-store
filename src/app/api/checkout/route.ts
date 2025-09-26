@@ -6,7 +6,7 @@ export async function POST(req: NextRequest) {
     const { items, customerEmail } = await req.json();
 
     if (!items || !Array.isArray(items) || items.length === 0) {
-      return new NextResponse('No items provided for checkout', { status: 400 });
+      return NextResponse.json({ error: 'No items provided for checkout' }, { status: 400 });
     }
 
     // Create Stripe checkout session
@@ -33,6 +33,6 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ sessionId: session.id });
   } catch (error) {
     console.error('Error creating checkout session:', error);
-    return new NextResponse('Error creating checkout session', { status: 500 });
+    return NextResponse.json({ error: 'Error creating checkout session' }, { status: 500 });
   }
 }
