@@ -71,7 +71,7 @@ export default function FAQPage() {
             </div>
             <div className="faq-item">
               <h3>How can I track my order?</h3>
-              <p>Once your order ships, you'll receive a tracking number via email. You can track your package using the provided tracking number.</p>
+              <p>Once your order ships, you&apos;ll receive a tracking number via email. You can track your package using the provided tracking number.</p>
             </div>
           </div>
 
@@ -83,11 +83,11 @@ export default function FAQPage() {
             </div>
             <div className="faq-item">
               <h3>How do I request a return?</h3>
-              <p>To request a return, please email us at info@deendecal.com with your order number and a detailed explanation of why you'd like to return the item. We'll review your request and provide instructions.</p>
+              <p>To request a return, please email us at info@deendecal.com with your order number and a detailed explanation of why you&apos;d like to return the item. We&apos;ll review your request and provide instructions.</p>
             </div>
             <div className="faq-item">
               <h3>What if my decal is damaged during shipping?</h3>
-              <p>If your decal arrives damaged, please contact us immediately with photos of the damage. We'll send you a replacement free of charge.</p>
+              <p>If your decal arrives damaged, please contact us immediately with photos of the damage. We&apos;ll send you a replacement free of charge.</p>
             </div>
           </div>
 
@@ -106,8 +106,8 @@ export default function FAQPage() {
               <p>Installation is simple: 1) Clean the surface, 2) Peel and apply the decal, 3) Smooth out any air bubbles. Do not wash your vehicle for 48 hours after installation.</p>
             </div>
             <div className="faq-item">
-              <h3>Will the decal damage my car's paint?</h3>
-              <p>No, our decals are designed to be removable without damaging your vehicle's paint when properly installed and removed.</p>
+              <h3>Will the decal damage my car&apos;s paint?</h3>
+              <p>No, our decals are designed to be removable without damaging your vehicle&apos;s paint when properly installed and removed.</p>
             </div>
           </div>
 
@@ -153,18 +153,18 @@ export default function FAQPage() {
             <div className="footer-section">
               <h4>Quick Links</h4>
               <ul>
-                <li><a href="/#home">Home</a></li>
-                <li><a href="/#product">Product</a></li>
-                <li><a href="/#installation">Installation</a></li>
-                <li><a href="/#about">About</a></li>
-                <li><a href="/#contact">Contact</a></li>
+                <li><Link href="/#home">Home</Link></li>
+                <li><Link href="/#product">Product</Link></li>
+                <li><Link href="/#installation">Installation</Link></li>
+                <li><Link href="/#about">About</Link></li>
+                <li><Link href="/#contact">Contact</Link></li>
               </ul>
             </div>
             <div className="footer-section">
               <h4>FAQ (Shipping Info)</h4>
               <ul>
-                <li><a href="/faq">Shipping & Returns</a></li>
-                <li><a href="/faq">FAQ</a></li>
+                <li><Link href="/faq">Shipping & Returns</Link></li>
+                <li><Link href="/faq">FAQ</Link></li>
               </ul>
             </div>
           </div>

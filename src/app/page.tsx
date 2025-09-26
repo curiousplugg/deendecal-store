@@ -7,7 +7,7 @@ import { products } from '@/data/products';
 import { useCart } from '@/contexts/CartContext';
 
 export default function Home() {
-  const { addItem } = useCart();
+  const { addItem, state } = useCart();
   const [selectedColor, setSelectedColor] = useState('Gold');
   const [quantity, setQuantity] = useState(1);
   const [currentImage, setCurrentImage] = useState('/images/goldIndy.jpg');
