@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { stripe, formatAmountForStripe } from '@/lib/stripe';
+import { stripe } from '@/lib/stripe';
 
 // Stripe price IDs for each color variant (LIVE MODE)
 const PRICE_IDS = {
@@ -54,8 +54,8 @@ export async function POST(req: NextRequest) {
     // Check if it's a Stripe error
     if (error && typeof error === 'object' && 'type' in error) {
       console.error('Stripe error type:', error.type);
-      console.error('Stripe error code:', error.code);
-      console.error('Stripe error message:', error.message);
+      console.error('Stripe error code:', (error as any).code);
+      console.error('Stripe error message:', (error as any).message);
     }
     
     return NextResponse.json({ 
