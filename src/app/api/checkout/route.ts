@@ -32,6 +32,21 @@ interface CartItem {
 export async function POST(req: NextRequest) {
   try {
     console.log('🔍 Checkout request received');
+    
+    // Debug: Check which Stripe account we're using
+    console.log('🔑 Stripe Secret Key (first 10 chars):', process.env.STRIPE_SECRET_KEY?.substring(0, 10));
+    console.log('🔑 Stripe Publishable Key (first 10 chars):', process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY?.substring(0, 10));
+    
+    // Test Stripe connection and get account info
+    try {
+      const account = await stripe.accounts.retrieve();
+      console.log('🏢 Stripe Account ID:', account.id);
+      console.log('🏢 Stripe Account Type:', account.type);
+      console.log('🏢 Stripe Account Country:', account.country);
+    } catch (error) {
+      console.error('❌ Error getting Stripe account info:', error);
+    }
+    
     const { items } = await req.json();
     console.log('📦 Items:', JSON.stringify(items, null, 2));
 
