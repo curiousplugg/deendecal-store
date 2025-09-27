@@ -57,6 +57,8 @@ export async function POST(req: NextRequest) {
                    (process.env.NODE_ENV === 'production' ? 'https://deendecal.com' : 'http://localhost:3000');
     
     console.log('🌐 Base URL:', baseUrl);
+    console.log('🌐 NODE_ENV:', process.env.NODE_ENV);
+    console.log('🌐 NEXT_PUBLIC_APP_URL:', process.env.NEXT_PUBLIC_APP_URL);
     
     // Create Stripe checkout session
     const session = await stripe.checkout.sessions.create({
