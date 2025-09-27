@@ -104,7 +104,7 @@ export default function Home() {
       <Navigation />
       
       {/* Promo Banner */}
-      <div className="bg-blue-600 text-white py-2 px-4 text-center text-sm">
+      <div className="bg-primary-gold text-white py-2 px-4 text-center text-sm">
         <div className="flex items-center justify-center space-x-2">
           <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
             <path fillRule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clipRule="evenodd" />
@@ -114,13 +114,13 @@ export default function Home() {
       </div>
 
       {/* Hero Section */}
-      <section id="home" className="bg-gradient-to-br from-blue-50 to-indigo-100 py-12 md:py-20">
+      <section id="home" className="bg-gradient-to-br from-yellow-50 to-amber-50 py-12 md:py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
             <div className="text-center lg:text-left">
               <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-6 leading-tight">
                 Premium Shahada Metal Car Decal
-                <span className="block text-blue-600">Islamic Car Emblem</span>
+                <span className="block text-primary-gold">Islamic Car Emblem</span>
               </h1>
               <p className="text-lg text-gray-600 mb-8 leading-relaxed">
                 Beautifully crafted Islamic car emblems and Shahada decals made from premium metal materials. 
@@ -128,23 +128,23 @@ export default function Home() {
               </p>
               <div className="grid grid-cols-3 gap-4 mb-8">
                 <div className="text-center">
-                  <div className="text-2xl font-bold text-blue-600">10K+</div>
+                  <div className="text-2xl font-bold text-primary-gold">10K+</div>
                   <div className="text-sm text-gray-600">Happy Customers</div>
                 </div>
                 <div className="text-center">
-                  <div className="text-2xl font-bold text-blue-600">4.9</div>
+                  <div className="text-2xl font-bold text-primary-gold">4.9</div>
                   <div className="text-sm text-gray-600">Rating</div>
                 </div>
                 <div className="text-center">
-                  <div className="text-2xl font-bold text-blue-600">24/7</div>
+                  <div className="text-2xl font-bold text-primary-gold">24/7</div>
                   <div className="text-sm text-gray-600">Support</div>
                 </div>
               </div>
               <div className="flex flex-col sm:flex-row gap-4">
-                <Link href="#product" className="bg-blue-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-blue-700 transition-colors duration-200 text-center">
+                <Link href="#product" className="bg-primary-gold text-white px-8 py-3 rounded-lg font-semibold hover:bg-secondary-gold transition-colors duration-200 text-center shadow-lg">
                   Shop Now
                 </Link>
-                <Link href="/products" className="border-2 border-blue-600 text-blue-600 px-8 py-3 rounded-lg font-semibold hover:bg-blue-50 transition-colors duration-200 text-center">
+                <Link href="/products" className="border-2 border-primary-gold text-primary-gold px-8 py-3 rounded-lg font-semibold hover:bg-light-gold transition-colors duration-200 text-center">
                   View All Products
                 </Link>
               </div>
@@ -158,7 +158,7 @@ export default function Home() {
                   height={500}
                   className="rounded-lg shadow-2xl"
                 />
-                <div className="absolute -top-4 -right-4 bg-yellow-400 text-yellow-900 px-3 py-1 rounded-full text-sm font-bold">
+                <div className="absolute -top-4 -right-4 bg-primary-gold text-white px-3 py-1 rounded-full text-sm font-bold shadow-lg">
                   Premium Quality
                 </div>
               </div>
@@ -420,7 +420,7 @@ export default function Home() {
               {/* Add to Cart */}
               <div className="space-y-4">
                 <button 
-                  className="w-full bg-blue-600 text-white py-4 px-6 rounded-lg font-semibold hover:bg-blue-700 transition-colors duration-200 flex items-center justify-center space-x-2"
+                  className="w-full bg-primary-gold text-white py-4 px-6 rounded-lg font-semibold hover:bg-secondary-gold transition-colors duration-200 flex items-center justify-center space-x-2 shadow-lg"
                   onClick={handleAddToCart}
                 >
                   <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -429,7 +429,7 @@ export default function Home() {
                   <span>Add to Cart - ${(product.price * quantity).toFixed(2)}</span>
                 </button>
                 
-                <button className="w-full border-2 border-gray-300 text-gray-700 py-4 px-6 rounded-lg font-semibold hover:bg-gray-50 transition-colors duration-200 flex items-center justify-center space-x-2">
+                <button className="w-full border-2 border-primary-gold text-primary-gold py-4 px-6 rounded-lg font-semibold hover:bg-light-gold transition-colors duration-200 flex items-center justify-center space-x-2">
                   <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
                   </svg>
@@ -464,7 +464,7 @@ export default function Home() {
       </section>
 
       {/* Installation Section */}
-      <section id="installation" className="py-16 bg-gray-50">
+      <section id="installation" className="py-16 bg-gradient-to-br from-yellow-50 to-amber-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Easy Installation</h2>
@@ -472,9 +472,9 @@ export default function Home() {
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {product.installationInstructions?.map((instruction, index) => (
-              <div key={index} className="bg-white p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300">
+              <div key={index} className="bg-white p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300 border-l-4 border-primary-gold">
                 <div className="flex items-start space-x-4">
-                  <div className="bg-blue-600 text-white w-12 h-12 rounded-full flex items-center justify-center font-bold text-lg flex-shrink-0">
+                  <div className="bg-primary-gold text-white w-12 h-12 rounded-full flex items-center justify-center font-bold text-lg flex-shrink-0 shadow-lg">
                     {index + 1}
                   </div>
                   <div>
@@ -550,11 +550,11 @@ export default function Home() {
       </section>
 
       {/* Contact Section */}
-      <section id="contact" className="py-16 bg-gray-50">
+      <section id="contact" className="py-16 bg-gradient-to-br from-yellow-50 to-amber-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-center">
-            <div className="bg-white p-8 rounded-2xl shadow-xl max-w-md w-full text-center">
-              <div className="bg-blue-600 w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-6">
+            <div className="bg-white p-8 rounded-2xl shadow-xl max-w-md w-full text-center border-l-4 border-primary-gold">
+              <div className="bg-primary-gold w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-6 shadow-lg">
                 <svg className="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                 </svg>
@@ -565,7 +565,7 @@ export default function Home() {
               </p>
               <a 
                 href="mailto:info@deendecal.com" 
-                className="inline-block bg-blue-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-blue-700 transition-colors duration-200"
+                className="inline-block bg-primary-gold text-white px-8 py-3 rounded-lg font-semibold hover:bg-secondary-gold transition-colors duration-200 shadow-lg"
               >
                 Contact Us
               </a>
