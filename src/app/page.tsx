@@ -108,7 +108,7 @@ export default function Home() {
         <div className="container">
           <div className="hero-content">
             <div className="hero-text">
-              <h1>Premium <span className="text-amber-500">Shahada</span> Metal Car Decal - Islamic Car Emblem</h1>
+              <h1>Premium <span style={{color: '#c89d24'}}>Shahada</span> Metal Car Decal - Islamic Car Emblem</h1>
               <p>Premium Islamic car emblems and Shahada decals. Show your devotion with sophistication and grace.</p>
               <div className="hero-stats">
                 <div className="stat">
