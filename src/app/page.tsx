@@ -253,7 +253,7 @@ export default function Home() {
                 </div>
                 <div className="shipping-info">
                   <i className="fas fa-truck"></i>
-                  <span>Free shipping on all orders</span>
+                  <span>Free shipping on all orders!</span>
                 </div>
               </div>
 

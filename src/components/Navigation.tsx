@@ -24,7 +24,7 @@ export default function Navigation() {
                 <svg className="w-4 h-4 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
                   <path fillRule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clipRule="evenodd" />
                 </svg>
-                <span>Free shipping on all orders</span>
+                <span>Free shipping on all orders!</span>
               </div>
             </div>
             <div className="hidden sm:flex items-center space-x-4">

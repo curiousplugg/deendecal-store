@@ -28,7 +28,7 @@ export default function FAQPage() {
             <div className="header-top-content">
               <div className="promo-banner">
                 <i className="fas fa-gift"></i>
-                <span>Free shipping on all orders</span>
+                <span>Free shipping on all orders!</span>
               </div>
               <div className="header-top-links">
                 <a href="#">Track Order</a>
