@@ -1,11 +1,4 @@
 {
-  "env": {
-    "NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY": "@stripe_publishable_key",
-    "STRIPE_SECRET_KEY": "@stripe_secret_key",
-    "STRIPE_WEBHOOK_SECRET": "@stripe_webhook_secret",
-    "NEXT_PUBLIC_APP_URL": "https://deendecal.com",
-    "NEXT_PUBLIC_DOMAIN": "deendecal.com"
-  },
   "functions": {
     "src/app/api/checkout/route.ts": {
       "maxDuration": 10
