@@ -1565,8 +1565,9 @@ a:hover {
   text-decoration: none;
 }
 
-/* Responsive Design */
+/* Mobile-First Responsive Design */
 @media (max-width: 768px) {
+  /* Navigation improvements */
   .nav-content {
     flex-direction: column;
     gap: 1rem;
@@ -1578,81 +1579,411 @@ a:hover {
     justify-content: center;
   }
 
+  /* Hero section mobile optimization */
+  .hero {
+    padding: 6rem 0 3rem;
+    min-height: auto;
+  }
+
   .hero-content {
     grid-template-columns: 1fr;
     text-align: center;
     gap: 2rem;
+    padding: 0 1rem;
   }
 
   .hero-text h1 {
     font-size: 2.5rem;
+    line-height: 1.2;
+    margin-bottom: 1rem;
+  }
+
+  .hero-text p {
+    font-size: 1.1rem;
+    margin-bottom: 2rem;
   }
 
   .hero-stats {
     justify-content: center;
     gap: 2rem;
+    flex-wrap: wrap;
   }
 
+  .stat-number {
+    font-size: 2rem;
+  }
+
+  /* Product layout mobile optimization */
   .product-layout {
     grid-template-columns: 1fr;
-    gap: 3rem;
+    gap: 2rem;
+    padding: 0 1rem;
   }
 
   .product-gallery {
     position: static;
+    margin-bottom: 2rem;
   }
 
-  .about-content {
-    grid-template-columns: 1fr;
-    gap: 2rem;
+  .main-product-image,
+  .main-product-video {
+    height: 300px;
+    border-radius: 12px;
   }
 
-  .contact-card {
-    padding: 2rem;
-  }
-
-  .add-to-cart-section {
-    flex-direction: column;
-  }
-
-  .color-options {
+  .thumbnail-gallery {
     justify-content: center;
+    padding: 1rem 0;
   }
 
-  .installation-steps {
-    grid-template-columns: 1fr;
+  .thumbnail {
+    width: 60px;
+    height: 60px;
   }
 
-  .step {
-    flex-direction: column;
-    text-align: center;
-  }
-
-  .features-list {
-    grid-template-columns: 1fr;
-  }
-}
-
-@media (max-width: 480px) {
-  .hero-text h1 {
-    font-size: 2rem;
-  }
-
+  /* Product info mobile improvements */
   .product-title {
     font-size: 2rem;
+    margin-bottom: 1rem;
   }
 
   .current-price {
     font-size: 2rem;
   }
 
-  .btn {
+  .product-description {
+    font-size: 1rem;
+    line-height: 1.6;
+  }
+
+  /* Color options mobile layout */
+  .color-options {
+    justify-content: center;
+    gap: 0.75rem;
+  }
+
+  .color-option {
+    min-width: 70px;
+    padding: 0.75rem;
+  }
+
+  .color-preview {
+    width: 25px;
+    height: 25px;
+  }
+
+  /* Add to cart mobile improvements */
+  .add-to-cart-section {
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .add-to-cart-btn,
+  .wishlist-btn {
     padding: 1rem 1.5rem;
     font-size: 1rem;
   }
 
+  /* About section mobile */
+  .about-content {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    padding: 0 1rem;
+  }
+
+  .about-text h2 {
+    font-size: 2rem;
+  }
+
+  .about-img {
+    height: 300px;
+  }
+
+  /* Contact section mobile */
+  .contact-card {
+    padding: 2rem;
+    margin: 0 1rem;
+  }
+
+  /* Installation steps mobile */
+  .installation-steps {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+    padding: 0 1rem;
+  }
+
+  .step {
+    flex-direction: column;
+    text-align: center;
+    padding: 1.5rem;
+  }
+
+  .step-number {
+    width: 40px;
+    height: 40px;
+    font-size: 1.2rem;
+  }
+
+  .features-list {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  /* Cart page mobile improvements */
+  .cart-container {
+    padding: 1rem;
+  }
+
+  .cart-content {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  .cart-item {
+    flex-direction: column;
+    text-align: center;
+    padding: 1rem;
+  }
+
+  .cart-item-image {
+    width: 80px;
+    height: 80px;
+    margin: 0 auto 1rem;
+  }
+
+  .cart-item-controls {
+    justify-content: center;
+    margin-top: 1rem;
+  }
+
+  .cart-summary {
+    position: static;
+    margin-top: 2rem;
+  }
+
+  /* FAQ mobile improvements */
+  .faq-container {
+    padding: 1rem;
+  }
+
+  .faq-title {
+    font-size: 2.5rem;
+  }
+
+  .faq-section h2 {
+    font-size: 1.5rem;
+  }
+
+  .faq-item {
+    padding: 1rem;
+  }
+
+  .faq-item h3 {
+    font-size: 1.1rem;
+  }
+}
+
+/* iPhone and small mobile devices */
+@media (max-width: 480px) {
+  /* Container improvements */
+  .container {
+    padding: 0 1rem;
+  }
+
+  /* Typography for small screens */
+  .hero-text h1 {
+    font-size: 2rem;
+    line-height: 1.1;
+  }
+
+  .product-title {
+    font-size: 1.8rem;
+  }
+
+  .current-price {
+    font-size: 1.8rem;
+  }
+
+  /* Button improvements */
+  .btn {
+    padding: 1rem 1.5rem;
+    font-size: 1rem;
+    min-height: 48px; /* Better touch targets */
+  }
+
+  .add-to-cart-btn,
+  .checkout-btn {
+    min-height: 48px;
+    font-size: 1rem;
+  }
+
+  /* Hero stats mobile layout */
   .hero-stats {
     flex-direction: column;
     gap: 1rem;
+  }
+
+  .stat {
+    padding: 0.5rem;
+  }
+
+  /* Product gallery mobile */
+  .main-product-image,
+  .main-product-video {
+    height: 250px;
+  }
+
+  .thumbnail {
+    width: 50px;
+    height: 50px;
+  }
+
+  /* Color options small mobile */
+  .color-options {
+    gap: 0.5rem;
+  }
+
+  .color-option {
+    min-width: 60px;
+    padding: 0.5rem;
+  }
+
+  .color-preview {
+    width: 20px;
+    height: 20px;
+  }
+
+  /* Cart improvements for small screens */
+  .cart-item {
+    padding: 0.75rem;
+  }
+
+  .cart-item-image {
+    width: 60px;
+    height: 60px;
+  }
+
+  .cart-item-title {
+    font-size: 1.1rem;
+  }
+
+  .cart-item-price {
+    font-size: 1.2rem;
+  }
+
+  /* Quantity controls mobile */
+  .quantity-controls {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .quantity-btn {
+    width: 35px;
+    height: 35px;
+  }
+
+  .quantity-display {
+    width: 50px;
+    height: 35px;
+  }
+
+  /* Remove button mobile */
+  .remove-btn {
+    padding: 0.5rem 1rem;
+    font-size: 0.9rem;
+  }
+
+  /* FAQ mobile small screens */
+  .faq-title {
+    font-size: 2rem;
+  }
+
+  .faq-section h2 {
+    font-size: 1.3rem;
+  }
+
+  .faq-item {
+    padding: 0.75rem;
+  }
+
+  .faq-item h3 {
+    font-size: 1rem;
+  }
+
+  /* Contact card small mobile */
+  .contact-card {
+    padding: 1.5rem;
+    margin: 0 0.5rem;
+  }
+
+  .contact-icon {
+    width: 60px;
+    height: 60px;
+    font-size: 1.5rem;
+  }
+
+  .contact-info h3 {
+    font-size: 1.5rem;
+  }
+
+  /* Installation steps small mobile */
+  .step {
+    padding: 1rem;
+  }
+
+  .step-number {
+    width: 35px;
+    height: 35px;
+    font-size: 1rem;
+  }
+
+  .step-content h3 {
+    font-size: 1.1rem;
+  }
+
+  /* Footer mobile improvements */
+  .footer-content {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    text-align: center;
+  }
+
+  .social-links {
+    justify-content: center;
+  }
+
+  /* Touch-friendly improvements */
+  button,
+  .btn,
+  .color-option,
+  .thumbnail {
+    min-height: 44px;
+    min-width: 44px;
+  }
+
+  /* Prevent zoom on input focus */
+  input,
+  textarea,
+  select {
+    font-size: 16px;
+  }
+}
+
+/* iPhone specific viewport fixes */
+@supports (-webkit-touch-callout: none) {
+  /* iOS Safari specific styles */
+  .hero {
+    min-height: 100vh;
+    min-height: -webkit-fill-available;
+  }
+
+  /* Fix iOS viewport issues */
+  body {
+    -webkit-text-size-adjust: 100%;
+  }
+
+  /* Smooth scrolling for iOS */
+  html {
+    -webkit-overflow-scrolling: touch;
   }
 }
