@@ -54,12 +54,19 @@ export async function POST(req: NextRequest) {
     
     console.log('📋 Line items:', JSON.stringify(lineItems, null, 2));
     
+    // Get the appropriate base URL based on environment
+    const baseUrl = process.env.NODE_ENV === 'production' 
+      ? 'https://deendecal.com' 
+      : process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000';
+    
+    console.log('🌐 Base URL:', baseUrl);
+    
     const session = await stripe.checkout.sessions.create({
       payment_method_types: ['card'],
       line_items: lineItems,
       mode: 'payment',
-      success_url: `${process.env.NEXT_PUBLIC_APP_URL}/success?session_id={CHECKOUT_SESSION_ID}`,
-      cancel_url: `${process.env.NEXT_PUBLIC_APP_URL}/cart`,
+      success_url: `${baseUrl}/success?session_id={CHECKOUT_SESSION_ID}`,
+      cancel_url: `${baseUrl}/cart`,
       customer_email: customerEmail,
     });
 
