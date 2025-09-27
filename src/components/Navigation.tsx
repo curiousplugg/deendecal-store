@@ -59,20 +59,16 @@ export default function Navigation() {
                 Home
                 <span className="absolute bottom-0 left-0 w-0 h-0.5 transition-all duration-200 group-hover:w-full" style={{backgroundColor: '#c89d24'}}></span>
               </Link>
-              <Link href="/products" className="text-gray-700 hover:text-gray-900 font-medium transition-colors duration-200 relative group">
+              <Link href="/#product" className="text-gray-700 hover:text-gray-900 font-medium transition-colors duration-200 relative group">
                 Products
                 <span className="absolute bottom-0 left-0 w-0 h-0.5 transition-all duration-200 group-hover:w-full" style={{backgroundColor: '#c89d24'}}></span>
               </Link>
-              <Link href="/faq" className="text-gray-700 hover:text-gray-900 font-medium transition-colors duration-200 relative group">
+              <Link href="/#installation" className="text-gray-700 hover:text-gray-900 font-medium transition-colors duration-200 relative group">
                 Installation
                 <span className="absolute bottom-0 left-0 w-0 h-0.5 transition-all duration-200 group-hover:w-full" style={{backgroundColor: '#c89d24'}}></span>
               </Link>
-              <Link href="/" className="text-gray-700 hover:text-gray-900 font-medium transition-colors duration-200 relative group">
+              <Link href="/#about" className="text-gray-700 hover:text-gray-900 font-medium transition-colors duration-200 relative group">
                 About
-                <span className="absolute bottom-0 left-0 w-0 h-0.5 transition-all duration-200 group-hover:w-full" style={{backgroundColor: '#c89d24'}}></span>
-              </Link>
-              <Link href="/" className="text-gray-700 hover:text-gray-900 font-medium transition-colors duration-200 relative group">
-                Contact
                 <span className="absolute bottom-0 left-0 w-0 h-0.5 transition-all duration-200 group-hover:w-full" style={{backgroundColor: '#c89d24'}}></span>
               </Link>
             </div>
@@ -132,32 +128,25 @@ export default function Navigation() {
                 Home
               </Link>
               <Link
-                href="/products"
+                href="/#product"
                 className="block px-4 py-3 text-base font-medium text-gray-700 hover:text-yellow-600 hover:bg-yellow-50 rounded-lg transition-all duration-200"
                 onClick={() => setIsMenuOpen(false)}
               >
                 Products
               </Link>
               <Link
-                href="/faq"
+                href="/#installation"
                 className="block px-4 py-3 text-base font-medium text-gray-700 hover:text-yellow-600 hover:bg-yellow-50 rounded-lg transition-all duration-200"
                 onClick={() => setIsMenuOpen(false)}
               >
                 Installation
               </Link>
               <Link
-                href="/"
+                href="/#about"
                 className="block px-4 py-3 text-base font-medium text-gray-700 hover:text-yellow-600 hover:bg-yellow-50 rounded-lg transition-all duration-200"
                 onClick={() => setIsMenuOpen(false)}
               >
                 About
-              </Link>
-              <Link
-                href="/"
-                className="block px-4 py-3 text-base font-medium text-gray-700 hover:text-yellow-600 hover:bg-yellow-50 rounded-lg transition-all duration-200"
-                onClick={() => setIsMenuOpen(false)}
-              >
-                Contact
               </Link>
               <div className="border-t border-gray-200 pt-3 mt-3">
                 <Link
