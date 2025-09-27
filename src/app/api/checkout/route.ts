@@ -59,6 +59,12 @@ export async function POST(req: NextRequest) {
     console.log('📋 Line items:', JSON.stringify(lineItems, null, 2));
     
     // Create Stripe checkout session with minimal configuration
+    console.log('🛒 Creating Stripe session with:', {
+      line_items: lineItems,
+      success_url: 'https://deendecal.com/success',
+      cancel_url: 'https://deendecal.com/cart'
+    });
+    
     const session = await stripe.checkout.sessions.create({
       payment_method_types: ['card'],
       line_items: lineItems,
