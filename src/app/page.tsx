@@ -5,6 +5,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { products } from '@/data/products';
 import { useCart } from '@/contexts/CartContext';
+import Navigation from '@/components/Navigation';
 
 export default function Home() {
   const { addItem, state } = useCart();
@@ -98,48 +99,9 @@ export default function Home() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
       />
-      {/* Header */}
-      <header className="header">
-        <div className="header-top">
-          <div className="container">
-            <div className="header-top-content">
-              <div className="promo-banner">
-                <i className="fas fa-gift"></i>
-                <span>Free shipping on all orders</span>
-              </div>
-              <div className="header-top-links">
-                <a href="#">Track Order</a>
-                <a href="#">Help</a>
-                <a href="#">Contact</a>
-              </div>
-            </div>
-          </div>
-        </div>
-        <nav className="main-nav">
-          <div className="container">
-            <div className="nav-content">
-              <div className="logo">
-                <h1>DeenDecal</h1>
-                <p className="tagline">Express Your Faith</p>
-              </div>
-              <div className="nav-links">
-                <a href="#home">Home</a>
-                <a href="#product">Product</a>
-                <a href="#installation">Installation</a>
-                <a href="#about">About</a>
-                <a href="#contact">Contact</a>
-              </div>
-              <div className="nav-actions">
-                <Link href="/cart" className="cart-btn">
-                  <i className="fas fa-shopping-cart"></i>
-                  <span>Cart</span>
-                  <span className="cart-count">{state.items.reduce((total, item) => total + item.quantity, 0)}</span>
-                </Link>
-              </div>
-            </div>
-          </div>
-        </nav>
-      </header>
+      
+      {/* Navigation */}
+      <Navigation />
 
       {/* Hero Section */}
       <section id="home" className="hero">
