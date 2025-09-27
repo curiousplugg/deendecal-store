@@ -1603,41 +1603,16 @@ a:hover {
     justify-content: center;
   }
 
-  /* Hero section mobile optimization */
+  /* Hide hero section on mobile - only show product section and below */
   .hero {
-    padding: 6rem 0 3rem;
-    min-height: auto;
-  }
-
-  .hero-content {
-    grid-template-columns: 1fr;
-    text-align: center;
-    gap: 2rem;
-    padding: 0 1rem;
-  }
-
-  .hero-text h1 {
-    font-size: 2.5rem;
-    line-height: 1.2;
-    margin-bottom: 1rem;
-  }
-
-  .hero-text p {
-    font-size: 1.1rem;
-    margin-bottom: 2rem;
-  }
-
-  .hero-stats {
-    justify-content: center;
-    gap: 2rem;
-    flex-wrap: wrap;
-  }
-
-  .stat-number {
-    font-size: 2rem;
+    display: none;
   }
 
   /* Product layout mobile optimization */
+  .product-section {
+    padding: 2rem 0;
+  }
+
   .product-layout {
     grid-template-columns: 1fr;
     gap: 2rem;
