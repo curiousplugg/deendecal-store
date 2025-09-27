@@ -46,7 +46,7 @@ export default function Navigation() {
                   <span className="text-gray-800">Deen</span>
                   <span className="text-yellow-600">Decal</span>
                 </span>
-                <span className="text-sm text-gray-500 italic -mt-1">Express Your Faith</span>
+                <span className="text-sm text-gray-500 italic -mt-1">Premium Islamic Car Emblems</span>
               </Link>
             </div>
 

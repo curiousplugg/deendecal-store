@@ -108,7 +108,7 @@ export default function Home() {
         <div className="container">
           <div className="hero-content">
             <div className="hero-text">
-              <h1>Premium Shahada Metal Car Decal - Islamic Car Emblem</h1>
+              <h1>Premium <span className="text-yellow-600">Shahada</span> Metal Car Decal - Islamic Car Emblem</h1>
               <p>Beautifully crafted Islamic car emblems and Shahada decals made from premium metal materials. Show your devotion with sophistication and grace. Perfect for Muslim car accessories and Islamic car badges.</p>
               <div className="hero-stats">
                 <div className="stat">
