@@ -1,12 +1,12 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { stripe } from '@/lib/stripe';
 
-// Stripe price IDs for each color variant (LIVE MODE) - Updated to match Stripe dashboard
+// Stripe price IDs for each color variant (LIVE MODE) - Correct IDs from Stripe CLI
 const PRICE_IDS = {
-  'Gold': 'price_1SBkbeBJjaZ06BBgJD1bAJvt',
-  'Black': 'price_1SBkbeBJjaZ06BBgkuwcTysc', 
-  'Red': 'price_1SBkbeBJjaZ06BBgUjC7X59s',
-  'Silver': 'price_1SBkbeBJjaZ06BBgbNls06pg'
+  'Gold': 'price_1SBkbeBJjaZO6BBgJD1bAJvt',
+  'Black': 'price_1SBkbeBJjaZO6BBgkuwcTysc', 
+  'Red': 'price_1SBkbeBJjaZO6BBgUjC7X59s',
+  'Silver': 'price_1SBkbeBJjaZO6BBgbNls06pg'
 };
 
 interface CartItem {
