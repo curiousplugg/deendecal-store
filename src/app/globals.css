@@ -123,6 +123,29 @@ h1, h2, h3, h4, h5, h6 {
   z-index: 1000;
 }
 
+/* Ensure sticky navigation works on desktop */
+nav {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  width: 100%;
+}
+
+/* Desktop sticky positioning */
+@media (min-width: 1024px) {
+  nav {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+  }
+  
+  .sticky-nav {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+  }
+}
+
 .header-top {
   background: var(--text-dark);
   color: var(--white);
@@ -1404,6 +1427,22 @@ h1, h2, h3, h4, h5, h6 {
   box-shadow: 0 10px 30px var(--shadow);
   position: sticky;
   top: 8rem;
+  z-index: 10;
+}
+
+/* Desktop sticky elements */
+@media (min-width: 1024px) {
+  .cart-summary {
+    position: sticky;
+    top: 8rem;
+    z-index: 10;
+  }
+  
+  .product-gallery {
+    position: sticky;
+    top: 8rem;
+    z-index: 10;
+  }
 }
 
 .cart-summary h2 {
