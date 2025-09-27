@@ -4,12 +4,6 @@ const nextConfig = {
     remotePatterns: [
       {
         protocol: 'https',
-        hostname: 'caydiscreations.s3.us-east-2.amazonaws.com',
-        port: '',
-        pathname: '/**',
-      },
-      {
-        protocol: 'https',
         hostname: 'deendecal.com',
         port: '',
         pathname: '/**',
