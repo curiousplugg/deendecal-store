@@ -61,16 +61,16 @@ export async function POST(req: NextRequest) {
     // Create Stripe checkout session with minimal configuration
     console.log('🛒 Creating Stripe session with:', {
       line_items: lineItems,
-      success_url: 'https://deendecal.com/success',
-      cancel_url: 'https://deendecal.com/cart'
+      success_url: 'https://stripe.com',
+      cancel_url: 'https://stripe.com'
     });
     
     const session = await stripe.checkout.sessions.create({
       payment_method_types: ['card'],
       line_items: lineItems,
       mode: 'payment',
-      success_url: 'https://deendecal.com/success',
-      cancel_url: 'https://deendecal.com/cart',
+      success_url: 'https://stripe.com',
+      cancel_url: 'https://stripe.com',
     });
 
     console.log('✅ Checkout session created:', session.id);
