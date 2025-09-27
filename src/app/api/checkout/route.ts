@@ -58,31 +58,13 @@ export async function POST(req: NextRequest) {
     
     console.log('📋 Line items:', JSON.stringify(lineItems, null, 2));
     
-    // Create properly formatted URLs for Stripe
-    const successUrl = 'https://deendecal.com/success?session_id={CHECKOUT_SESSION_ID}';
-    const cancelUrl = 'https://deendecal.com/cart';
-    
-    console.log('🔗 Success URL:', successUrl);
-    console.log('🔗 Cancel URL:', cancelUrl);
-    
-    // Validate URLs before creating session
-    try {
-      new URL(successUrl.replace('{CHECKOUT_SESSION_ID}', 'test'));
-      new URL(cancelUrl);
-      console.log('✅ URLs are valid');
-    } catch (urlError) {
-      console.error('❌ Invalid URL format:', urlError);
-      throw new Error('Invalid URL format for Stripe checkout');
-    }
-    
-    // Create Stripe checkout session
+    // Create Stripe checkout session with minimal configuration
     const session = await stripe.checkout.sessions.create({
       payment_method_types: ['card'],
       line_items: lineItems,
       mode: 'payment',
-      success_url: successUrl,
-      cancel_url: cancelUrl,
-      allow_promotion_codes: true,
+      success_url: 'https://deendecal.com/success',
+      cancel_url: 'https://deendecal.com/cart',
     });
 
     console.log('✅ Checkout session created:', session.id);
