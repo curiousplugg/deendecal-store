@@ -59,7 +59,7 @@ export async function POST(req: NextRequest) {
     console.log('📋 Line items:', JSON.stringify(lineItems, null, 2));
     
     // Create Stripe checkout session with matching API version
-    const baseUrl = process.env.NEXT_PUBLIC_APP_URL || 'https://deendecal.com';
+    const baseUrl = (process.env.NEXT_PUBLIC_APP_URL || 'https://deendecal.com').trim();
     const successUrl = `${baseUrl}/success`;
     const cancelUrl = `${baseUrl}/cart`;
     
