@@ -23,7 +23,7 @@ export async function POST(req: NextRequest) {
 
     // Create Stripe checkout session using existing price IDs
     console.log('🛒 Creating Stripe checkout session...');
-    const lineItems = items.map((item: { name: string; description: string; price: number; image: string; quantity: number; selectedColor?: string }) => {
+    const lineItems = items.map((item: any) => {
       const priceId = PRICE_IDS[item.selectedColor as keyof typeof PRICE_IDS] || PRICE_IDS['Gold'];
       console.log(`🎨 Color: ${item.selectedColor}, Price ID: ${priceId}, Quantity: ${item.quantity}`);
       return {
