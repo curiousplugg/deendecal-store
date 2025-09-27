@@ -464,19 +464,23 @@ export default function Home() {
       </section>
 
       {/* Installation Section */}
-      <section id="installation" className="installation-section">
-        <div className="container">
-          <div className="section-header">
-            <h2>Easy Installation</h2>
-            <p>Follow these simple steps to install your emblem</p>
+      <section id="installation" className="py-16 bg-gray-50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Easy Installation</h2>
+            <p className="text-lg text-gray-600">Follow these simple steps to install your emblem</p>
           </div>
-          <div className="installation-steps">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {product.installationInstructions?.map((instruction, index) => (
-              <div key={index} className="step">
-                <div className="step-number">{index + 1}</div>
-                <div className="step-content">
-                  <h3>Step {index + 1}</h3>
-                  <p>{instruction}</p>
+              <div key={index} className="bg-white p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300">
+                <div className="flex items-start space-x-4">
+                  <div className="bg-blue-600 text-white w-12 h-12 rounded-full flex items-center justify-center font-bold text-lg flex-shrink-0">
+                    {index + 1}
+                  </div>
+                  <div>
+                    <h3 className="text-xl font-semibold text-gray-900 mb-2">Step {index + 1}</h3>
+                    <p className="text-gray-600 leading-relaxed">{instruction}</p>
+                  </div>
                 </div>
               </div>
             ))}
@@ -485,50 +489,60 @@ export default function Home() {
       </section>
 
       {/* About Section */}
-      <section id="about" className="about-section">
-        <div className="container">
-          <div className="about-content">
-            <div className="about-text">
-              <h2>About DeenDecal</h2>
-              <p>We are passionate about creating beautiful, high-quality Islamic car emblems that allow you to express your faith with pride and elegance.</p>
-              <p>Our emblems are crafted using premium materials and advanced manufacturing techniques to ensure durability and beauty that lasts.</p>
-              <div className="about-features">
-                <div className="feature">
-                  <div className="feature-icon">
-                    <i className="fas fa-star"></i>
+      <section id="about" className="py-16 bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            <div>
+              <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6">About DeenDecal</h2>
+              <p className="text-lg text-gray-600 mb-4 leading-relaxed">
+                We are passionate about creating beautiful, high-quality Islamic car emblems that allow you to express your faith with pride and elegance.
+              </p>
+              <p className="text-lg text-gray-600 mb-8 leading-relaxed">
+                Our emblems are crafted using premium materials and advanced manufacturing techniques to ensure durability and beauty that lasts.
+              </p>
+              <div className="space-y-6">
+                <div className="flex items-start space-x-4">
+                  <div className="bg-yellow-100 w-12 h-12 rounded-full flex items-center justify-center flex-shrink-0">
+                    <svg className="w-6 h-6 text-yellow-600" fill="currentColor" viewBox="0 0 20 20">
+                      <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                    </svg>
                   </div>
-                  <div className="feature-content">
-                    <h4>Premium Materials</h4>
-                    <p>High-grade vinyl and adhesive</p>
-                  </div>
-                </div>
-                <div className="feature">
-                  <div className="feature-icon">
-                    <i className="fas fa-truck"></i>
-                  </div>
-                  <div className="feature-content">
-                    <h4>Fast Shipping</h4>
-                    <p>Free shipping on orders over $50</p>
+                  <div>
+                    <h4 className="text-xl font-semibold text-gray-900 mb-2">Premium Materials</h4>
+                    <p className="text-gray-600">High-grade vinyl and adhesive</p>
                   </div>
                 </div>
-                <div className="feature">
-                  <div className="feature-icon">
-                    <i className="fas fa-heart"></i>
+                <div className="flex items-start space-x-4">
+                  <div className="bg-green-100 w-12 h-12 rounded-full flex items-center justify-center flex-shrink-0">
+                    <svg className="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4" />
+                    </svg>
                   </div>
-                  <div className="feature-content">
-                    <h4>Made with Love</h4>
-                    <p>Crafted with care and attention to detail</p>
+                  <div>
+                    <h4 className="text-xl font-semibold text-gray-900 mb-2">Fast Shipping</h4>
+                    <p className="text-gray-600">Free shipping on orders over $50</p>
+                  </div>
+                </div>
+                <div className="flex items-start space-x-4">
+                  <div className="bg-red-100 w-12 h-12 rounded-full flex items-center justify-center flex-shrink-0">
+                    <svg className="w-6 h-6 text-red-600" fill="currentColor" viewBox="0 0 20 20">
+                      <path fillRule="evenodd" d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z" clipRule="evenodd" />
+                    </svg>
+                  </div>
+                  <div>
+                    <h4 className="text-xl font-semibold text-gray-900 mb-2">Made with Love</h4>
+                    <p className="text-gray-600">Crafted with care and attention to detail</p>
                   </div>
                 </div>
               </div>
             </div>
-            <div className="about-img-container">
+            <div className="flex justify-center">
               <Image
                 src="/images/measurements.jpg"
                 alt="About DeenDecal"
                 width={500}
                 height={400}
-                className="about-img"
+                className="rounded-lg shadow-2xl"
               />
             </div>
           </div>
@@ -536,58 +550,73 @@ export default function Home() {
       </section>
 
       {/* Contact Section */}
-      <section id="contact" className="contact-section">
-        <div className="container">
-          <div className="contact-content">
-            <div className="contact-card">
-              <div className="contact-icon">
-                <i className="fas fa-envelope"></i>
+      <section id="contact" className="py-16 bg-gray-50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex justify-center">
+            <div className="bg-white p-8 rounded-2xl shadow-xl max-w-md w-full text-center">
+              <div className="bg-blue-600 w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-6">
+                <svg className="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                </svg>
               </div>
-              <div className="contact-info">
-                <h3>Get in Touch</h3>
-                <p>Have questions? We&apos;d love to hear from you. Send us a message and we&apos;ll respond as soon as possible.</p>
-                <a href="mailto:info@deendecal.com" className="contact-email">
-                  Contact Us
-                </a>
-              </div>
+              <h3 className="text-2xl font-bold text-gray-900 mb-4">Get in Touch</h3>
+              <p className="text-gray-600 mb-6 leading-relaxed">
+                Have questions? We&apos;d love to hear from you. Send us a message and we&apos;ll respond as soon as possible.
+              </p>
+              <a 
+                href="mailto:info@deendecal.com" 
+                className="inline-block bg-blue-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-blue-700 transition-colors duration-200"
+              >
+                Contact Us
+              </a>
             </div>
           </div>
         </div>
       </section>
 
       {/* Footer */}
-      <footer className="footer">
-        <div className="container">
-          <div className="footer-content">
-            <div className="footer-logo">
-              <h3>DeenDecal</h3>
-              <p>Express your faith with beautifully crafted Islamic car emblems. Premium quality, easy installation, and designed to last.</p>
-              <div className="social-links">
-                <a href="#"><i className="fab fa-instagram"></i></a>
-                <a href="#"><i className="fab fa-tiktok"></i></a>
+      <footer className="bg-gray-900 text-white py-12">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
+            <div>
+              <h3 className="text-2xl font-bold mb-4">DeenDecal</h3>
+              <p className="text-gray-300 mb-4 leading-relaxed">
+                Express your faith with beautifully crafted Islamic car emblems. Premium quality, easy installation, and designed to last.
+              </p>
+              <div className="flex space-x-4">
+                <a href="#" className="text-gray-400 hover:text-white transition-colors duration-200">
+                  <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M12.017 0C5.396 0 .029 5.367.029 11.987c0 5.079 3.158 9.417 7.618 11.174-.105-.949-.199-2.403.041-3.439.219-.937 1.406-5.957 1.406-5.957s-.359-.72-.359-1.781c0-1.663.967-2.911 2.168-2.911 1.024 0 1.518.769 1.518 1.688 0 1.029-.653 2.567-.992 3.992-.285 1.193.6 2.165 1.775 2.165 2.128 0 3.768-2.245 3.768-5.487 0-2.861-2.063-4.869-5.008-4.869-3.41 0-5.409 2.562-5.409 5.207 0 1.031.397 2.138.893 2.738a.36.36 0 01.083.345l-.333 1.36c-.053.22-.174.267-.402.161-1.499-.698-2.436-2.889-2.436-4.649 0-3.785 2.75-7.262 7.929-7.262 4.163 0 7.398 2.967 7.398 6.931 0 4.136-2.607 7.464-6.227 7.464-1.216 0-2.357-.631-2.75-1.378l-.748 2.853c-.271 1.043-1.002 2.35-1.492 3.146C9.57 23.812 10.763 24.009 12.017 24c6.624 0 11.99-5.367 11.99-11.988C24.007 5.367 18.641.001 12.017.001z"/>
+                  </svg>
+                </a>
+                <a href="#" className="text-gray-400 hover:text-white transition-colors duration-200">
+                  <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.9-5.71-.25-1.09-.23-2.2-.22-3.31.21-10.15-.03-20.31.02-30.46.05-1.75 1.95-3.35 3.78-3.41 1.83-.05 3.65.9 4.6 2.5.02 3.11.01 6.22.01 9.33.09-.04.19-.09.29-.14.06-.39.14-.78.14-1.18 0-2.84-1.51-5.5-4.2-6.9-.65-.35-1.41-.5-2.15-.5-.84 0-1.69.19-2.44.62-1.5.87-2.38 2.4-2.65 4.1-.07.43-.03.87-.03 1.31 0 4.41 3.58 8 8 8s8-3.59 8-8c0-1.43-.38-2.79-1.03-3.97-.38-.7-.87-1.35-1.43-1.93-.02-.01-.04-.02-.06-.03z"/>
+                  </svg>
+                </a>
               </div>
             </div>
-            <div className="footer-section">
-              <h4>Quick Links</h4>
-              <ul>
-                <li><a href="#home">Home</a></li>
-                <li><a href="#product">Product</a></li>
-                <li><a href="#installation">Installation</a></li>
-                <li><a href="#about">About</a></li>
-                <li><a href="#contact">Contact</a></li>
+            <div>
+              <h4 className="text-lg font-semibold mb-4">Quick Links</h4>
+              <ul className="space-y-2">
+                <li><a href="#home" className="text-gray-300 hover:text-white transition-colors duration-200">Home</a></li>
+                <li><a href="#product" className="text-gray-300 hover:text-white transition-colors duration-200">Product</a></li>
+                <li><a href="#installation" className="text-gray-300 hover:text-white transition-colors duration-200">Installation</a></li>
+                <li><a href="#about" className="text-gray-300 hover:text-white transition-colors duration-200">About</a></li>
+                <li><a href="#contact" className="text-gray-300 hover:text-white transition-colors duration-200">Contact</a></li>
               </ul>
             </div>
-            <div className="footer-section">
-              <h4>FAQ (Shipping Info)</h4>
-              <ul>
-                <li><a href="/faq">Shipping & Returns</a></li>
-                <li><a href="/faq">FAQ</a></li>
+            <div>
+              <h4 className="text-lg font-semibold mb-4">Support</h4>
+              <ul className="space-y-2">
+                <li><a href="/faq" className="text-gray-300 hover:text-white transition-colors duration-200">Shipping & Returns</a></li>
+                <li><a href="/faq" className="text-gray-300 hover:text-white transition-colors duration-200">FAQ</a></li>
               </ul>
             </div>
           </div>
-              <div className="footer-bottom">
-                <p>&copy; 2025 DeenDecal. All rights reserved.</p>
-              </div>
+          <div className="border-t border-gray-700 pt-8 text-center">
+            <p className="text-gray-400">&copy; 2025 DeenDecal. All rights reserved.</p>
+          </div>
         </div>
       </footer>
     </div>
