@@ -52,10 +52,9 @@ export async function POST(req: NextRequest) {
     
     console.log('📋 Line items:', JSON.stringify(lineItems, null, 2));
     
-    // Get base URL
-    const baseUrl = process.env.NODE_ENV === 'production' 
-      ? 'https://deendecal.com' 
-      : 'http://localhost:3000';
+    // Get base URL - use environment variable or fallback
+    const baseUrl = process.env.NEXT_PUBLIC_APP_URL || 
+                   (process.env.NODE_ENV === 'production' ? 'https://deendecal.com' : 'http://localhost:3000');
     
     console.log('🌐 Base URL:', baseUrl);
     
