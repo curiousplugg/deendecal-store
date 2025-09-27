@@ -5,6 +5,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useCart } from '@/contexts/CartContext';
 import getStripe from '@/lib/stripe-client';
+import Navigation from '@/components/Navigation';
 
 export default function CartPage() {
   const { state, updateQuantity, removeItem, clearCart } = useCart();
@@ -78,50 +79,8 @@ export default function CartPage() {
 
   return (
     <div className="cart-page">
-      {/* Header */}
-      <header className="header">
-        <div className="header-top">
-          <div className="container">
-            <div className="header-top-content">
-              <div className="promo-banner">
-                <i className="fas fa-gift"></i>
-                <span>Free shipping on all orders</span>
-              </div>
-              <div className="header-top-links">
-                <a href="#">Track Order</a>
-                <a href="#">Help</a>
-                <a href="#">Contact</a>
-              </div>
-            </div>
-          </div>
-        </div>
-        <nav className="main-nav">
-          <div className="container">
-            <div className="nav-content">
-              <div className="logo">
-                <Link href="/">
-                  <h1>DeenDecal</h1>
-                  <p className="tagline">Express Your Faith</p>
-                </Link>
-              </div>
-              <div className="nav-links">
-                <Link href="/#home">Home</Link>
-                <Link href="/#product">Product</Link>
-                <Link href="/#installation">Installation</Link>
-                <Link href="/#about">About</Link>
-                <Link href="/#contact">Contact</Link>
-              </div>
-              <div className="nav-actions">
-                <Link href="/cart" className="cart-btn">
-                  <i className="fas fa-shopping-cart"></i>
-                  <span>Cart</span>
-                  <span className="cart-count">{state.items.reduce((total, item) => total + item.quantity, 0)}</span>
-                </Link>
-              </div>
-            </div>
-          </div>
-        </nav>
-      </header>
+      {/* Navigation */}
+      <Navigation />
 
       <div className="cart-container" style={{ paddingTop: '8rem' }}>
         <div className="cart-header">

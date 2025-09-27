@@ -389,6 +389,8 @@ nav {
   border-radius: 20px;
   overflow: hidden;
   box-shadow: 0 15px 40px var(--shadow);
+  width: 100%;
+  max-width: 100%;
 }
 
 .main-product-image {
@@ -396,6 +398,7 @@ nav {
   height: 500px;
   object-fit: cover;
   transition: var(--transition);
+  max-width: 100%;
 }
 
 .main-product-video {
@@ -405,6 +408,7 @@ nav {
   border-radius: 12px;
   background: #000;
   cursor: pointer;
+  max-width: 100%;
 }
 
 .main-product-video::-webkit-media-controls {
@@ -1662,6 +1666,22 @@ a:hover {
     box-sizing: border-box;
   }
 
+  /* Fix image overflow issues */
+  img, video {
+    max-width: 100%;
+    height: auto;
+    object-fit: cover;
+  }
+
+  /* Fix container overflow */
+  .container, .cart-container {
+    width: 100%;
+    max-width: 100vw;
+    overflow-x: hidden;
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
   /* Navigation improvements */
   .nav-content {
     flex-direction: column;
@@ -1722,11 +1742,18 @@ a:hover {
   .thumbnail-gallery {
     justify-content: center;
     padding: 1rem 0;
+    width: 100%;
+    overflow-x: auto;
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: nowrap;
   }
 
   .thumbnail {
     width: 60px;
     height: 60px;
+    flex-shrink: 0;
+    min-width: 60px;
   }
 
   /* Product info mobile improvements */
@@ -1820,17 +1847,23 @@ a:hover {
   /* Cart page mobile improvements */
   .cart-container {
     padding: 1rem;
+    width: 100%;
+    max-width: 100vw;
+    overflow-x: hidden;
   }
 
   .cart-content {
     grid-template-columns: 1fr;
     gap: 2rem;
+    width: 100%;
   }
 
   .cart-item {
     flex-direction: column;
     text-align: center;
     padding: 1rem;
+    width: 100%;
+    max-width: 100%;
   }
 
   .cart-item-image {
@@ -1839,14 +1872,24 @@ a:hover {
     margin: 0 auto 1rem;
   }
 
+  .cart-item-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
   .cart-item-controls {
     justify-content: center;
     margin-top: 1rem;
+    flex-wrap: wrap;
+    gap: 0.5rem;
   }
 
   .cart-summary {
     position: static;
     margin-top: 2rem;
+    width: 100%;
+    max-width: 100%;
   }
 
   /* FAQ mobile improvements */
