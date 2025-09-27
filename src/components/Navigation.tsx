@@ -46,7 +46,8 @@ export default function Navigation() {
                   background: 'linear-gradient(135deg, #2c3f51 0%, #c89d24 100%)',
                   WebkitBackgroundClip: 'text',
                   WebkitTextFillColor: 'transparent',
-                  backgroundClip: 'text'
+                  backgroundClip: 'text',
+                  fontFamily: "'Playfair Display', serif"
                 }}>DeenDecal</span>
                 <span className="text-sm text-gray-500 italic -mt-1">Express Your Faith</span>
               </Link>
