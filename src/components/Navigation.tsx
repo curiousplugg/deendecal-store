@@ -44,39 +44,39 @@ export default function Navigation() {
               <Link href="/" className="flex flex-col">
                 <span className="text-3xl font-bold text-gray-900">
                   <span className="text-gray-800">Deen</span>
-                  <span className="text-yellow-600">Decal</span>
+                  <span className="text-amber-500">Decal</span>
                 </span>
-                <span className="text-sm text-gray-500 italic -mt-1">Premium Islamic Car Emblems</span>
+                <span className="text-sm text-gray-500 italic -mt-1">Express Your Faith</span>
               </Link>
             </div>
 
             {/* Desktop Navigation */}
             <div className="hidden lg:flex items-center space-x-8">
-              <Link href="/" className="text-gray-700 hover:text-yellow-600 font-medium transition-colors duration-200 relative group">
+              <Link href="/" className="text-gray-700 hover:text-amber-500 font-medium transition-colors duration-200 relative group">
                 Home
-                <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-yellow-600 transition-all duration-200 group-hover:w-full"></span>
+                <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-amber-500 transition-all duration-200 group-hover:w-full"></span>
               </Link>
-              <Link href="/products" className="text-gray-700 hover:text-yellow-600 font-medium transition-colors duration-200 relative group">
+              <Link href="/products" className="text-gray-700 hover:text-amber-500 font-medium transition-colors duration-200 relative group">
                 Products
-                <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-yellow-600 transition-all duration-200 group-hover:w-full"></span>
+                <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-amber-500 transition-all duration-200 group-hover:w-full"></span>
               </Link>
-              <Link href="/faq" className="text-gray-700 hover:text-yellow-600 font-medium transition-colors duration-200 relative group">
+              <Link href="/faq" className="text-gray-700 hover:text-amber-500 font-medium transition-colors duration-200 relative group">
                 Installation
-                <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-yellow-600 transition-all duration-200 group-hover:w-full"></span>
+                <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-amber-500 transition-all duration-200 group-hover:w-full"></span>
               </Link>
-              <Link href="/" className="text-gray-700 hover:text-yellow-600 font-medium transition-colors duration-200 relative group">
+              <Link href="/" className="text-gray-700 hover:text-amber-500 font-medium transition-colors duration-200 relative group">
                 About
-                <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-yellow-600 transition-all duration-200 group-hover:w-full"></span>
+                <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-amber-500 transition-all duration-200 group-hover:w-full"></span>
               </Link>
-              <Link href="/" className="text-gray-700 hover:text-yellow-600 font-medium transition-colors duration-200 relative group">
+              <Link href="/" className="text-gray-700 hover:text-amber-500 font-medium transition-colors duration-200 relative group">
                 Contact
-                <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-yellow-600 transition-all duration-200 group-hover:w-full"></span>
+                <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-amber-500 transition-all duration-200 group-hover:w-full"></span>
               </Link>
             </div>
 
             {/* Desktop Cart */}
             <div className="hidden lg:flex items-center">
-              <Link href="/cart" className="relative bg-yellow-600 hover:bg-yellow-700 text-white px-6 py-3 rounded-full font-semibold transition-all duration-200 flex items-center space-x-2 shadow-lg hover:shadow-xl">
+              <Link href="/cart" className="relative bg-amber-500 hover:bg-amber-600 text-white px-6 py-3 rounded-full font-semibold transition-all duration-200 flex items-center space-x-2 shadow-lg hover:shadow-xl">
                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 3h2l.4 2M7 13h10l4-8H5.4m0 0L7 13m0 0l-2.5 5M7 13l2.5 5m6-5v6a2 2 0 01-2 2H9a2 2 0 01-2-2v-6m8 0V9a2 2 0 00-2-2H9a2 2 0 00-2 2v4.01" />
                 </svg>
