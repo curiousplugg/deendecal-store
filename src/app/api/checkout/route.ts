@@ -44,6 +44,12 @@ export async function POST(req: NextRequest) {
     const lineItems = items.map((item: CartItem) => {
       const priceId = PRICE_IDS[item.selectedColor as keyof typeof PRICE_IDS] || PRICE_IDS['Gold'];
       console.log(`🎨 Color: ${item.selectedColor}, Price ID: ${priceId}, Quantity: ${item.quantity}`);
+      
+      // Validate price ID format
+      if (!priceId.startsWith('price_')) {
+        throw new Error(`Invalid price ID: ${priceId}`);
+      }
+      
       return {
         price: priceId,
         quantity: item.quantity,
