@@ -44,7 +44,12 @@ export default function Navigation() {
               <Link href="/" className="flex flex-col">
                 <span className="text-3xl font-bold text-gray-900">
                   <span className="text-gray-800">Deen</span>
-                  <span style={{color: '#c89d24'}}>Decal</span>
+                  <span style={{
+                    background: 'linear-gradient(135deg, #c89d24 0%, #b88a1f 50%, #2c3f51 100%)',
+                    WebkitBackgroundClip: 'text',
+                    WebkitTextFillColor: 'transparent',
+                    backgroundClip: 'text'
+                  }}>Decal</span>
                 </span>
                 <span className="text-sm text-gray-500 italic -mt-1">Express Your Faith</span>
               </Link>
