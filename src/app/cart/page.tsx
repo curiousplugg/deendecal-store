@@ -14,13 +14,13 @@ export default function CartPage() {
     console.log('📦 Cart items:', state.items);
     
     if (state.items.length === 0) {
-      console.log('❌ No items in cart');
+      alert('Your cart is empty. Please add items before checkout.');
       return;
     }
 
     try {
       console.log('🚀 Sending checkout request...');
-      console.log('📤 Request body:', JSON.stringify({ items: state.items }, null, 2));
+      
       const response = await fetch('/api/checkout', {
         method: 'POST',
         headers: {
@@ -30,27 +30,34 @@ export default function CartPage() {
       });
       
       console.log('📥 Response status:', response.status);
-      console.log('📥 Response headers:', response.headers);
 
-      const data = await response.json();
-      
       if (!response.ok) {
-        throw new Error(data.error || 'Checkout failed');
+        const errorData = await response.json();
+        console.error('❌ API Error:', errorData);
+        throw new Error(errorData.error || 'Checkout failed');
       }
 
-      const { sessionId } = data;
-      console.log('✅ Checkout session created:', sessionId);
+      const data = await response.json();
+      console.log('✅ Checkout session created:', data.sessionId);
       
+      // Load Stripe
       const stripe = await getStripe();
-      if (stripe) {
-        console.log('🔄 Redirecting to Stripe checkout...');
-        await stripe.redirectToCheckout({ sessionId });
-      } else {
-        console.error('❌ Stripe not loaded');
+      if (!stripe) {
+        throw new Error('Stripe failed to load');
+      }
+
+      console.log('🔄 Redirecting to Stripe checkout...');
+      const { error } = await stripe.redirectToCheckout({ 
+        sessionId: data.sessionId 
+      });
+      
+      if (error) {
+        console.error('❌ Stripe redirect error:', error);
+        throw new Error(error.message || 'Failed to redirect to checkout');
       }
     } catch (error) {
       console.error('❌ Error during checkout:', error);
-      alert('There was an error during checkout. Please try again.');
+      alert(`Checkout error: ${error instanceof Error ? error.message : 'Unknown error'}`);
     }
   };
 

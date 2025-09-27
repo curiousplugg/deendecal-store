@@ -32,17 +32,15 @@ interface CartItem {
 export async function POST(req: NextRequest) {
   try {
     console.log('🔍 Checkout request received');
-    const { items, customerEmail } = await req.json();
+    const { items } = await req.json();
     console.log('📦 Items:', JSON.stringify(items, null, 2));
-    console.log('📧 Customer email:', customerEmail);
 
     if (!items || !Array.isArray(items) || items.length === 0) {
       console.error('❌ No items provided for checkout');
       return NextResponse.json({ error: 'No items provided for checkout' }, { status: 400 });
     }
 
-    // Create Stripe checkout session using existing price IDs
-    console.log('🛒 Creating Stripe checkout session...');
+    // Create line items for Stripe
     const lineItems = items.map((item: CartItem) => {
       const priceId = PRICE_IDS[item.selectedColor as keyof typeof PRICE_IDS] || PRICE_IDS['Gold'];
       console.log(`🎨 Color: ${item.selectedColor}, Price ID: ${priceId}, Quantity: ${item.quantity}`);
@@ -54,37 +52,27 @@ export async function POST(req: NextRequest) {
     
     console.log('📋 Line items:', JSON.stringify(lineItems, null, 2));
     
-    // Get the appropriate base URL based on environment
+    // Get base URL
     const baseUrl = process.env.NODE_ENV === 'production' 
       ? 'https://deendecal.com' 
-      : process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000';
+      : 'http://localhost:3000';
     
     console.log('🌐 Base URL:', baseUrl);
     
+    // Create Stripe checkout session
     const session = await stripe.checkout.sessions.create({
       payment_method_types: ['card'],
       line_items: lineItems,
       mode: 'payment',
       success_url: `${baseUrl}/success?session_id={CHECKOUT_SESSION_ID}`,
       cancel_url: `${baseUrl}/cart`,
-      customer_email: customerEmail,
+      allow_promotion_codes: true,
     });
 
     console.log('✅ Checkout session created:', session.id);
     return NextResponse.json({ sessionId: session.id });
   } catch (error) {
     console.error('❌ Error creating checkout session:', error);
-    console.error('Error type:', error instanceof Error ? error.constructor.name : typeof error);
-    console.error('Error message:', error instanceof Error ? error.message : String(error));
-    console.error('Error stack:', error instanceof Error ? error.stack : 'No stack trace');
-    
-    // Check if it's a Stripe error
-    if (error && typeof error === 'object' && 'type' in error) {
-      const stripeError = error as { type: string; code?: string; message?: string };
-      console.error('Stripe error type:', stripeError.type);
-      console.error('Stripe error code:', stripeError.code);
-      console.error('Stripe error message:', stripeError.message);
-    }
     
     return NextResponse.json({ 
       error: 'Error creating checkout session',
