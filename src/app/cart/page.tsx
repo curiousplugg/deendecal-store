@@ -20,6 +20,7 @@ export default function CartPage() {
 
     try {
       console.log('🚀 Sending checkout request...');
+      console.log('📤 Request body:', JSON.stringify({ items: state.items }, null, 2));
       const response = await fetch('/api/checkout', {
         method: 'POST',
         headers: {
@@ -27,6 +28,9 @@ export default function CartPage() {
         },
         body: JSON.stringify({ items: state.items }),
       });
+      
+      console.log('📥 Response status:', response.status);
+      console.log('📥 Response headers:', response.headers);
 
       const data = await response.json();
       
