@@ -9,6 +9,26 @@ const PRICE_IDS = {
   'Silver': 'price_1SBkbeBJjaZO6BBgbNls06pg'
 };
 
+interface CartItem {
+  id: string;
+  name: string;
+  description: string;
+  price: number;
+  originalPrice?: number;
+  image: string;
+  category: string;
+  inStock: boolean;
+  colors?: string[];
+  selectedColor?: string;
+  material?: string;
+  size?: string;
+  style?: string;
+  installationLocation?: string;
+  packingSpecifications?: string;
+  installationInstructions?: string[];
+  quantity: number;
+}
+
 export async function POST(req: NextRequest) {
   try {
     console.log('🔍 Checkout request received');
@@ -23,7 +43,7 @@ export async function POST(req: NextRequest) {
 
     // Create Stripe checkout session using existing price IDs
     console.log('🛒 Creating Stripe checkout session...');
-    const lineItems = items.map((item: any) => {
+    const lineItems = items.map((item: CartItem) => {
       const priceId = PRICE_IDS[item.selectedColor as keyof typeof PRICE_IDS] || PRICE_IDS['Gold'];
       console.log(`🎨 Color: ${item.selectedColor}, Price ID: ${priceId}, Quantity: ${item.quantity}`);
       return {
