@@ -15,7 +15,8 @@ type CartAction =
   | { type: 'ADD_ITEM'; payload: Product }
   | { type: 'REMOVE_ITEM'; payload: string }
   | { type: 'UPDATE_QUANTITY'; payload: { id: string; quantity: number } }
-  | { type: 'CLEAR_CART' };
+  | { type: 'CLEAR_CART' }
+  | { type: 'LOAD_CART'; payload: CartItem[] };
 
 const CartContext = createContext<{
   state: CartState;
@@ -64,6 +65,11 @@ const cartReducer = (state: CartState, action: CartAction): CartState => {
         ...state,
         items: [],
       };
+    case 'LOAD_CART':
+      return {
+        ...state,
+        items: action.payload,
+      };
     default:
       return state;
   }
@@ -78,13 +84,8 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
     if (storedCart) {
       try {
         const cartItems: CartItem[] = JSON.parse(storedCart);
-        // Set the cart items directly instead of using ADD_ITEM
-        cartItems.forEach((item: CartItem) => {
-          // Add the item multiple times to match the quantity
-          for (let i = 0; i < item.quantity; i++) {
-            dispatch({ type: 'ADD_ITEM', payload: item });
-          }
-        });
+        // Set the cart items directly with their quantities
+        dispatch({ type: 'LOAD_CART', payload: cartItems });
       } catch (error) {
         console.error('Error loading cart from localStorage:', error);
       }

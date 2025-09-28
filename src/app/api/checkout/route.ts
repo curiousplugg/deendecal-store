@@ -59,6 +59,7 @@ export async function POST(req: NextRequest) {
     const lineItems = items.map((item: CartItem) => {
       const priceId = PRICE_IDS[item.selectedColor as keyof typeof PRICE_IDS] || PRICE_IDS['Gold'];
       console.log(`🎨 Color: ${item.selectedColor}, Price ID: ${priceId}, Quantity: ${item.quantity}`);
+      console.log(`🖼️ Image: ${item.image}`);
       console.log(`🔍 Available price IDs:`, PRICE_IDS);
       console.log(`🔍 Selected color: "${item.selectedColor}"`);
       

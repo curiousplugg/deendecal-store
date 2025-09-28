@@ -58,7 +58,7 @@ export default function Home() {
     ],
     "contactPoint": {
       "@type": "ContactPoint",
-      "email": "info@deendecal.com",
+      "email": "deendecal@gmail.com",
       "contactType": "customer service"
     },
     "offers": {
@@ -435,7 +435,7 @@ export default function Home() {
               <div className="contact-info">
                 <h3>Get in Touch</h3>
                 <p>Have questions? We&apos;d love to hear from you. Send us a message and we&apos;ll respond as soon as possible.</p>
-                <a href="mailto:info@deendecal.com" className="contact-email">
+                <a href="mailto:deendecal@gmail.com" className="contact-email">
                   Contact Us
                 </a>
               </div>

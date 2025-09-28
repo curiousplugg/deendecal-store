@@ -13,6 +13,18 @@ export default function Navigation() {
     setIsMenuOpen(!isMenuOpen);
   };
 
+  const smoothScrollTo = (elementId: string) => {
+    const element = document.getElementById(elementId);
+    if (element) {
+      element.scrollIntoView({
+        behavior: 'smooth',
+        block: 'start',
+        inline: 'nearest'
+      });
+    }
+    setIsMenuOpen(false); // Close mobile menu after clicking
+  };
+
   return (
     <>
       {/* Top Promo Bar */}
@@ -55,22 +67,22 @@ export default function Navigation() {
 
             {/* Desktop Navigation */}
             <div className="hidden lg:flex items-center space-x-8">
-              <Link href="/" className="text-gray-700 hover:text-gray-900 font-medium transition-colors duration-200 relative group">
+              <button onClick={() => smoothScrollTo('home')} className="text-gray-700 hover:text-gray-900 font-medium transition-colors duration-200 relative group">
                 Home
                 <span className="absolute bottom-0 left-0 w-0 h-0.5 transition-all duration-200 group-hover:w-full" style={{backgroundColor: '#c89d24'}}></span>
-              </Link>
-              <Link href="/#product" className="text-gray-700 hover:text-gray-900 font-medium transition-colors duration-200 relative group">
+              </button>
+              <button onClick={() => smoothScrollTo('product')} className="text-gray-700 hover:text-gray-900 font-medium transition-colors duration-200 relative group">
                 Products
                 <span className="absolute bottom-0 left-0 w-0 h-0.5 transition-all duration-200 group-hover:w-full" style={{backgroundColor: '#c89d24'}}></span>
-              </Link>
-              <Link href="/#installation" className="text-gray-700 hover:text-gray-900 font-medium transition-colors duration-200 relative group">
+              </button>
+              <button onClick={() => smoothScrollTo('installation')} className="text-gray-700 hover:text-gray-900 font-medium transition-colors duration-200 relative group">
                 Installation
                 <span className="absolute bottom-0 left-0 w-0 h-0.5 transition-all duration-200 group-hover:w-full" style={{backgroundColor: '#c89d24'}}></span>
-              </Link>
-              <Link href="/#about" className="text-gray-700 hover:text-gray-900 font-medium transition-colors duration-200 relative group">
+              </button>
+              <button onClick={() => smoothScrollTo('about')} className="text-gray-700 hover:text-gray-900 font-medium transition-colors duration-200 relative group">
                 About
                 <span className="absolute bottom-0 left-0 w-0 h-0.5 transition-all duration-200 group-hover:w-full" style={{backgroundColor: '#c89d24'}}></span>
-              </Link>
+              </button>
             </div>
 
             {/* Desktop Cart */}
@@ -120,34 +132,30 @@ export default function Navigation() {
           {/* Mobile Menu Dropdown */}
           <div className={`lg:hidden transition-all duration-300 ease-in-out ${isMenuOpen ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0 overflow-hidden'}`}>
             <div className="px-2 pt-2 pb-3 space-y-1 bg-white border-t border-gray-200 shadow-lg">
-              <Link
-                href="/"
-                className="block px-4 py-3 text-base font-medium text-gray-700 hover:text-yellow-600 hover:bg-yellow-50 rounded-lg transition-all duration-200"
-                onClick={() => setIsMenuOpen(false)}
+              <button
+                onClick={() => smoothScrollTo('home')}
+                className="block w-full text-left px-4 py-3 text-base font-medium text-gray-700 hover:text-yellow-600 hover:bg-yellow-50 rounded-lg transition-all duration-200"
               >
                 Home
-              </Link>
-              <Link
-                href="/#product"
-                className="block px-4 py-3 text-base font-medium text-gray-700 hover:text-yellow-600 hover:bg-yellow-50 rounded-lg transition-all duration-200"
-                onClick={() => setIsMenuOpen(false)}
+              </button>
+              <button
+                onClick={() => smoothScrollTo('product')}
+                className="block w-full text-left px-4 py-3 text-base font-medium text-gray-700 hover:text-yellow-600 hover:bg-yellow-50 rounded-lg transition-all duration-200"
               >
                 Products
-              </Link>
-              <Link
-                href="/#installation"
-                className="block px-4 py-3 text-base font-medium text-gray-700 hover:text-yellow-600 hover:bg-yellow-50 rounded-lg transition-all duration-200"
-                onClick={() => setIsMenuOpen(false)}
+              </button>
+              <button
+                onClick={() => smoothScrollTo('installation')}
+                className="block w-full text-left px-4 py-3 text-base font-medium text-gray-700 hover:text-yellow-600 hover:bg-yellow-50 rounded-lg transition-all duration-200"
               >
                 Installation
-              </Link>
-              <Link
-                href="/#about"
-                className="block px-4 py-3 text-base font-medium text-gray-700 hover:text-yellow-600 hover:bg-yellow-50 rounded-lg transition-all duration-200"
-                onClick={() => setIsMenuOpen(false)}
+              </button>
+              <button
+                onClick={() => smoothScrollTo('about')}
+                className="block w-full text-left px-4 py-3 text-base font-medium text-gray-700 hover:text-yellow-600 hover:bg-yellow-50 rounded-lg transition-all duration-200"
               >
                 About
-              </Link>
+              </button>
               <div className="border-t border-gray-200 pt-3 mt-3">
                 <Link
                   href="/cart"

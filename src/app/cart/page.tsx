@@ -71,9 +71,10 @@ export default function CartPage() {
   const groupedItems = state.items.reduce((acc, item) => {
     const key = `${item.id}-${item.selectedColor || 'default'}`;
     if (!acc[key]) {
-      acc[key] = { ...item, quantity: 0 };
+      acc[key] = { ...item };
+    } else {
+      acc[key].quantity += item.quantity;
     }
-    acc[key].quantity += item.quantity;
     return acc;
   }, {} as Record<string, typeof state.items[0] & { quantity: number }>);
 

@@ -94,11 +94,11 @@ export default function FAQPage() {
             <h2>Returns & Refunds</h2>
             <div className="faq-item">
               <h3>What is your return policy?</h3>
-              <p>We do offer money-back guarantees, but you must email us with your reasoning for the return. Please contact us at info@deendecal.com with your order number and reason for return.</p>
+              <p>We do offer money-back guarantees, but you must email us with your reasoning for the return. Please contact us at deendecal@gmail.com with your order number and reason for return.</p>
             </div>
             <div className="faq-item">
               <h3>How do I request a return?</h3>
-              <p>To request a return, please email us at info@deendecal.com with your order number and a detailed explanation of why you&apos;d like to return the item. We&apos;ll review your request and provide instructions.</p>
+              <p>To request a return, please email us at deendecal@gmail.com with your order number and a detailed explanation of why you&apos;d like to return the item. We&apos;ll review your request and provide instructions.</p>
             </div>
             <div className="faq-item">
               <h3>What if my decal is damaged during shipping?</h3>
@@ -130,11 +130,11 @@ export default function FAQPage() {
             <h2>General Questions</h2>
             <div className="faq-item">
               <h3>How do I contact customer support?</h3>
-              <p>You can reach us at info@deendecal.com. We typically respond within 24 hours during business days.</p>
+              <p>You can reach us at deendecal@gmail.com. We typically respond within 24 hours during business days.</p>
             </div>
             <div className="faq-item">
               <h3>Do you offer bulk discounts?</h3>
-              <p>Yes! For orders of 10 or more decals, please contact us for special pricing at info@deendecal.com.</p>
+              <p>Yes! For orders of 10 or more decals, please contact us for special pricing at deendecal@gmail.com.</p>
             </div>
             <div className="faq-item">
               <h3>Are your products authentic Islamic designs?</h3>
@@ -145,7 +145,7 @@ export default function FAQPage() {
           <div className="faq-contact">
             <h2>Still Have Questions?</h2>
             <p>If you can&apos;t find the answer you&apos;re looking for, please don&apos;t hesitate to contact us:</p>
-            <a href="mailto:info@deendecal.com" className="contact-email">
+            <a href="mailto:deendecal@gmail.com" className="contact-email">
               <i className="fas fa-envelope"></i>
               Contact Us
             </a>
