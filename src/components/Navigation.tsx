@@ -14,13 +14,22 @@ export default function Navigation() {
   };
 
   const smoothScrollTo = (elementId: string) => {
-    const element = document.getElementById(elementId);
-    if (element) {
-      element.scrollIntoView({
-        behavior: 'smooth',
-        block: 'start',
-        inline: 'nearest'
-      });
+    // Check if we're on the cart page or other pages without the sections
+    const currentPath = window.location.pathname;
+    
+    if (currentPath === '/cart' || currentPath === '/faq' || currentPath === '/success') {
+      // Redirect to home page first, then scroll to section
+      window.location.href = `/#${elementId}`;
+    } else {
+      // We're on the home page, scroll to the section
+      const element = document.getElementById(elementId);
+      if (element) {
+        element.scrollIntoView({
+          behavior: 'smooth',
+          block: 'start',
+          inline: 'nearest'
+        });
+      }
     }
     setIsMenuOpen(false); // Close mobile menu after clicking
   };
@@ -67,7 +76,14 @@ export default function Navigation() {
 
             {/* Desktop Navigation */}
             <div className="hidden lg:flex items-center space-x-8">
-              <button onClick={() => smoothScrollTo('home')} className="text-gray-700 hover:text-gray-900 font-medium transition-colors duration-200 relative group">
+              <button onClick={() => {
+                const currentPath = window.location.pathname;
+                if (currentPath === '/cart' || currentPath === '/faq' || currentPath === '/success') {
+                  window.location.href = '/';
+                } else {
+                  smoothScrollTo('home');
+                }
+              }} className="text-gray-700 hover:text-gray-900 font-medium transition-colors duration-200 relative group">
                 Home
                 <span className="absolute bottom-0 left-0 w-0 h-0.5 transition-all duration-200 group-hover:w-full" style={{backgroundColor: '#c89d24'}}></span>
               </button>
@@ -133,7 +149,14 @@ export default function Navigation() {
           <div className={`lg:hidden transition-all duration-300 ease-in-out ${isMenuOpen ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0 overflow-hidden'}`}>
             <div className="px-2 pt-2 pb-3 space-y-1 bg-white border-t border-gray-200 shadow-lg">
               <button
-                onClick={() => smoothScrollTo('home')}
+                onClick={() => {
+                  const currentPath = window.location.pathname;
+                  if (currentPath === '/cart' || currentPath === '/faq' || currentPath === '/success') {
+                    window.location.href = '/';
+                  } else {
+                    smoothScrollTo('home');
+                  }
+                }}
                 className="block w-full text-left px-4 py-3 text-base font-medium text-gray-700 hover:text-yellow-600 hover:bg-yellow-50 rounded-lg transition-all duration-200"
               >
                 Home

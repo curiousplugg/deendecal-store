@@ -452,8 +452,8 @@ export default function Home() {
               <h3>DeenDecal</h3>
               <p>Express your faith with beautifully crafted Islamic car emblems. Premium quality, easy installation, and designed to last.</p>
               <div className="social-links">
-                <a href="#"><i className="fab fa-instagram"></i></a>
-                <a href="#"><i className="fab fa-tiktok"></i></a>
+                <a href="https://www.instagram.com/deendecal/" target="_blank" rel="noopener noreferrer"><i className="fab fa-instagram"></i></a>
+                <a href="https://www.tiktok.com/@deendecal" target="_blank" rel="noopener noreferrer"><i className="fab fa-tiktok"></i></a>
               </div>
             </div>
             <div className="footer-section">

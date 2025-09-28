@@ -1,12 +1,12 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { stripe } from '@/lib/stripe';
 
-// Stripe price IDs for each color variant (LIVE MODE) - Correct IDs from Stripe CLI
+// Stripe price IDs for each color variant (LIVE MODE) - Separate products for each color
 const PRICE_IDS = {
-  'Gold': 'price_1SBkbeBJjaZO6BBgJD1bAJvt',
-  'Black': 'price_1SBkbeBJjaZO6BBgkuwcTysc', 
-  'Red': 'price_1SBkbeBJjaZO6BBgUjC7X59s',
-  'Silver': 'price_1SBkbeBJjaZO6BBgbNls06pg'
+  'Gold': 'price_1SCDmMBJjaZO6BBglBDEdWpB',
+  'Black': 'price_1SCDmNBJjaZO6BBgwmbOsk9g', 
+  'Red': 'price_1SCDmNBJjaZO6BBgwejHag8d',
+  'Silver': 'price_1SCDmOBJjaZO6BBgFh2xylqB'
 };
 
 interface CartItem {
@@ -55,7 +55,7 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: 'No items provided for checkout' }, { status: 400 });
     }
 
-    // Create line items for Stripe
+    // Create line items for Stripe with custom product information
     const lineItems = items.map((item: CartItem) => {
       const priceId = PRICE_IDS[item.selectedColor as keyof typeof PRICE_IDS] || PRICE_IDS['Gold'];
       console.log(`🎨 Color: ${item.selectedColor}, Price ID: ${priceId}, Quantity: ${item.quantity}`);
@@ -71,6 +71,11 @@ export async function POST(req: NextRequest) {
       return {
         price: priceId,
         quantity: item.quantity,
+        adjustable_quantity: {
+          enabled: true,
+          minimum: 1,
+          maximum: 10,
+        },
       };
     });
     
@@ -88,18 +93,50 @@ export async function POST(req: NextRequest) {
       cancelUrl
     });
     
+    // Create metadata with product information for Stripe
+    const metadata = {
+      cart_items: JSON.stringify(items.map(item => ({
+        name: item.name,
+        color: item.selectedColor,
+        image: item.image,
+        quantity: item.quantity,
+        price: item.price
+      }))),
+      total_items: items.reduce((sum, item) => sum + item.quantity, 0).toString(),
+      colors: items.map(item => item.selectedColor).join(', ')
+    };
+
     console.log('🛒 Creating Stripe session with:', {
       line_items: lineItems,
       success_url: successUrl,
-      cancel_url: cancelUrl
+      cancel_url: cancelUrl,
+      metadata: metadata
     });
-    
+
     const session = await stripe.checkout.sessions.create({
       payment_method_types: ['card'],
       line_items: lineItems,
       mode: 'payment',
       success_url: successUrl,
       cancel_url: cancelUrl,
+      metadata: metadata,
+      custom_fields: [
+        {
+          key: 'special_instructions',
+          label: {
+            type: 'custom',
+            custom: 'Special Instructions (Optional)'
+          },
+          type: 'text',
+          optional: true
+        }
+      ],
+      shipping_address_collection: {
+        allowed_countries: ['US', 'CA', 'GB', 'AU', 'DE', 'FR', 'IT', 'ES', 'NL', 'BE', 'AT', 'CH', 'SE', 'NO', 'DK', 'FI', 'IE', 'PT', 'LU', 'MT', 'CY', 'EE', 'LV', 'LT', 'SI', 'SK', 'CZ', 'HU', 'PL', 'RO', 'BG', 'HR', 'GR']
+      },
+      phone_number_collection: {
+        enabled: true
+      }
     });
 
     console.log('✅ Checkout session created:', session.id);
