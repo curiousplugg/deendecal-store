@@ -74,9 +74,17 @@ export default function RootLayout({
     <html lang="en">
       <head>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+        <link rel="icon" href="/favicon.ico" sizes="any" />
         <link rel="icon" href="/DDlogo.png" type="image/png" />
-        <link rel="shortcut icon" href="/DDlogo.png" type="image/png" />
+        <link rel="shortcut icon" href="/favicon.ico" />
         <link rel="apple-touch-icon" href="/DDlogo.png" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/DDlogo.png" />
+        <link rel="icon" type="image/png" sizes="16x16" href="/DDlogo.png" />
+        <link rel="icon" type="image/png" sizes="192x192" href="/DDlogo.png" />
+        <link rel="icon" type="image/png" sizes="512x512" href="/DDlogo.png" />
+        <meta name="msapplication-TileImage" content="/DDlogo.png" />
+        <meta name="msapplication-TileColor" content="#000000" />
+        <meta name="theme-color" content="#000000" />
       </head>
       <body className={inter.className}>
         <CartProvider>
