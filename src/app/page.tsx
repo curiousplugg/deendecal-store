@@ -13,6 +13,7 @@ export default function Home() {
   const [quantity, setQuantity] = useState(1);
   const [currentImage, setCurrentImage] = useState('/images/goldIndy.jpg');
   const [currentVideo, setCurrentVideo] = useState<string | null>(null);
+  const [showCartNotification, setShowCartNotification] = useState(false);
 
   const product = products[0]; // Single product
 
@@ -43,6 +44,12 @@ export default function Home() {
     for (let i = 0; i < quantity; i++) {
       addItem(productToAdd);
     }
+    
+    // Show notification
+    setShowCartNotification(true);
+    setTimeout(() => {
+      setShowCartNotification(false);
+    }, 3000); // Hide after 3 seconds
   };
 
   const structuredData = {
@@ -336,6 +343,16 @@ export default function Home() {
                   Wishlist
                 </button>
               </div>
+
+              {/* Cart Notification */}
+              {showCartNotification && (
+                <div className="cart-notification">
+                  <div className="notification-content">
+                    <i className="fas fa-check-circle"></i>
+                    <span>Item added to cart successfully!</span>
+                  </div>
+                </div>
+              )}
 
               <div className="payment-methods">
                 <p>We accept all major payment methods</p>
