@@ -369,7 +369,19 @@ export default function Home() {
                     </div>
                     <div className="shipping-countries-grid">
                       <div className="country-group">
-                        <h4>🇺🇸 Americas</h4>
+                        <h4>🌍 Middle East & Africa</h4>
+                        <div className="countries-list">
+                          <span>UAE</span>
+                          <span>Saudi Arabia</span>
+                          <span>South Africa</span>
+                          <span>Nigeria</span>
+                          <span>Egypt</span>
+                          <span>Pakistan</span>
+                          <span>Panama</span>
+                        </div>
+                      </div>
+                      <div className="country-group">
+                        <h4>🌍 Americas</h4>
                         <div className="countries-list">
                           <span>United States</span>
                           <span>Canada</span>
@@ -388,7 +400,7 @@ export default function Home() {
                         </div>
                       </div>
                       <div className="country-group">
-                        <h4>🇪🇺 Europe</h4>
+                        <h4>🌍 Europe</h4>
                         <div className="countries-list">
                           <span>United Kingdom</span>
                           <span>Germany</span>
@@ -423,7 +435,7 @@ export default function Home() {
                         </div>
                       </div>
                       <div className="country-group">
-                        <h4>🌏 Asia-Pacific</h4>
+                        <h4>🌍 Asia-Pacific</h4>
                         <div className="countries-list">
                           <span>Australia</span>
                           <span>Japan</span>
@@ -437,18 +449,6 @@ export default function Home() {
                           <span>Papua New Guinea</span>
                           <span>Vanuatu</span>
                           <span>Solomon Islands</span>
-                        </div>
-                      </div>
-                      <div className="country-group">
-                        <h4>🌍 Middle East & Africa</h4>
-                        <div className="countries-list">
-                          <span>UAE</span>
-                          <span>Saudi Arabia</span>
-                          <span>South Africa</span>
-                          <span>Nigeria</span>
-                          <span>Egypt</span>
-                          <span>Pakistan</span>
-                          <span>Panama</span>
                         </div>
                       </div>
                     </div>
