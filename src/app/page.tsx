@@ -200,7 +200,7 @@ export default function Home() {
                     <div className="thumbnail-label">{color}</div>
                   </div>
                 ))}
-                <div className="thumbnail" onClick={() => handleVideoSelect('/videos/tiktok_20250926_115253.mp4')}>
+                <div className="thumbnail thumbnail-video" onClick={() => handleVideoSelect('/videos/tiktok_20250926_115253.mp4')}>
                   <video
                     src="/videos/tiktok_20250926_115253.mp4"
                     className="thumbnail-video"
@@ -208,10 +208,11 @@ export default function Home() {
                     loop
                     playsInline
                     preload="metadata"
+                    poster="/images/video_installation_thumb.jpg"
                   />
                   <div className="thumbnail-label">Installation</div>
                 </div>
-                <div className="thumbnail" onClick={() => handleVideoSelect('/videos/tiktok_20250926_120529.mp4')}>
+                <div className="thumbnail thumbnail-video" onClick={() => handleVideoSelect('/videos/tiktok_20250926_120529.mp4')}>
                   <video
                     src="/videos/tiktok_20250926_120529.mp4"
                     className="thumbnail-video"
@@ -219,10 +220,11 @@ export default function Home() {
                     loop
                     playsInline
                     preload="metadata"
+                    poster="/images/video_application_thumb.jpg"
                   />
                   <div className="thumbnail-label">Application</div>
                 </div>
-                <div className="thumbnail" onClick={() => handleVideoSelect('/videos/tiktok_20250926_120542.mp4')}>
+                <div className="thumbnail thumbnail-video" onClick={() => handleVideoSelect('/videos/tiktok_20250926_120542.mp4')}>
                   <video
                     src="/videos/tiktok_20250926_120542.mp4"
                     className="thumbnail-video"
@@ -230,6 +232,7 @@ export default function Home() {
                     loop
                     playsInline
                     preload="metadata"
+                    poster="/images/video_final_thumb.jpg"
                   />
                   <div className="thumbnail-label">Final Result</div>
                 </div>

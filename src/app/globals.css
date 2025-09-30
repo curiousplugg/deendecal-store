@@ -590,7 +590,13 @@ nav {
 
 /* Make play button always visible on mobile devices */
 @media (max-width: 768px) {
-  .thumbnail::before {
+  /* Hide play button for product thumbnails (images) on mobile */
+  .thumbnail:not(.thumbnail-video)::before {
+    display: none;
+  }
+  
+  /* Keep play button for video thumbnails only */
+  .thumbnail-video::before {
     opacity: 1;
     background: rgba(0, 0, 0, 0.8);
     width: 30px;
@@ -598,7 +604,7 @@ nav {
     font-size: 14px;
   }
   
-  .thumbnail:hover::before {
+  .thumbnail-video:hover::before {
     opacity: 1;
   }
   
@@ -1859,6 +1865,13 @@ nav button:hover {
     width: 100%;
     max-width: 100%;
   }
+  
+  /* Override padding for thumbnail gallery to start from left edge */
+  .product-layout .thumbnail-gallery {
+    margin-left: -1.5rem;
+    padding-left: 1.5rem;
+    width: calc(100% + 3rem);
+  }
 
   .product-gallery {
     position: static;
@@ -1875,13 +1888,17 @@ nav button:hover {
   }
 
   .thumbnail-gallery {
-    justify-content: center;
-    padding: 1rem 0;
+    justify-content: flex-start;
+    padding: 1rem 0 1rem 0;
     width: 100%;
     overflow-x: auto;
     display: flex;
     gap: 0.5rem;
     flex-wrap: nowrap;
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+    margin-left: 0;
+    padding-left: 0;
   }
 
   .thumbnail {
