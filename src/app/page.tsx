@@ -367,6 +367,9 @@ export default function Home() {
                         <i className="fas fa-times"></i>
                       </button>
                     </div>
+                    <div className="shipping-popup-message">
+                      <p>🚚 Free shipping on all orders worldwide!</p>
+                    </div>
                     <div className="shipping-countries-grid">
                       <div className="country-group">
                         <h4>🌍 Middle East & Africa</h4>
@@ -451,9 +454,6 @@ export default function Home() {
                           <span>Solomon Islands</span>
                         </div>
                       </div>
-                    </div>
-                    <div className="shipping-popup-footer">
-                      <p>🚚 Free shipping on all orders worldwide!</p>
                     </div>
                   </div>
                 </div>

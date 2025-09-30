@@ -1128,6 +1128,20 @@ nav {
   color: var(--text-dark);
 }
 
+.shipping-popup-message {
+  padding: 1rem 2rem;
+  text-align: center;
+  background: linear-gradient(135deg, var(--light-gray), var(--white));
+  border-bottom: 2px solid var(--light-gray);
+}
+
+.shipping-popup-message p {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--primary-gold);
+  margin: 0;
+}
+
 .shipping-countries-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
