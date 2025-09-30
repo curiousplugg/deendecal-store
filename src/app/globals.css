@@ -558,6 +558,7 @@ nav {
   transition: all 0.3s ease;
   border: 2px solid var(--primary-gold);
   position: relative;
+  display: block;
 }
 
 .thumbnail-video:hover {
