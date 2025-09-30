@@ -13,6 +13,7 @@ export default function Home() {
   const [currentImage, setCurrentImage] = useState('/images/goldIndy.jpg');
   const [currentVideo, setCurrentVideo] = useState<string | null>(null);
   const [showCartNotification, setShowCartNotification] = useState(false);
+  const [showShippingPopup, setShowShippingPopup] = useState(false);
 
   const product = products[0]; // Single product
 
@@ -340,9 +341,9 @@ export default function Home() {
                   <i className="fas fa-shopping-cart"></i>
                   Add to Cart - ${(product.price * quantity).toFixed(2)}
                 </button>
-                <button className="wishlist-btn">
-                  <i className="fas fa-heart"></i>
-                  Wishlist
+                <button className="shipping-countries-btn" onClick={() => setShowShippingPopup(true)}>
+                  <i className="fas fa-globe"></i>
+                  Shipping Countries
                 </button>
               </div>
 
@@ -352,6 +353,108 @@ export default function Home() {
                   <div className="notification-content">
                     <i className="fas fa-check-circle"></i>
                     <span>Item added to cart successfully!</span>
+                  </div>
+                </div>
+              )}
+
+              {/* Shipping Countries Popup */}
+              {showShippingPopup && (
+                <div className="shipping-popup-overlay" onClick={() => setShowShippingPopup(false)}>
+                  <div className="shipping-popup" onClick={(e) => e.stopPropagation()}>
+                    <div className="shipping-popup-header">
+                      <h3>🌍 Countries We Ship To</h3>
+                      <button className="close-btn" onClick={() => setShowShippingPopup(false)}>
+                        <i className="fas fa-times"></i>
+                      </button>
+                    </div>
+                    <div className="shipping-countries-grid">
+                      <div className="country-group">
+                        <h4>🇺🇸 Americas</h4>
+                        <div className="countries-list">
+                          <span>United States</span>
+                          <span>Canada</span>
+                          <span>Mexico</span>
+                          <span>Brazil</span>
+                          <span>Argentina</span>
+                          <span>Chile</span>
+                          <span>Colombia</span>
+                          <span>Jamaica</span>
+                          <span>Trinidad & Tobago</span>
+                          <span>Barbados</span>
+                          <span>Bahamas</span>
+                          <span>Dominican Republic</span>
+                          <span>Haiti</span>
+                          <span>Puerto Rico</span>
+                        </div>
+                      </div>
+                      <div className="country-group">
+                        <h4>🇪🇺 Europe</h4>
+                        <div className="countries-list">
+                          <span>United Kingdom</span>
+                          <span>Germany</span>
+                          <span>France</span>
+                          <span>Italy</span>
+                          <span>Spain</span>
+                          <span>Netherlands</span>
+                          <span>Belgium</span>
+                          <span>Austria</span>
+                          <span>Switzerland</span>
+                          <span>Sweden</span>
+                          <span>Norway</span>
+                          <span>Denmark</span>
+                          <span>Finland</span>
+                          <span>Ireland</span>
+                          <span>Portugal</span>
+                          <span>Luxembourg</span>
+                          <span>Malta</span>
+                          <span>Cyprus</span>
+                          <span>Estonia</span>
+                          <span>Latvia</span>
+                          <span>Lithuania</span>
+                          <span>Slovenia</span>
+                          <span>Slovakia</span>
+                          <span>Czech Republic</span>
+                          <span>Hungary</span>
+                          <span>Poland</span>
+                          <span>Romania</span>
+                          <span>Bulgaria</span>
+                          <span>Croatia</span>
+                          <span>Greece</span>
+                        </div>
+                      </div>
+                      <div className="country-group">
+                        <h4>🌏 Asia-Pacific</h4>
+                        <div className="countries-list">
+                          <span>Australia</span>
+                          <span>Japan</span>
+                          <span>South Korea</span>
+                          <span>Singapore</span>
+                          <span>Hong Kong</span>
+                          <span>New Zealand</span>
+                          <span>Malaysia</span>
+                          <span>Thailand</span>
+                          <span>Philippines</span>
+                          <span>Papua New Guinea</span>
+                          <span>Vanuatu</span>
+                          <span>Solomon Islands</span>
+                        </div>
+                      </div>
+                      <div className="country-group">
+                        <h4>🌍 Middle East & Africa</h4>
+                        <div className="countries-list">
+                          <span>UAE</span>
+                          <span>Saudi Arabia</span>
+                          <span>South Africa</span>
+                          <span>Nigeria</span>
+                          <span>Egypt</span>
+                          <span>Pakistan</span>
+                          <span>Panama</span>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="shipping-popup-footer">
+                      <p>🚚 Free shipping on all orders worldwide!</p>
+                    </div>
                   </div>
                 </div>
               )}
