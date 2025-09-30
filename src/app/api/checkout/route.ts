@@ -114,7 +114,6 @@ export async function POST(req: NextRequest) {
     });
 
     const session = await stripe.checkout.sessions.create({
-      payment_method_types: ['card'],
       line_items: lineItems,
       mode: 'payment',
       success_url: successUrl,
@@ -137,7 +136,7 @@ export async function POST(req: NextRequest) {
       phone_number_collection: {
         enabled: true
       }
-    });
+    } as any);
 
     console.log('✅ Checkout session created:', session.id);
     return NextResponse.json({ sessionId: session.id });
