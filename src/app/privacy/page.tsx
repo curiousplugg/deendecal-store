@@ -100,13 +100,13 @@ export default function PrivacyPage() {
           </div>
 
           <div className="privacy-section">
-            <h2>8. Children's Privacy</h2>
+            <h2>8. Children&apos;s Privacy</h2>
             <p>Our services are not directed to children under 13. We do not knowingly collect personal information from children under 13.</p>
           </div>
 
           <div className="privacy-section">
             <h2>9. Changes to This Policy</h2>
-            <p>We may update this Privacy Policy from time to time. We will notify you of any changes by posting the new Privacy Policy on this page and updating the "Last updated" date.</p>
+            <p>We may update this Privacy Policy from time to time. We will notify you of any changes by posting the new Privacy Policy on this page and updating the &quot;Last updated&quot; date.</p>
           </div>
 
           <div className="privacy-section">

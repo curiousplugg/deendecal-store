@@ -52,11 +52,11 @@ export default function FAQPage() {
             <h2>How We Operate</h2>
             <div className="faq-item">
               <h3>How does DeenDecal work?</h3>
-              <p>We act as a trusted middleman, working directly with suppliers worldwide to bring you authentic Islamic car decals. We don't maintain our own warehouse inventory, but instead work closely with our suppliers to ensure you receive high-quality products at competitive prices.</p>
+              <p>We act as a trusted middleman, working directly with suppliers worldwide to bring you authentic Islamic car decals. We don&apos;t maintain our own warehouse inventory, but instead work closely with our suppliers to ensure you receive high-quality products at competitive prices.</p>
             </div>
             <div className="faq-item">
               <h3>Why do you operate this way?</h3>
-              <p>This model allows us to offer you the best prices while maintaining quality standards. We're transparent about this because we believe in honest business practices and want you to know exactly how we bring these products to you.</p>
+              <p>This model allows us to offer you the best prices while maintaining quality standards. We&apos;re transparent about this because we believe in honest business practices and want you to know exactly how we bring these products to you.</p>
             </div>
             <div className="faq-item">
               <h3>Does this affect product quality?</h3>

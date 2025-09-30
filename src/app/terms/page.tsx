@@ -31,7 +31,7 @@ export default function TermsPage() {
           
           <div className="terms-section">
             <h2>1. Acceptance of Terms</h2>
-            <p>By accessing and using DeenDecal.com ("the Website") and purchasing our products, you accept and agree to be bound by the terms and provision of this agreement.</p>
+            <p>By accessing and using DeenDecal.com (&quot;the Website&quot;) and purchasing our products, you accept and agree to be bound by the terms and provision of this agreement.</p>
           </div>
 
           <div className="terms-section">
@@ -64,7 +64,7 @@ export default function TermsPage() {
             <h2>5. Shipping and Delivery</h2>
             <p><strong>Shipping Times:</strong> Orders typically ship within 1-2 business days and arrive within 2-3 weeks worldwide.</p>
             <p><strong>Free Shipping:</strong> We offer free shipping on all orders with no minimum purchase required.</p>
-            <p><strong>International Shipping:</strong> We ship worldwide. International orders may be subject to customs duties and taxes, which are the customer's responsibility.</p>
+            <p><strong>International Shipping:</strong> We ship worldwide. International orders may be subject to customs duties and taxes, which are the customer&apos;s responsibility.</p>
             <p><strong>Tracking:</strong> You will receive tracking information via email once your order ships.</p>
             <p><strong>Delivery Issues:</strong> If you experience delivery issues, please contact us immediately at deendecal@gmail.com.</p>
           </div>
@@ -72,9 +72,9 @@ export default function TermsPage() {
           <div className="terms-section">
             <h2>6. Returns and Refunds</h2>
             <p><strong>Return Policy:</strong> We offer money-back guarantees, but you must email us with your reasoning for the return. Please contact us at deendecal@gmail.com with your order number and reason for return.</p>
-            <p><strong>Damaged Items:</strong> If your decal arrives damaged, please contact us immediately with photos of the damage. We'll send you a replacement free of charge.</p>
+            <p><strong>Damaged Items:</strong> If your decal arrives damaged, please contact us immediately with photos of the damage. We&apos;ll send you a replacement free of charge.</p>
             <p><strong>Refund Processing:</strong> Approved refunds will be processed within 5-10 business days to your original payment method.</p>
-            <p><strong>Return Shipping:</strong> Return shipping costs are the customer's responsibility unless the item was damaged or defective.</p>
+            <p><strong>Return Shipping:</strong> Return shipping costs are the customer&apos;s responsibility unless the item was damaged or defective.</p>
           </div>
 
           <div className="terms-section">

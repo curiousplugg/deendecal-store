@@ -1,6 +1,6 @@
-import { NextRequest, NextResponse } from 'next/server';
+import { NextResponse } from 'next/server';
 
-export async function GET(req: NextRequest) {
+export async function GET() {
   return NextResponse.json({
     environment: process.env.NODE_ENV,
     hasStripeKey: !!process.env.STRIPE_SECRET_KEY,
