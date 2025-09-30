@@ -96,7 +96,7 @@ export async function POST(req: NextRequest) {
     // Create metadata with product information for Stripe
     const metadata = {
       cart_items: JSON.stringify(items.map(item => ({
-        name: item.name.substring(0, 50), // Limit name length
+        name: "Shahada Decal", // Short name
         color: item.selectedColor,
         quantity: item.quantity,
         price: item.price
