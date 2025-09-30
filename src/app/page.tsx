@@ -430,6 +430,9 @@ export default function Home() {
                   </div>
                 </div>
               </div>
+              <div className="about-transparency">
+                <p>If you're curious about how we operate and want to learn more about our business practices, you can <a href="/faq#how-we-operate">read about our operations here</a>.</p>
+              </div>
             </div>
             <div className="about-img-container">
               <Image

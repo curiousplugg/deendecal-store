@@ -1,6 +1,7 @@
 import React from 'react';
 import Link from 'next/link';
 import type { Metadata } from 'next';
+import Navigation from '@/components/Navigation';
 
 export const metadata: Metadata = {
   title: "FAQ - Shahada Car Decals | Islamic Car Emblems | DeenDecal",
@@ -21,50 +22,7 @@ export const metadata: Metadata = {
 export default function FAQPage() {
   return (
     <div className="min-h-screen bg-white">
-      {/* Header */}
-      <header className="header">
-        <div className="header-top">
-          <div className="container">
-            <div className="header-top-content">
-              <div className="promo-banner">
-                <i className="fas fa-gift"></i>
-                <span>Free shipping on all orders!</span>
-              </div>
-              <div className="header-top-links">
-                <a href="#">Track Order</a>
-                <a href="#">Help</a>
-                <a href="#">Contact</a>
-              </div>
-            </div>
-          </div>
-        </div>
-        <nav className="main-nav">
-          <div className="container">
-            <div className="nav-content">
-              <div className="logo">
-                <Link href="/">
-                  <h1>DeenDecal</h1>
-                  <p className="tagline">Express Your Faith</p>
-                </Link>
-              </div>
-              <div className="nav-links">
-                <Link href="/#home">Home</Link>
-                <Link href="/#product">Product</Link>
-                <Link href="/#installation">Installation</Link>
-                <Link href="/#about">About</Link>
-                <Link href="/#contact">Contact</Link>
-              </div>
-              <div className="nav-actions">
-                <Link href="/cart" className="cart-btn">
-                  <i className="fas fa-shopping-cart"></i>
-                  <span>Cart</span>
-                  <span className="cart-count">0</span>
-                </Link>
-              </div>
-            </div>
-          </div>
-        </nav>
-      </header>
+      <Navigation />
 
       <div className="container" style={{ paddingTop: '8rem' }}>
         <div className="faq-container">
@@ -87,6 +45,26 @@ export default function FAQPage() {
             <div className="faq-item">
               <h3>How can I track my order?</h3>
               <p>Once your order ships, you&apos;ll receive a tracking number via email. You can track your package using the provided tracking number.</p>
+            </div>
+          </div>
+
+          <div className="faq-section" id="how-we-operate">
+            <h2>How We Operate</h2>
+            <div className="faq-item">
+              <h3>How does DeenDecal work?</h3>
+              <p>We act as a trusted middleman, working directly with suppliers worldwide to bring you authentic Islamic car decals. We don't maintain our own warehouse inventory, but instead work closely with our suppliers to ensure you receive high-quality products at competitive prices.</p>
+            </div>
+            <div className="faq-item">
+              <h3>Why do you operate this way?</h3>
+              <p>This model allows us to offer you the best prices while maintaining quality standards. We're transparent about this because we believe in honest business practices and want you to know exactly how we bring these products to you.</p>
+            </div>
+            <div className="faq-item">
+              <h3>Does this affect product quality?</h3>
+              <p>Not at all. We carefully vet all our suppliers and maintain strict quality standards. Every product goes through our quality assurance process before reaching you.</p>
+            </div>
+            <div className="faq-item">
+              <h3>How do you ensure quality control?</h3>
+              <p>We work only with trusted suppliers who meet our strict quality standards. Every order is processed through our quality assurance system, and we handle all customer service to ensure your satisfaction.</p>
             </div>
           </div>
 
@@ -180,6 +158,7 @@ export default function FAQPage() {
               <ul>
                 <li><Link href="/faq">Shipping & Returns</Link></li>
                 <li><Link href="/faq">FAQ</Link></li>
+                <li><Link href="/faq#how-we-operate">How We Operate</Link></li>
               </ul>
             </div>
           </div>

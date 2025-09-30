@@ -1145,6 +1145,33 @@ nav {
   background: var(--white);
 }
 
+.about-transparency {
+  margin-top: 2rem;
+  padding: 1.5rem;
+  background: rgba(200, 157, 36, 0.1);
+  border-left: 4px solid var(--primary-gold);
+  border-radius: 8px;
+}
+
+.about-transparency p {
+  margin: 0;
+  color: var(--text-dark);
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+.about-transparency a {
+  color: var(--primary-gold);
+  text-decoration: none;
+  font-weight: 600;
+  transition: color 0.3s ease;
+}
+
+.about-transparency a:hover {
+  color: var(--secondary-gold);
+  text-decoration: underline;
+}
+
 .about-content {
   display: grid;
   grid-template-columns: 1fr 1fr;
