@@ -1,6 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { stripe } from '@/lib/stripe';
-import Stripe from 'stripe';
 
 // Stripe price IDs for each color variant (LIVE MODE) - Separate products for each color
 const PRICE_IDS = {
@@ -114,9 +113,9 @@ export async function POST(req: NextRequest) {
       metadata: metadata
     });
 
-    const session = await stripe.checkout.sessions.create({
+    const sessionParams = {
       line_items: lineItems,
-      mode: 'payment',
+      mode: 'payment' as const,
       success_url: successUrl,
       cancel_url: cancelUrl,
       metadata: metadata,
@@ -124,20 +123,23 @@ export async function POST(req: NextRequest) {
         {
           key: 'special_instructions',
           label: {
-            type: 'custom',
+            type: 'custom' as const,
             custom: 'Special Instructions (Optional)'
           },
-          type: 'text',
+          type: 'text' as const,
           optional: true
         }
       ],
       shipping_address_collection: {
-        allowed_countries: ['US', 'CA', 'GB', 'AU', 'DE', 'FR', 'IT', 'ES', 'NL', 'BE', 'AT', 'CH', 'SE', 'NO', 'DK', 'FI', 'IE', 'PT', 'LU', 'MT', 'CY', 'EE', 'LV', 'LT', 'SI', 'SK', 'CZ', 'HU', 'PL', 'RO', 'BG', 'HR', 'GR', 'JP', 'KR', 'SG', 'HK', 'NZ', 'MY', 'TH', 'PH', 'AE', 'SA', 'ZA', 'NG', 'EG', 'MX', 'BR', 'AR', 'CL', 'CO', 'JM', 'TT', 'BB', 'BS', 'DO', 'HT', 'PR', 'VI', 'IS', 'FJ', 'PG', 'VU', 'SB', 'PK', 'PA', 'PY', 'PS', 'PW']
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        allowed_countries: ['US', 'CA', 'GB', 'AU', 'DE', 'FR', 'IT', 'ES', 'NL', 'BE', 'AT', 'CH', 'SE', 'NO', 'DK', 'FI', 'IE', 'PT', 'LU', 'MT', 'CY', 'EE', 'LV', 'LT', 'SI', 'SK', 'CZ', 'HU', 'PL', 'RO', 'BG', 'HR', 'GR', 'JP', 'KR', 'SG', 'HK', 'NZ', 'MY', 'TH', 'PH', 'AE', 'SA', 'ZA', 'NG', 'EG', 'MX', 'BR', 'AR', 'CL', 'CO', 'JM', 'TT', 'BB', 'BS', 'DO', 'HT', 'PR', 'VI', 'IS', 'FJ', 'PG', 'VU', 'SB', 'PK', 'PA', 'PY', 'PS', 'PW'] as any
       },
       phone_number_collection: {
         enabled: true
       }
-    } as Stripe.Checkout.SessionCreateParams);
+    };
+
+    const session = await stripe.checkout.sessions.create(sessionParams);
 
     console.log('✅ Checkout session created:', session.id);
     return NextResponse.json({ sessionId: session.id });
