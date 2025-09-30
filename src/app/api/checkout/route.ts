@@ -131,7 +131,7 @@ export async function POST(req: NextRequest) {
         }
       ],
       shipping_address_collection: {
-        allowed_countries: ['US', 'CA', 'GB', 'AU', 'DE', 'FR', 'IT', 'ES', 'NL', 'BE', 'AT', 'CH', 'SE', 'NO', 'DK', 'FI', 'IE', 'PT', 'LU', 'MT', 'CY', 'EE', 'LV', 'LT', 'SI', 'SK', 'CZ', 'HU', 'PL', 'RO', 'BG', 'HR', 'GR', 'JP', 'KR', 'SG', 'HK', 'NZ', 'MY', 'TH', 'PH', 'AE', 'SA', 'ZA', 'NG', 'EG', 'MX', 'BR', 'AR', 'CL', 'CO', 'JM', 'TT', 'BB', 'BS', 'DO', 'HT', 'PR', 'VI', 'IS', 'FJ', 'PG', 'VU', 'SB', 'PK', 'PA', 'PY', 'PW']
+        allowed_countries: ['US', 'CA', 'GB', 'AU', 'DE', 'FR', 'IT', 'ES', 'NL', 'BE', 'AT', 'CH', 'SE', 'NO', 'DK', 'FI', 'IE', 'PT', 'LU', 'MT', 'CY', 'EE', 'LV', 'LT', 'SI', 'SK', 'CZ', 'HU', 'PL', 'RO', 'BG', 'HR', 'GR', 'JP', 'KR', 'SG', 'HK', 'NZ', 'MY', 'TH', 'PH', 'AE', 'SA', 'ZA', 'NG', 'EG', 'MX', 'BR', 'AR', 'CL', 'CO', 'JM', 'TT', 'BB', 'BS', 'DO', 'HT', 'PR', 'VI', 'IS', 'FJ', 'PG', 'VU', 'SB', 'PK', 'PA', 'PY']
       },
       phone_number_collection: {
         enabled: true
