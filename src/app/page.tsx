@@ -490,10 +490,12 @@ export default function Home() {
               </ul>
             </div>
             <div className="footer-section">
-              <h4>FAQ (Shipping Info)</h4>
+              <h4>Legal</h4>
               <ul>
-                <li><a href="/faq">Shipping & Returns</a></li>
+                <li><a href="/privacy">Privacy Policy</a></li>
+                <li><a href="/terms">Terms of Service</a></li>
                 <li><a href="/faq">FAQ</a></li>
+                <li><a href="/faq#how-we-operate">How We Operate</a></li>
               </ul>
             </div>
           </div>

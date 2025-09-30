@@ -154,9 +154,10 @@ export default function FAQPage() {
               </ul>
             </div>
             <div className="footer-section">
-              <h4>FAQ (Shipping Info)</h4>
+              <h4>Legal</h4>
               <ul>
-                <li><Link href="/faq">Shipping & Returns</Link></li>
+                <li><Link href="/privacy">Privacy Policy</Link></li>
+                <li><Link href="/terms">Terms of Service</Link></li>
                 <li><Link href="/faq">FAQ</Link></li>
                 <li><Link href="/faq#how-we-operate">How We Operate</Link></li>
               </ul>
