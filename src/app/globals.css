@@ -530,7 +530,7 @@ nav {
   overflow: hidden;
   cursor: pointer;
   transition: var(--transition);
-  border: 2px solid transparent;
+  border: 2px solid var(--primary-gold);
   position: relative;
 }
 
@@ -556,6 +556,8 @@ nav {
   border-radius: 8px;
   cursor: pointer;
   transition: all 0.3s ease;
+  border: 2px solid var(--primary-gold);
+  position: relative;
 }
 
 .thumbnail-video:hover {
@@ -563,28 +565,48 @@ nav {
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
 }
 
+/* Desktop video thumbnails - add VIDEO badge and play icon */
+.thumbnail-video::after {
+  content: 'VIDEO';
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  background: var(--primary-gold);
+  color: white;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-size: 10px;
+  font-weight: 600;
+  z-index: 3;
+  opacity: 1;
+}
 
-.thumbnail::before {
+.thumbnail-video::before {
   content: '▶';
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  background: rgba(0, 0, 0, 0.7);
+  background: rgba(0, 0, 0, 0.8);
   color: white;
-  width: 40px;
-  height: 40px;
+  width: 30px;
+  height: 30px;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 16px;
+  font-size: 14px;
   z-index: 2;
-  opacity: 0;
-  transition: opacity 0.3s ease;
+  opacity: 1;
 }
 
-.thumbnail:hover::before {
+
+/* Hide play button for image thumbnails on desktop */
+.thumbnail:not(.thumbnail-video)::before {
+  display: none;
+}
+
+.thumbnail-video:hover::before {
   opacity: 1;
 }
 
