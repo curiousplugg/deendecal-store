@@ -136,7 +136,7 @@ export async function POST(req: NextRequest) {
       phone_number_collection: {
         enabled: true
       }
-    });
+    } as Parameters<typeof stripe.checkout.sessions.create>[0]);
 
     console.log('✅ Checkout session created:', session.id);
     return NextResponse.json({ sessionId: session.id });
