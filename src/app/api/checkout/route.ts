@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { stripe } from '@/lib/stripe';
+import Stripe from 'stripe';
 
 // Stripe price IDs for each color variant (LIVE MODE) - Separate products for each color
 const PRICE_IDS = {
@@ -114,7 +115,6 @@ export async function POST(req: NextRequest) {
     });
 
     const session = await stripe.checkout.sessions.create({
-      payment_method_types: ['card'],
       line_items: lineItems,
       mode: 'payment',
       success_url: successUrl,
@@ -137,7 +137,7 @@ export async function POST(req: NextRequest) {
       phone_number_collection: {
         enabled: true
       }
-    });
+    } as Stripe.Checkout.SessionCreateParams);
 
     console.log('✅ Checkout session created:', session.id);
     return NextResponse.json({ sessionId: session.id });
