@@ -263,7 +263,7 @@ export default function Home() {
                 </div>
                 <div className="shipping-info">
                   <i className="fas fa-truck"></i>
-                  <span>Free shipping on all orders!</span>
+                  <span>Free shipping on all orders! • 1-2 weeks delivery</span>
                 </div>
               </div>
 
@@ -369,6 +369,7 @@ export default function Home() {
                     </div>
                     <div className="shipping-popup-message">
                       <p>🚚 Free shipping on all orders worldwide!</p>
+                      <p>📦 Delivery time: 1-2 weeks</p>
                     </div>
                     <div className="shipping-countries-grid">
                       <div className="country-group">
@@ -519,7 +520,7 @@ export default function Home() {
                   </div>
                   <div className="feature-content">
                     <h4>Fast Shipping</h4>
-                    <p>Free shipping on orders over $50</p>
+                    <p>Free shipping worldwide • 1-2 weeks delivery</p>
                   </div>
                 </div>
                 <div className="feature">
