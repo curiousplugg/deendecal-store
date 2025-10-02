@@ -118,6 +118,7 @@ export async function POST(req: NextRequest) {
       success_url: successUrl,
       cancel_url: cancelUrl,
       metadata: metadata,
+      allow_promotion_codes: true, // Enable coupon codes
       custom_fields: [
         {
           key: 'special_instructions',
