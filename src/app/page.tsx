@@ -407,6 +407,11 @@ export default function Home() {
                           <span>Egypt</span>
                           <span>Pakistan</span>
                           <span>Panama</span>
+                          <span>Turkey</span>
+                          <span>Morocco</span>
+                          <span>Algeria</span>
+                          <span>Tunisia</span>
+                          <span>Kenya</span>
                         </div>
                       </div>
                       <div className="country-group">
@@ -426,6 +431,7 @@ export default function Home() {
                           <span>Dominican Republic</span>
                           <span>Haiti</span>
                           <span>Puerto Rico</span>
+                          <span>Peru</span>
                         </div>
                       </div>
                       <div className="country-group">
@@ -462,6 +468,12 @@ export default function Home() {
                           <span>Croatia</span>
                           <span>Greece</span>
                           <span>Russia</span>
+                          <span>Ukraine</span>
+                          <span>Belarus</span>
+                          <span>Moldova</span>
+                          <span>Albania</span>
+                          <span>North Macedonia</span>
+                          <span>Serbia</span>
                         </div>
                       </div>
                       <div className="country-group">
@@ -477,6 +489,15 @@ export default function Home() {
                           <span>Thailand</span>
                           <span>Philippines</span>
                           <span>India</span>
+                          <span>China</span>
+                          <span>Indonesia</span>
+                          <span>Bangladesh</span>
+                          <span>Vietnam</span>
+                          <span>Taiwan</span>
+                          <span>Sri Lanka</span>
+                          <span>Nepal</span>
+                          <span>Maldives</span>
+                          <span>Mongolia</span>
                           <span>Papua New Guinea</span>
                           <span>Vanuatu</span>
                           <span>Solomon Islands</span>
