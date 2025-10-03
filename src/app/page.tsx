@@ -2,18 +2,21 @@
 
 import React, { useState } from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
 import { products } from '@/data/products';
 import { useCart } from '@/contexts/CartContext';
 import Navigation from '@/components/Navigation';
 
 export default function Home() {
-  const { addItem } = useCart();
+  const { addItem, state } = useCart();
   const [selectedColor, setSelectedColor] = useState('Gold');
   const [quantity, setQuantity] = useState(1);
   const [currentImage, setCurrentImage] = useState('/images/goldIndy.jpg');
   const [currentVideo, setCurrentVideo] = useState<string | null>(null);
   const [showCartNotification, setShowCartNotification] = useState(false);
   const [showShippingPopup, setShowShippingPopup] = useState(false);
+  const [showCartActionPopup, setShowCartActionPopup] = useState(false);
+  const [isCartActionExiting, setIsCartActionExiting] = useState(false);
 
   const product = products[0]; // Single product
 
@@ -50,6 +53,16 @@ export default function Home() {
     setTimeout(() => {
       setShowCartNotification(false);
     }, 3000); // Hide after 3 seconds
+    
+    // Show cart action popup
+    setShowCartActionPopup(true);
+    setTimeout(() => {
+      setIsCartActionExiting(true);
+      setTimeout(() => {
+        setShowCartActionPopup(false);
+        setIsCartActionExiting(false);
+      }, 300); // Exit animation duration
+    }, 5000); // Hide after 5 seconds
   };
 
   const structuredData = {
@@ -341,6 +354,18 @@ export default function Home() {
                   <i className="fas fa-shopping-cart"></i>
                   Add to Cart - ${(product.price * quantity).toFixed(2)}
                 </button>
+                
+                {/* Cart Action Popup - Mobile: between buttons, Desktop: below both */}
+                {showCartActionPopup && (
+                  <div className={`cart-action-popup ${isCartActionExiting ? 'cart-action-exit' : ''}`}>
+                    <Link href="/cart" className="cart-action-btn">
+                      <i className="fas fa-shopping-bag"></i>
+                      <span>View Cart & Checkout</span>
+                      <i className="fas fa-arrow-right"></i>
+                    </Link>
+                  </div>
+                )}
+                
                 <button className="shipping-countries-btn" onClick={() => setShowShippingPopup(true)}>
                   <i className="fas fa-globe"></i>
                   Shipping Countries
@@ -436,6 +461,7 @@ export default function Home() {
                           <span>Bulgaria</span>
                           <span>Croatia</span>
                           <span>Greece</span>
+                          <span>Russia</span>
                         </div>
                       </div>
                       <div className="country-group">

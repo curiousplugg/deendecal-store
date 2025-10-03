@@ -1,13 +1,20 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { useCart } from '@/contexts/CartContext';
 
 export default function Navigation() {
   const { state } = useCart();
-  const totalItems = state.items.reduce((sum, item) => sum + item.quantity, 0);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isHydrated, setIsHydrated] = useState(false);
+  
+  const totalItems = state.items.reduce((sum, item) => sum + item.quantity, 0);
+
+  // Fix hydration mismatch by only showing cart count after hydration
+  useEffect(() => {
+    setIsHydrated(true);
+  }, []);
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -108,7 +115,7 @@ export default function Navigation() {
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.5 5M7 13l2.5 5" />
                 </svg>
                 <span>Cart</span>
-                {totalItems > 0 && (
+                {isHydrated && totalItems > 0 && (
                   <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs font-bold rounded-full h-6 w-6 flex items-center justify-center">
                     {totalItems}
                   </span>
@@ -123,7 +130,7 @@ export default function Navigation() {
                 <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.5 5M7 13l2.5 5" />
                 </svg>
-                {totalItems > 0 && (
+                {isHydrated && totalItems > 0 && (
                   <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center">
                     {totalItems}
                   </span>
@@ -185,7 +192,7 @@ export default function Navigation() {
                   className="block px-4 py-3 text-base font-medium text-white bg-yellow-600 hover:bg-yellow-700 rounded-lg transition-all duration-200 text-center"
                   onClick={() => setIsMenuOpen(false)}
                 >
-                  Cart {totalItems > 0 && `(${totalItems} items)`}
+                  Cart {isHydrated && totalItems > 0 && `(${totalItems} items)`}
                 </Link>
               </div>
             </div>

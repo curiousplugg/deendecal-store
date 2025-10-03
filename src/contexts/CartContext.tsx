@@ -76,16 +76,33 @@ const cartReducer = (state: CartState, action: CartAction): CartState => {
 };
 
 export const CartProvider = ({ children }: { children: ReactNode }) => {
-  const [state, dispatch] = useReducer(cartReducer, { items: [] });
+  // Initialize with cart from localStorage immediately
+  const getInitialCart = (): CartItem[] => {
+    if (typeof window !== 'undefined') {
+      const storedCart = localStorage.getItem('cart');
+      if (storedCart) {
+        try {
+          return JSON.parse(storedCart);
+        } catch (error) {
+          console.error('Error loading cart from localStorage:', error);
+        }
+      }
+    }
+    return [];
+  };
 
-  // Load cart from localStorage on initial load
+  const [state, dispatch] = useReducer(cartReducer, { items: getInitialCart() });
+
+  // Load cart from localStorage on initial load (fallback)
   useEffect(() => {
     const storedCart = localStorage.getItem('cart');
     if (storedCart) {
       try {
         const cartItems: CartItem[] = JSON.parse(storedCart);
-        // Set the cart items directly with their quantities
-        dispatch({ type: 'LOAD_CART', payload: cartItems });
+        // Only update if different from current state
+        if (JSON.stringify(cartItems) !== JSON.stringify(state.items)) {
+          dispatch({ type: 'LOAD_CART', payload: cartItems });
+        }
       } catch (error) {
         console.error('Error loading cart from localStorage:', error);
       }
