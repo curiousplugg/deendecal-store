@@ -476,6 +476,7 @@ export default function Home() {
                           <span>Malaysia</span>
                           <span>Thailand</span>
                           <span>Philippines</span>
+                          <span>India</span>
                           <span>Papua New Guinea</span>
                           <span>Vanuatu</span>
                           <span>Solomon Islands</span>
