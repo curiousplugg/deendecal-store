@@ -131,7 +131,31 @@ export async function POST(req: NextRequest) {
         }
       ],
       shipping_address_collection: {
-        allowed_countries: ['US', 'CA', 'GB', 'AU', 'DE', 'FR', 'IT', 'ES', 'NL', 'BE', 'AT', 'CH', 'SE', 'NO', 'DK', 'FI', 'IE', 'PT', 'LU', 'MT', 'CY', 'EE', 'LV', 'LT', 'SI', 'SK', 'CZ', 'HU', 'PL', 'RO', 'BG', 'HR', 'GR', 'JP', 'KR', 'SG', 'HK', 'NZ', 'MY', 'TH', 'PH', 'AE', 'SA', 'ZA', 'NG', 'EG', 'MX', 'BR', 'AR', 'CL', 'CO', 'JM', 'TT', 'BB', 'BS', 'DO', 'HT', 'PR', 'PG', 'VU', 'SB', 'PK', 'PA', 'IN', 'CN', 'ID', 'BD', 'TR', 'VN', 'KE', 'MA', 'PE', 'DZ', 'UA', 'TN', 'BY', 'MD', 'AL', 'MK', 'LK', 'RS', 'NP', 'MV', 'TW', 'MN', 'RU']
+        allowed_countries: [
+          // North America
+          'US', 'CA', 'MX', 'GT', 'BZ', 'SV', 'HN', 'NI', 'CR', 'PA', 'CU', 'DO', 'HT', 'JM', 'TT', 'BB', 'BS', 'PR', 'VI', 'GU', 'MP', 'AS',
+          
+          // South America
+          'BR', 'AR', 'CL', 'CO', 'PE', 'VE', 'EC', 'BO', 'PY', 'UY', 'GY', 'SR', 'FK',
+          
+          // Europe
+          'GB', 'IE', 'FR', 'DE', 'IT', 'ES', 'PT', 'NL', 'BE', 'LU', 'CH', 'AT', 'LI', 'MC', 'SM', 'VA', 'AD', 'SE', 'NO', 'DK', 'FI', 'IS', 'PL', 'CZ', 'SK', 'HU', 'RO', 'BG', 'HR', 'SI', 'EE', 'LV', 'LT', 'GR', 'CY', 'MT', 'AL', 'BA', 'MK', 'ME', 'RS', 'UA', 'BY', 'MD', 'RU',
+          
+          // Asia
+          'CN', 'JP', 'KR', 'TW', 'HK', 'MO', 'SG', 'MY', 'TH', 'VN', 'KH', 'LA', 'MM', 'BD', 'IN', 'PK', 'LK', 'MV', 'NP', 'BT', 'MN', 'KZ', 'UZ', 'TM', 'KG', 'TJ', 'AF', 'IR', 'IQ', 'SY', 'JO', 'LB', 'IL', 'PS', 'TR', 'GE', 'AM', 'AZ',
+          
+          // Middle East & North Africa
+          'SA', 'AE', 'QA', 'KW', 'BH', 'OM', 'YE', 'EG', 'LY', 'TN', 'DZ', 'MA', 'SD', 'SS', 'EH',
+          
+          // Sub-Saharan Africa
+          'ZA', 'NG', 'KE', 'UG', 'TZ', 'RW', 'BI', 'DJ', 'ER', 'ET', 'SO', 'ZM', 'ZW', 'BW', 'NA', 'LS', 'SZ', 'MW', 'MZ', 'AO', 'CD', 'CG', 'CM', 'CF', 'TD', 'GQ', 'GA', 'ST', 'KM', 'MG', 'MU', 'SC', 'CV', 'GM', 'SN', 'GN', 'GW', 'SL', 'LR', 'CI', 'BF', 'TG', 'BJ', 'NE', 'ML', 'MR', 'GH',
+          
+          // Oceania
+          'AU', 'NZ', 'FJ', 'PG', 'SB', 'VU', 'NC', 'PF', 'WF', 'KI', 'NR', 'TV', 'WS', 'TO', 'CK', 'NU', 'TK', 'FM', 'MH', 'PW',
+          
+          // Caribbean
+          'AG', 'BS', 'BB', 'DM', 'GD', 'KN', 'LC', 'VC', 'TT', 'JM', 'HT', 'DO', 'CU', 'PR', 'VI', 'BQ', 'CW', 'SX', 'AW', 'AI', 'BM', 'KY', 'VG', 'MS', 'TC'
+        ]
       },
       phone_number_collection: {
         enabled: true
