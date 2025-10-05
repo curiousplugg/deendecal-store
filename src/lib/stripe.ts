@@ -1,10 +1,24 @@
 import Stripe from 'stripe';
 
-if (!process.env.STRIPE_SECRET_KEY) {
+// Sanitize and validate the Stripe secret key
+const stripeSecretKey = process.env.STRIPE_SECRET_KEY?.trim();
+
+if (!stripeSecretKey) {
   throw new Error('STRIPE_SECRET_KEY is not set');
 }
 
-export const stripe = new Stripe(process.env.STRIPE_SECRET_KEY, {
+// Check for invalid characters that could cause header issues
+const invalidChars = /[^\x20-\x7E]/;
+if (invalidChars.test(stripeSecretKey)) {
+  throw new Error('STRIPE_SECRET_KEY contains invalid characters');
+}
+
+// Validate key format
+if (!stripeSecretKey.startsWith('sk_')) {
+  throw new Error('Invalid Stripe secret key format');
+}
+
+export const stripe = new Stripe(stripeSecretKey, {
   typescript: true,
 });
 

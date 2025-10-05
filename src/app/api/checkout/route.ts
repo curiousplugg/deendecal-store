@@ -33,15 +33,36 @@ export async function POST(req: NextRequest) {
   try {
     console.log('🔍 Checkout request received');
     
-    // Validate environment variables
-    if (!process.env.STRIPE_SECRET_KEY) {
+    // Validate and sanitize environment variables
+    const stripeSecretKey = process.env.STRIPE_SECRET_KEY?.trim();
+    const stripePublishableKey = process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY?.trim();
+    
+    if (!stripeSecretKey) {
       console.error('❌ STRIPE_SECRET_KEY is not set');
       return NextResponse.json({ error: 'Stripe configuration error' }, { status: 500 });
     }
     
-    if (!process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY) {
+    if (!stripePublishableKey) {
       console.error('❌ NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY is not set');
       return NextResponse.json({ error: 'Stripe configuration error' }, { status: 500 });
+    }
+
+    // Validate Stripe key format
+    if (!stripeSecretKey.startsWith('sk_')) {
+      console.error('❌ Invalid Stripe secret key format');
+      return NextResponse.json({ error: 'Invalid Stripe configuration' }, { status: 500 });
+    }
+
+    if (!stripePublishableKey.startsWith('pk_')) {
+      console.error('❌ Invalid Stripe publishable key format');
+      return NextResponse.json({ error: 'Invalid Stripe configuration' }, { status: 500 });
+    }
+
+    // Check for invalid characters in the API key
+    const invalidChars = /[^\x20-\x7E]/;
+    if (invalidChars.test(stripeSecretKey)) {
+      console.error('❌ Stripe secret key contains invalid characters');
+      return NextResponse.json({ error: 'Invalid Stripe configuration' }, { status: 500 });
     }
     
     // Debug: Check which Stripe account we're using
