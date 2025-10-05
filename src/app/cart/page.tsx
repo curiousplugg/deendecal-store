@@ -19,6 +19,16 @@ export default function CartPage() {
       return;
     }
 
+    // Validate cart items before sending
+    const invalidItems = state.items.filter(item => 
+      !item.selectedColor || !item.quantity || item.quantity <= 0
+    );
+    
+    if (invalidItems.length > 0) {
+      alert('Please ensure all items have a selected color and valid quantity.');
+      return;
+    }
+
     try {
       console.log('🚀 Sending checkout request...');
       
@@ -35,16 +45,36 @@ export default function CartPage() {
       if (!response.ok) {
         const errorData = await response.json();
         console.error('❌ API Error:', errorData);
-        throw new Error(errorData.error || 'Checkout failed');
+        
+        // Show user-friendly error messages
+        let errorMessage = 'Checkout failed. Please try again.';
+        if (errorData.details) {
+          errorMessage = errorData.details;
+        } else if (errorData.error) {
+          errorMessage = errorData.error;
+        }
+        
+        throw new Error(errorMessage);
       }
 
       const data = await response.json();
       console.log('✅ Checkout session created:', data.sessionId);
       
-      // Load Stripe
-      const stripe = await getStripe();
+      if (!data.sessionId) {
+        throw new Error('No checkout session received');
+      }
+      
+      // Load Stripe with timeout
+      console.log('🔄 Loading Stripe...');
+      const stripe = await Promise.race([
+        getStripe(),
+        new Promise((_, reject) => 
+          setTimeout(() => reject(new Error('Stripe loading timeout')), 10000)
+        )
+      ]);
+      
       if (!stripe) {
-        throw new Error('Stripe failed to load');
+        throw new Error('Stripe failed to load. Please check your internet connection and try again.');
       }
 
       console.log('🔄 Redirecting to Stripe checkout...');
@@ -58,7 +88,10 @@ export default function CartPage() {
       }
     } catch (error) {
       console.error('❌ Error during checkout:', error);
-      alert(`Checkout error: ${error instanceof Error ? error.message : 'Unknown error'}`);
+      
+      // Show user-friendly error message
+      const errorMessage = error instanceof Error ? error.message : 'Unknown error occurred';
+      alert(`Checkout error: ${errorMessage}`);
     }
   };
 

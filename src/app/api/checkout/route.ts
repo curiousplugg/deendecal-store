@@ -33,6 +33,17 @@ export async function POST(req: NextRequest) {
   try {
     console.log('🔍 Checkout request received');
     
+    // Validate environment variables
+    if (!process.env.STRIPE_SECRET_KEY) {
+      console.error('❌ STRIPE_SECRET_KEY is not set');
+      return NextResponse.json({ error: 'Stripe configuration error' }, { status: 500 });
+    }
+    
+    if (!process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY) {
+      console.error('❌ NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY is not set');
+      return NextResponse.json({ error: 'Stripe configuration error' }, { status: 500 });
+    }
+    
     // Debug: Check which Stripe account we're using
     console.log('🔑 Stripe Secret Key (first 10 chars):', process.env.STRIPE_SECRET_KEY?.substring(0, 10));
     console.log('🔑 Stripe Publishable Key (first 10 chars):', process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY?.substring(0, 10));
@@ -45,6 +56,7 @@ export async function POST(req: NextRequest) {
       console.log('🏢 Stripe Account Country:', account.country);
     } catch (error) {
       console.error('❌ Error getting Stripe account info:', error);
+      return NextResponse.json({ error: 'Stripe connection failed' }, { status: 500 });
     }
     
     const { items } = await req.json();
@@ -53,6 +65,14 @@ export async function POST(req: NextRequest) {
     if (!items || !Array.isArray(items) || items.length === 0) {
       console.error('❌ No items provided for checkout');
       return NextResponse.json({ error: 'No items provided for checkout' }, { status: 400 });
+    }
+
+    // Validate each item has required fields
+    for (const item of items) {
+      if (!item.selectedColor || !item.quantity || item.quantity <= 0) {
+        console.error('❌ Invalid item:', item);
+        return NextResponse.json({ error: 'Invalid item data' }, { status: 400 });
+      }
     }
 
     // Create line items for Stripe with custom product information
@@ -112,21 +132,22 @@ export async function POST(req: NextRequest) {
       metadata: metadata
     });
 
-    const session = await stripe.checkout.sessions.create({
+    // Create Stripe checkout session with comprehensive error handling
+    const sessionConfig = {
       line_items: lineItems,
-      mode: 'payment',
+      mode: 'payment' as const,
       success_url: successUrl,
       cancel_url: cancelUrl,
       metadata: metadata,
-      allow_promotion_codes: true, // Enable coupon codes
+      allow_promotion_codes: true,
       custom_fields: [
         {
           key: 'special_instructions',
           label: {
-            type: 'custom',
+            type: 'custom' as const,
             custom: 'Special Instructions (Optional)'
           },
-          type: 'text',
+          type: 'text' as const,
           optional: true
         }
       ],
@@ -160,16 +181,44 @@ export async function POST(req: NextRequest) {
       phone_number_collection: {
         enabled: true
       }
-    } as Parameters<typeof stripe.checkout.sessions.create>[0]);
+    };
+
+    console.log('🛒 Creating Stripe session with config:', JSON.stringify(sessionConfig, null, 2));
+
+    const session = await stripe.checkout.sessions.create(sessionConfig as any);
 
     console.log('✅ Checkout session created:', session.id);
     return NextResponse.json({ sessionId: session.id });
   } catch (error) {
     console.error('❌ Error creating checkout session:', error);
     
+    // Handle specific Stripe errors
+    if (error instanceof Error) {
+      if (error.message.includes('Invalid price ID')) {
+        return NextResponse.json({ 
+          error: 'Invalid product configuration',
+          details: error.message
+        }, { status: 400 });
+      }
+      
+      if (error.message.includes('No such price')) {
+        return NextResponse.json({ 
+          error: 'Product not found in Stripe',
+          details: 'The selected product is not available'
+        }, { status: 400 });
+      }
+      
+      if (error.message.includes('Invalid API key')) {
+        return NextResponse.json({ 
+          error: 'Payment system configuration error',
+          details: 'Please try again later'
+        }, { status: 500 });
+      }
+    }
+    
     return NextResponse.json({ 
-      error: 'Error creating checkout session',
-      details: error instanceof Error ? error.message : String(error)
+      error: 'Checkout failed',
+      details: error instanceof Error ? error.message : 'Unknown error occurred'
     }, { status: 500 });
   }
 }
