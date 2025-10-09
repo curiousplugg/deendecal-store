@@ -22,10 +22,30 @@ const hashData = async (data: string): Promise<string> => {
   return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
 };
 
+// Send event to server-side TikTok Events API
+const sendServerEvent = async (event: string, data: Record<string, unknown>) => {
+  try {
+    await fetch('/api/tiktok-events', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        event,
+        ...data,
+        url: window.location.href,
+      }),
+    });
+  } catch (error) {
+    console.error('Failed to send server-side TikTok event:', error);
+  }
+};
+
 // TikTok Event Tracking Functions
 export const tiktokEvents = {
   // Track page view with product content
   trackViewContent: (product: { id: string; name: string; price: number }) => {
+    // Client-side tracking
     if (typeof window !== 'undefined' && window.ttq) {
       window.ttq.track('ViewContent', {
         contents: [
@@ -42,10 +62,14 @@ export const tiktokEvents = {
         event_id: generateEventId()
       });
     }
+
+    // Server-side tracking
+    sendServerEvent('ViewContent', { product });
   },
 
   // Track add to cart
   trackAddToCart: (product: { id: string; name: string; price: number }, quantity: number = 1) => {
+    // Client-side tracking
     if (typeof window !== 'undefined' && window.ttq) {
       window.ttq.track('AddToCart', {
         contents: [
@@ -61,10 +85,14 @@ export const tiktokEvents = {
         event_id: generateEventId()
       });
     }
+
+    // Server-side tracking
+    sendServerEvent('AddToCart', { product, quantity });
   },
 
   // Track checkout initiation
   trackInitiateCheckout: (items: { id: string; name: string }[], totalValue: number) => {
+    // Client-side tracking
     if (typeof window !== 'undefined' && window.ttq) {
       window.ttq.track('InitiateCheckout', {
         contents: items.map(item => ({
@@ -78,10 +106,14 @@ export const tiktokEvents = {
         event_id: generateEventId()
       });
     }
+
+    // Server-side tracking
+    sendServerEvent('InitiateCheckout', { items, totalValue });
   },
 
   // Track purchase completion
   trackPurchase: (items: { id: string; name: string }[], totalValue: number) => {
+    // Client-side tracking
     if (typeof window !== 'undefined' && window.ttq) {
       window.ttq.track('Purchase', {
         contents: items.map(item => ({
@@ -95,10 +127,14 @@ export const tiktokEvents = {
         event_id: generateEventId()
       });
     }
+
+    // Server-side tracking
+    sendServerEvent('Purchase', { items, totalValue });
   },
 
   // Track payment info addition
   trackAddPaymentInfo: (items: { id: string; name: string }[], totalValue: number) => {
+    // Client-side tracking
     if (typeof window !== 'undefined' && window.ttq) {
       window.ttq.track('AddPaymentInfo', {
         contents: items.map(item => ({
@@ -112,6 +148,9 @@ export const tiktokEvents = {
         event_id: generateEventId()
       });
     }
+
+    // Server-side tracking
+    sendServerEvent('AddPaymentInfo', { items, totalValue });
   },
 
   // Identify user with hashed PII data
