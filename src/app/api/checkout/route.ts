@@ -206,7 +206,7 @@ export async function POST(req: NextRequest) {
 
     console.log('🛒 Creating Stripe session with config:', JSON.stringify(sessionConfig, null, 2));
 
-    const session = await stripe.checkout.sessions.create(sessionConfig as any);
+    const session = await stripe.checkout.sessions.create(sessionConfig as Parameters<typeof stripe.checkout.sessions.create>[0]);
 
     console.log('✅ Checkout session created:', session.id);
     return NextResponse.json({ sessionId: session.id });
