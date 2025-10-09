@@ -103,10 +103,7 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
     if (storedCart) {
       try {
         const cartItems: CartItem[] = JSON.parse(storedCart);
-        // Only update if different from current state
-        if (JSON.stringify(cartItems) !== JSON.stringify(state.items)) {
-          dispatch({ type: 'LOAD_CART', payload: cartItems });
-        }
+        dispatch({ type: 'LOAD_CART', payload: cartItems });
       } catch (error) {
         console.error('Error loading cart from localStorage:', error);
       }

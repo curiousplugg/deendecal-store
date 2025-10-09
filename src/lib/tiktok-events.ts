@@ -117,7 +117,7 @@ export const tiktokEvents = {
   // Identify user with hashed PII data
   identifyUser: async (email?: string, phone?: string, externalId?: string) => {
     if (typeof window !== 'undefined' && window.ttq) {
-      const identifyData: any = {};
+      const identifyData: Record<string, string> = {};
       
       if (email) {
         identifyData.email = await hashData(email);
