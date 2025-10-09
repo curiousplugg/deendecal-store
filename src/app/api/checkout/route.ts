@@ -197,7 +197,7 @@ export async function POST(req: NextRequest) {
           
           // Caribbean
           'AG', 'BS', 'BB', 'DM', 'GD', 'KN', 'LC', 'VC', 'TT', 'JM', 'HT', 'DO', 'CU', 'CW', 'SX', 'AW', 'AI', 'BM', 'KY', 'VG', 'MS', 'TC'
-        ] as const
+        ]
       },
       phone_number_collection: {
         enabled: true
@@ -206,7 +206,7 @@ export async function POST(req: NextRequest) {
 
     console.log('🛒 Creating Stripe session with config:', JSON.stringify(sessionConfig, null, 2));
 
-    const session = await stripe.checkout.sessions.create(sessionConfig);
+    const session = await stripe.checkout.sessions.create(sessionConfig as any);
 
     console.log('✅ Checkout session created:', session.id);
     return NextResponse.json({ sessionId: session.id });
