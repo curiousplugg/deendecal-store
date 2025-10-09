@@ -107,7 +107,7 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
         console.error('Error loading cart from localStorage:', error);
       }
     }
-  }, []);
+  }, [state.items, dispatch]);
 
   // Save cart to localStorage whenever it changes
   useEffect(() => {
