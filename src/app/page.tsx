@@ -344,7 +344,7 @@ export default function Home() {
                   </div>
                   <div className="feature-item">
                     <i className="fas fa-heart"></i>
-                    <span>Made with Love</span>
+                    <span>Money-Back Guarantee</span>
                   </div>
                 </div>
               </div>
@@ -576,8 +576,8 @@ export default function Home() {
                     <i className="fas fa-heart"></i>
                   </div>
                   <div className="feature-content">
-                    <h4>Made with Love</h4>
-                    <p>Crafted with care and attention to detail</p>
+                    <h4>Money-Back Guarantee</h4>
+                    <p>All purchases covered within 30 days of purchase</p>
                   </div>
                 </div>
               </div>

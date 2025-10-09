@@ -70,7 +70,26 @@ export default function TermsPage() {
           </div>
 
           <div className="terms-section">
-            <h2>6. Returns and Refunds</h2>
+            <h2>6. Money-Back Guarantee</h2>
+            <p><strong>Our Commitment:</strong> DeenDecal stands behind the quality of our Islamic car emblems with a comprehensive money-back guarantee. We are committed to your satisfaction and will work to resolve any legitimate concerns.</p>
+            
+            <h3>Guarantee Terms and Conditions:</h3>
+            <ul>
+              <li><strong>Eligibility:</strong> All purchases are covered by our money-back guarantee within 30 days of delivery</li>
+              <li><strong>Documentation Required:</strong> Customers must provide clear photographic evidence and a detailed written explanation of the issue</li>
+              <li><strong>Reasonableness Assessment:</strong> The DeenDecal Team reserves the sole right to determine whether a refund request is reasonable and justified</li>
+              <li><strong>Decision Authority:</strong> All refund decisions are at the complete discretion of the DeenDecal Team based on the provided evidence and circumstances</li>
+              <li><strong>Proof Requirements:</strong> Customers must demonstrate with clear evidence why they deserve a refund, including but not limited to product defects, shipping damage, or other legitimate concerns</li>
+              <li><strong>Processing Time:</strong> Approved refunds will be processed within 5-10 business days to the original payment method</li>
+            </ul>
+            
+            <p><strong>Coverage:</strong> This guarantee covers manufacturing defects, shipping damage, and quality issues. Normal wear and tear, improper installation, misuse, or damage caused by customer negligence are not covered.</p>
+            
+            <p><strong>Contact:</strong> To initiate a refund request, contact us at deendecal@gmail.com with your order number, detailed explanation, and supporting evidence.</p>
+          </div>
+
+          <div className="terms-section">
+            <h2>7. Returns and Refunds</h2>
             <p><strong>Return Policy:</strong> We offer money-back guarantees, but you must email us with your reasoning for the return. Please contact us at deendecal@gmail.com with your order number and reason for return.</p>
             <p><strong>Damaged Items:</strong> If your decal arrives damaged, please contact us immediately with photos of the damage. We&apos;ll send you a replacement free of charge.</p>
             <p><strong>Refund Processing:</strong> Approved refunds will be processed within 5-10 business days to your original payment method.</p>
@@ -78,7 +97,7 @@ export default function TermsPage() {
           </div>
 
           <div className="terms-section">
-            <h2>7. Customer Responsibilities</h2>
+            <h2>8. Customer Responsibilities</h2>
             <p>Customers are responsible for:</p>
             <ul>
               <li>Providing accurate shipping information</li>
@@ -90,7 +109,7 @@ export default function TermsPage() {
           </div>
 
           <div className="terms-section">
-            <h2>8. Installation and Use</h2>
+            <h2>9. Installation and Use</h2>
             <p><strong>Installation Instructions:</strong></p>
             <ol>
               <li>Clean the area of the vehicle to be applied. Ensure the area is dry, clean, free of oil and moisture, and has not been waxed within three days.</li>
@@ -101,33 +120,33 @@ export default function TermsPage() {
           </div>
 
           <div className="terms-section">
-            <h2>9. Limitation of Liability</h2>
+            <h2>10. Limitation of Liability</h2>
             <p>DeenDecal shall not be liable for any indirect, incidental, special, consequential, or punitive damages, including without limitation, loss of profits, data, use, goodwill, or other intangible losses, resulting from your use of our products or services.</p>
             <p>Our total liability to you for any damages shall not exceed the amount you paid for the product.</p>
           </div>
 
           <div className="terms-section">
-            <h2>10. Intellectual Property</h2>
+            <h2>11. Intellectual Property</h2>
             <p>All content on this website, including text, graphics, logos, images, and software, is the property of DeenDecal or our suppliers and is protected by copyright and other intellectual property laws.</p>
           </div>
 
           <div className="terms-section">
-            <h2>11. Privacy</h2>
+            <h2>12. Privacy</h2>
             <p>Your privacy is important to us. Please review our <Link href="/privacy">Privacy Policy</Link>, which also governs your use of the Website.</p>
           </div>
 
           <div className="terms-section">
-            <h2>12. Modifications</h2>
+            <h2>13. Modifications</h2>
             <p>We reserve the right to modify these terms at any time. Changes will be posted on this page with an updated revision date. Your continued use of our services constitutes acceptance of any changes.</p>
           </div>
 
           <div className="terms-section">
-            <h2>13. Governing Law</h2>
+            <h2>14. Governing Law</h2>
             <p>These terms shall be governed by and construed in accordance with the laws of the United States, without regard to conflict of law principles.</p>
           </div>
 
           <div className="terms-section">
-            <h2>14. Contact Information</h2>
+            <h2>15. Contact Information</h2>
             <p>If you have any questions about these Terms of Service, please contact us:</p>
             <ul>
               <li>Email: <a href="mailto:deendecal@gmail.com">deendecal@gmail.com</a></li>
