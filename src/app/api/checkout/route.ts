@@ -187,10 +187,10 @@ export async function POST(req: NextRequest) {
           'CN', 'JP', 'KR', 'TW', 'HK', 'MO', 'SG', 'MY', 'TH', 'VN', 'KH', 'LA', 'MM', 'BD', 'IN', 'PK', 'LK', 'MV', 'NP', 'BT', 'MN', 'KZ', 'UZ', 'TM', 'KG', 'TJ', 'AF', 'IR', 'IQ', 'SY', 'JO', 'LB', 'IL', 'TR', 'GE', 'AM', 'AZ',
           
           // Middle East & North Africa
-          'SA', 'AE', 'QA', 'KW', 'BH', 'OM', 'YE', 'EG', 'LY', 'TN', 'DZ', 'MA', 'SD',
+          'SA', 'AE', 'QA', 'KW', 'BH', 'OM', 'YE', 'EG', 'LY', 'TN', 'DZ', 'MA',
           
           // Sub-Saharan Africa
-          'ZA', 'NG', 'KE', 'UG', 'TZ', 'RW', 'BI', 'DJ', 'ER', 'ET', 'SO', 'ZM', 'ZW', 'BW', 'NA', 'LS', 'SZ', 'MW', 'MZ', 'AO', 'CD', 'CG', 'CM', 'CF', 'TD', 'GQ', 'GA', 'ST', 'KM', 'MG', 'MU', 'SC', 'CV', 'GM', 'SN', 'GN', 'GW', 'SL', 'LR', 'CI', 'BF', 'TG', 'BJ', 'NE', 'ML', 'MR', 'GH',
+          'ZA', 'NG', 'KE', 'UG', 'TZ', 'RW', 'BI', 'DJ', 'ER', 'ET', 'ZM', 'ZW', 'BW', 'NA', 'LS', 'SZ', 'MW', 'MZ', 'AO', 'CD', 'CG', 'CM', 'CF', 'TD', 'GQ', 'GA', 'ST', 'KM', 'MG', 'MU', 'SC', 'CV', 'GM', 'SN', 'GN', 'GW', 'SL', 'LR', 'CI', 'BF', 'TG', 'BJ', 'NE', 'ML', 'MR', 'GH',
           
           // Oceania
           'AU', 'NZ', 'FJ', 'PG', 'SB', 'VU', 'KI', 'NR', 'TV', 'WS', 'TO', 'CK',
