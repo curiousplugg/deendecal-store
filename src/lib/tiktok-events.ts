@@ -1,7 +1,10 @@
 // TikTok Event Tracking Utilities
 declare global {
   interface Window {
-    ttq: any;
+    ttq: {
+      track: (event: string, data: Record<string, unknown>, options?: Record<string, unknown>) => void;
+      identify: (data: Record<string, unknown>) => void;
+    };
   }
 }
 
@@ -22,7 +25,7 @@ const hashData = async (data: string): Promise<string> => {
 // TikTok Event Tracking Functions
 export const tiktokEvents = {
   // Track page view with product content
-  trackViewContent: (product: any) => {
+  trackViewContent: (product: { id: string; name: string; price: number }) => {
     if (typeof window !== 'undefined' && window.ttq) {
       window.ttq.track('ViewContent', {
         contents: [
@@ -42,7 +45,7 @@ export const tiktokEvents = {
   },
 
   // Track add to cart
-  trackAddToCart: (product: any, quantity: number = 1) => {
+  trackAddToCart: (product: { id: string; name: string; price: number }, quantity: number = 1) => {
     if (typeof window !== 'undefined' && window.ttq) {
       window.ttq.track('AddToCart', {
         contents: [
@@ -61,7 +64,7 @@ export const tiktokEvents = {
   },
 
   // Track checkout initiation
-  trackInitiateCheckout: (items: any[], totalValue: number) => {
+  trackInitiateCheckout: (items: { id: string; name: string }[], totalValue: number) => {
     if (typeof window !== 'undefined' && window.ttq) {
       window.ttq.track('InitiateCheckout', {
         contents: items.map(item => ({
@@ -78,7 +81,7 @@ export const tiktokEvents = {
   },
 
   // Track purchase completion
-  trackPurchase: (items: any[], totalValue: number, orderId?: string) => {
+  trackPurchase: (items: { id: string; name: string }[], totalValue: number) => {
     if (typeof window !== 'undefined' && window.ttq) {
       window.ttq.track('Purchase', {
         contents: items.map(item => ({
@@ -95,7 +98,7 @@ export const tiktokEvents = {
   },
 
   // Track payment info addition
-  trackAddPaymentInfo: (items: any[], totalValue: number) => {
+  trackAddPaymentInfo: (items: { id: string; name: string }[], totalValue: number) => {
     if (typeof window !== 'undefined' && window.ttq) {
       window.ttq.track('AddPaymentInfo', {
         contents: items.map(item => ({

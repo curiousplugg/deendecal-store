@@ -24,7 +24,7 @@ export default function Home() {
   // Track ViewContent on page load
   useEffect(() => {
     tiktokEvents.trackViewContent(product);
-  }, []);
+  }, [product]);
 
   const colorImages = {
     'Gold': '/images/goldIndy.jpg',

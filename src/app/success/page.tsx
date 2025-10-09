@@ -16,7 +16,7 @@ function SuccessContent() {
     // Track purchase before clearing cart
     if (state.items.length > 0) {
       const totalValue = state.items.reduce((sum, item) => sum + item.price * item.quantity, 0);
-      tiktokEvents.trackPurchase(state.items, totalValue, sessionId || undefined);
+      tiktokEvents.trackPurchase(state.items, totalValue);
     }
     
     // Clear cart after successful payment

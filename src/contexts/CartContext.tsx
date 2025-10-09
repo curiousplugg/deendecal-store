@@ -111,7 +111,7 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
         console.error('Error loading cart from localStorage:', error);
       }
     }
-  }, []); // Remove dependencies to prevent infinite loop
+  }, []); // Empty dependency array to run only once on mount
 
   // Save cart to localStorage whenever it changes
   useEffect(() => {
