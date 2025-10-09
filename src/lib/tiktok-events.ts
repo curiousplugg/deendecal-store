@@ -153,6 +153,107 @@ export const tiktokEvents = {
     sendServerEvent('AddPaymentInfo', { items, totalValue });
   },
 
+  // Track AddToWishlist event
+  trackAddToWishlist: (product: { id: string; name: string; price: number }) => {
+    // Client-side tracking
+    if (typeof window !== 'undefined' && window.ttq) {
+      window.ttq.track('AddToWishlist', {
+        contents: [
+          {
+            content_id: product.id,
+            content_type: 'product',
+            content_name: product.name
+          }
+        ],
+        value: product.price,
+        currency: 'USD'
+      }, {
+        event_id: generateEventId()
+      });
+    }
+
+    // Server-side tracking
+    sendServerEvent('AddToWishlist', { product });
+  },
+
+  // Track Search event
+  trackSearch: (searchString: string, product?: { id: string; name: string; price: number }) => {
+    // Client-side tracking
+    if (typeof window !== 'undefined' && window.ttq) {
+      const searchData: Record<string, unknown> = {
+        search_string: searchString,
+        value: product?.price || 0,
+        currency: 'USD'
+      };
+
+      if (product) {
+        searchData.contents = [
+          {
+            content_id: product.id,
+            content_type: 'product',
+            content_name: product.name
+          }
+        ];
+      }
+
+      window.ttq.track('Search', searchData, {
+        event_id: generateEventId()
+      });
+    }
+
+    // Server-side tracking
+    sendServerEvent('Search', { searchString, product });
+  },
+
+  // Track PlaceAnOrder event
+  trackPlaceAnOrder: (items: { id: string; name: string }[], totalValue: number) => {
+    // Client-side tracking
+    if (typeof window !== 'undefined' && window.ttq) {
+      window.ttq.track('PlaceAnOrder', {
+        contents: items.map(item => ({
+          content_id: item.id,
+          content_type: 'product',
+          content_name: item.name
+        })),
+        value: totalValue,
+        currency: 'USD'
+      }, {
+        event_id: generateEventId()
+      });
+    }
+
+    // Server-side tracking
+    sendServerEvent('PlaceAnOrder', { items, totalValue });
+  },
+
+  // Track CompleteRegistration event
+  trackCompleteRegistration: (product?: { id: string; name: string; price: number }) => {
+    // Client-side tracking
+    if (typeof window !== 'undefined' && window.ttq) {
+      const registrationData: Record<string, unknown> = {
+        value: product?.price || 0,
+        currency: 'USD'
+      };
+
+      if (product) {
+        registrationData.contents = [
+          {
+            content_id: product.id,
+            content_type: 'product',
+            content_name: product.name
+          }
+        ];
+      }
+
+      window.ttq.track('CompleteRegistration', registrationData, {
+        event_id: generateEventId()
+      });
+    }
+
+    // Server-side tracking
+    sendServerEvent('CompleteRegistration', { product });
+  },
+
   // Identify user with hashed PII data
   identifyUser: async (email?: string, phone?: string, externalId?: string) => {
     if (typeof window !== 'undefined' && window.ttq) {

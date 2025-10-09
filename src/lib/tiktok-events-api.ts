@@ -249,4 +249,102 @@ export const tiktokEventsAPI = {
       url
     );
   },
+
+  // Track AddToWishlist event
+  trackAddToWishlist: async (
+    product: { id: string; name: string; price: number },
+    userInfo?: { email?: string; phone?: string; externalId?: string; ip?: string; userAgent?: string },
+    url?: string
+  ) => {
+    return sendTikTokEvent(
+      'AddToWishlist',
+      {
+        contents: [
+          {
+            content_id: product.id,
+            content_type: 'product',
+            content_name: product.name,
+          },
+        ],
+        value: product.price,
+        currency: 'USD',
+      },
+      userInfo,
+      url
+    );
+  },
+
+  // Track Search event
+  trackSearch: async (
+    searchString: string,
+    product?: { id: string; name: string; price: number },
+    userInfo?: { email?: string; phone?: string; externalId?: string; ip?: string; userAgent?: string },
+    url?: string
+  ) => {
+    const searchData: Record<string, unknown> = {
+      search_string: searchString,
+      value: product?.price || 0,
+      currency: 'USD',
+    };
+
+    if (product) {
+      searchData.contents = [
+        {
+          content_id: product.id,
+          content_type: 'product',
+          content_name: product.name,
+        },
+      ];
+    }
+
+    return sendTikTokEvent('Search', searchData, userInfo, url);
+  },
+
+  // Track PlaceAnOrder event
+  trackPlaceAnOrder: async (
+    items: { id: string; name: string; price: number; quantity: number }[],
+    userInfo?: { email?: string; phone?: string; externalId?: string; ip?: string; userAgent?: string },
+    url?: string
+  ) => {
+    const totalValue = items.reduce((sum, item) => sum + item.price * item.quantity, 0);
+    
+    return sendTikTokEvent(
+      'PlaceAnOrder',
+      {
+        contents: items.map(item => ({
+          content_id: item.id,
+          content_type: 'product',
+          content_name: item.name,
+        })),
+        value: totalValue,
+        currency: 'USD',
+      },
+      userInfo,
+      url
+    );
+  },
+
+  // Track CompleteRegistration event
+  trackCompleteRegistration: async (
+    product?: { id: string; name: string; price: number },
+    userInfo?: { email?: string; phone?: string; externalId?: string; ip?: string; userAgent?: string },
+    url?: string
+  ) => {
+    const registrationData: Record<string, unknown> = {
+      value: product?.price || 0,
+      currency: 'USD',
+    };
+
+    if (product) {
+      registrationData.contents = [
+        {
+          content_id: product.id,
+          content_type: 'product',
+          content_name: product.name,
+        },
+      ];
+    }
+
+    return sendTikTokEvent('CompleteRegistration', registrationData, userInfo, url);
+  },
 };

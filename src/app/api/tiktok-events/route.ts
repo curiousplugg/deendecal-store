@@ -51,6 +51,30 @@ export async function POST(request: NextRequest) {
         }
         break;
 
+      case 'AddToWishlist':
+        if (product) {
+          success = await tiktokEventsAPI.trackAddToWishlist(product, enhancedUserInfo, url);
+        }
+        break;
+
+      case 'Search':
+        if (body.searchString) {
+          success = await tiktokEventsAPI.trackSearch(body.searchString, product, enhancedUserInfo, url);
+        }
+        break;
+
+      case 'PlaceAnOrder':
+        if (items && Array.isArray(items)) {
+          success = await tiktokEventsAPI.trackPlaceAnOrder(items, enhancedUserInfo, url);
+        }
+        break;
+
+      case 'CompleteRegistration':
+        if (product) {
+          success = await tiktokEventsAPI.trackCompleteRegistration(product, enhancedUserInfo, url);
+        }
+        break;
+
       default:
         return NextResponse.json({ error: 'Invalid event type' }, { status: 400 });
     }
