@@ -6,6 +6,7 @@ import Link from 'next/link';
 import { useCart } from '@/contexts/CartContext';
 import getStripe from '@/lib/stripe-client';
 import Navigation from '@/components/Navigation';
+import { tiktokEvents } from '@/lib/tiktok-events';
 
 export default function CartPage() {
   const { state, updateQuantity, removeItem, clearCart } = useCart();
@@ -18,6 +19,10 @@ export default function CartPage() {
       alert('Your cart is empty. Please add items before checkout.');
       return;
     }
+
+    // Track InitiateCheckout event
+    const subtotal = state.items.reduce((sum, item) => sum + item.price * item.quantity, 0);
+    tiktokEvents.trackInitiateCheckout(state.items, subtotal);
 
     // Validate cart items before sending
     const invalidItems = state.items.filter(item => 

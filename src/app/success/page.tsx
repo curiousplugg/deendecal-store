@@ -5,16 +5,23 @@ import Link from 'next/link';
 import { useCart } from '@/contexts/CartContext';
 import { useSearchParams } from 'next/navigation';
 import Navigation from '@/components/Navigation';
+import { tiktokEvents } from '@/lib/tiktok-events';
 
 function SuccessContent() {
-  const { clearCart } = useCart();
+  const { clearCart, state } = useCart();
   const searchParams = useSearchParams();
   const sessionId = searchParams.get('session_id');
 
   useEffect(() => {
+    // Track purchase before clearing cart
+    if (state.items.length > 0) {
+      const totalValue = state.items.reduce((sum, item) => sum + item.price * item.quantity, 0);
+      tiktokEvents.trackPurchase(state.items, totalValue, sessionId || undefined);
+    }
+    
     // Clear cart after successful payment
     clearCart();
-  }, [clearCart]);
+  }, [clearCart, state.items, sessionId]);
 
   return (
     <div className="min-h-screen bg-gray-100 flex flex-col">

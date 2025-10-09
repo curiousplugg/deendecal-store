@@ -1,11 +1,12 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { products } from '@/data/products';
 import { useCart } from '@/contexts/CartContext';
 import Navigation from '@/components/Navigation';
+import { tiktokEvents } from '@/lib/tiktok-events';
 
 export default function Home() {
   const { addItem } = useCart();
@@ -19,6 +20,11 @@ export default function Home() {
   const [isCartActionExiting, setIsCartActionExiting] = useState(false);
 
   const product = products[0]; // Single product
+
+  // Track ViewContent on page load
+  useEffect(() => {
+    tiktokEvents.trackViewContent(product);
+  }, []);
 
   const colorImages = {
     'Gold': '/images/goldIndy.jpg',
@@ -47,6 +53,9 @@ export default function Home() {
     for (let i = 0; i < quantity; i++) {
       addItem(productToAdd);
     }
+    
+    // Track AddToCart event
+    tiktokEvents.trackAddToCart(productToAdd, quantity);
     
     // Show notification
     setShowCartNotification(true);
