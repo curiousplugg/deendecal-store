@@ -100,16 +100,8 @@ export default function CartPage() {
     0
   );
 
-  // Group items by color for better display
-  const groupedItems = state.items.reduce((acc, item) => {
-    const key = `${item.id}-${item.selectedColor || 'default'}`;
-    if (!acc[key]) {
-      acc[key] = { ...item };
-    } else {
-      acc[key].quantity += item.quantity;
-    }
-    return acc;
-  }, {} as Record<string, typeof state.items[0] & { quantity: number }>);
+  // Use items directly without grouping to prevent glitching
+  const cartItems = state.items;
 
   return (
     <div className="cart-page">
@@ -134,8 +126,8 @@ export default function CartPage() {
         ) : (
           <div className="cart-content">
             <div className="cart-items">
-              {Object.values(groupedItems).map((item) => {
-                const itemKey = `${item.id}-${item.selectedColor || 'default'}`;
+              {cartItems.map((item, index) => {
+                const itemKey = `${item.id}-${item.selectedColor || 'default'}-${index}`;
                 return (
                   <div key={itemKey} className="cart-item">
                     <div className="cart-item-image">

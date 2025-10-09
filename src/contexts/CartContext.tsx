@@ -47,15 +47,19 @@ const cartReducer = (state: CartState, action: CartAction): CartState => {
         items: [...state.items, { ...action.payload, quantity: 1 }],
       };
     case 'REMOVE_ITEM':
+      // Extract index from the key format: "id-color-index"
+      const removeIndex = parseInt(action.payload.split('-').pop() || '0');
       return {
         ...state,
-        items: state.items.filter(item => `${item.id}-${item.selectedColor}` !== action.payload),
+        items: state.items.filter((_, index) => index !== removeIndex),
       };
     case 'UPDATE_QUANTITY':
+      // Extract index from the key format: "id-color-index"
+      const updateIndex = parseInt(action.payload.id.split('-').pop() || '0');
       return {
         ...state,
-        items: state.items.map(item =>
-          `${item.id}-${item.selectedColor}` === action.payload.id
+        items: state.items.map((item, index) =>
+          index === updateIndex
             ? { ...item, quantity: action.payload.quantity }
             : item
         ),
@@ -107,7 +111,7 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
         console.error('Error loading cart from localStorage:', error);
       }
     }
-  }, [state.items, dispatch]);
+  }, []); // Remove dependencies to prevent infinite loop
 
   // Save cart to localStorage whenever it changes
   useEffect(() => {
