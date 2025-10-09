@@ -8,7 +8,7 @@ import { useCart } from '@/contexts/CartContext';
 import Navigation from '@/components/Navigation';
 
 export default function Home() {
-  const { addItem } = useCart();
+  const { addItem, state } = useCart();
   const [selectedColor, setSelectedColor] = useState('Gold');
   const [quantity, setQuantity] = useState(1);
   const [currentImage, setCurrentImage] = useState('/images/goldIndy.jpg');
@@ -343,7 +343,7 @@ export default function Home() {
                     <span>Premium Quality</span>
                   </div>
                   <div className="feature-item">
-                    <i className="fas fa-heart"></i>
+                    <i className="fas fa-dollar-sign"></i>
                     <span>Money-Back Guarantee</span>
                   </div>
                 </div>
@@ -573,11 +573,11 @@ export default function Home() {
                 </div>
                 <div className="feature">
                   <div className="feature-icon">
-                    <i className="fas fa-heart"></i>
+                    <i className="fas fa-dollar-sign"></i>
                   </div>
                   <div className="feature-content">
                     <h4>Money-Back Guarantee</h4>
-                    <p>All purchases covered within 30 days of purchase</p>
+                    <p>Full refund within 30 days of purchase</p>
                   </div>
                 </div>
               </div>

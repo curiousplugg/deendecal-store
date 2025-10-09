@@ -71,21 +71,37 @@ export default function TermsPage() {
 
           <div className="terms-section">
             <h2>6. Money-Back Guarantee</h2>
-            <p><strong>Our Commitment:</strong> DeenDecal stands behind the quality of our Islamic car emblems with a comprehensive money-back guarantee. We are committed to your satisfaction and will work to resolve any legitimate concerns.</p>
+            <p><strong>Our Commitment:</strong> DeenDecal stands behind the quality of our Islamic car emblems with a comprehensive money-back guarantee. We are confident in the craftsmanship and durability of our products.</p>
             
             <h3>Guarantee Terms and Conditions:</h3>
             <ul>
               <li><strong>Eligibility:</strong> All purchases are covered by our money-back guarantee within 30 days of delivery</li>
               <li><strong>Documentation Required:</strong> Customers must provide clear photographic evidence and a detailed written explanation of the issue</li>
-              <li><strong>Reasonableness Assessment:</strong> The DeenDecal Team reserves the sole right to determine whether a refund request is reasonable and justified</li>
-              <li><strong>Decision Authority:</strong> All refund decisions are at the complete discretion of the DeenDecal Team based on the provided evidence and circumstances</li>
-              <li><strong>Proof Requirements:</strong> Customers must demonstrate with clear evidence why they deserve a refund, including but not limited to product defects, shipping damage, or other legitimate concerns</li>
-              <li><strong>Processing Time:</strong> Approved refunds will be processed within 5-10 business days to the original payment method</li>
+              <li><strong>Reasonable Justification:</strong> Refund requests must demonstrate legitimate concerns such as manufacturing defects, quality issues, or product non-conformance</li>
+              <li><strong>Decision Authority:</strong> All refund decisions remain at the sole discretion of the DeenDecal Team</li>
+              <li><strong>Evaluation Process:</strong> Each request is carefully reviewed to ensure it meets our quality standards and warranty criteria</li>
             </ul>
             
-            <p><strong>Coverage:</strong> This guarantee covers manufacturing defects, shipping damage, and quality issues. Normal wear and tear, improper installation, misuse, or damage caused by customer negligence are not covered.</p>
+            <h3>What We Cover:</h3>
+            <ul>
+              <li>Manufacturing defects and quality issues</li>
+              <li>Product non-conformance to specifications</li>
+              <li>Damaged items upon delivery (with photographic proof)</li>
+              <li>Significant quality deviations from advertised standards</li>
+            </ul>
             
-            <p><strong>Contact:</strong> To initiate a refund request, contact us at deendecal@gmail.com with your order number, detailed explanation, and supporting evidence.</p>
+            <h3>What We Do Not Cover:</h3>
+            <ul>
+              <li>Normal wear and tear from use</li>
+              <li>Improper installation or application</li>
+              <li>Damage caused by misuse or negligence</li>
+              <li>Changes in customer preference or satisfaction without quality issues</li>
+              <li>Items damaged after proper installation</li>
+            </ul>
+            
+            <p><strong>Refund Process:</strong> To request a refund, contact us at deendecal@gmail.com with your order number, detailed explanation of the issue, and supporting photographic evidence. Our team will review your request and respond within 5-7 business days.</p>
+            
+            <p><strong>Final Decision:</strong> The DeenDecal Team reserves the right to approve or deny refund requests based on the reasonableness of the claim, quality of evidence provided, and adherence to our guarantee terms. All decisions are final.</p>
           </div>
 
           <div className="terms-section">
