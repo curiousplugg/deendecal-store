@@ -68,7 +68,7 @@ export default function CartPage() {
       console.log('🔄 Loading Stripe...');
       const stripe = await Promise.race([
         getStripe(),
-        new Promise((_, reject) => 
+        new Promise<never>((_, reject) => 
           setTimeout(() => reject(new Error('Stripe loading timeout')), 10000)
         )
       ]);
