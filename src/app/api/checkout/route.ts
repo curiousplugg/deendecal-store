@@ -58,6 +58,12 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: 'Invalid Stripe configuration' }, { status: 500 });
     }
 
+    // Validate Stripe instance
+    if (!stripe) {
+      console.error('❌ Stripe is not configured');
+      return NextResponse.json({ error: 'Stripe configuration error' }, { status: 500 });
+    }
+
     // Check for invalid characters in the API key
     const invalidChars = /[^\x20-\x7E]/;
     if (invalidChars.test(stripeSecretKey)) {
