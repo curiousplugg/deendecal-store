@@ -3,12 +3,14 @@
 import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
 import { useCart } from '@/contexts/CartContext';
+import { useLanguage } from '@/contexts/LanguageContext';
 import Navigation from '@/components/Navigation';
 import { products } from '@/data/products';
 import { tiktokEvents } from '@/lib/tiktok-events';
 
 export default function PakistaniHomePage() {
   const { addItem } = useCart();
+  const { t } = useLanguage();
   const [selectedColor, setSelectedColor] = useState('Gold');
   const [quantity, setQuantity] = useState(1);
   const [currentImage, setCurrentImage] = useState('/images/goldIndy.jpg');
@@ -111,11 +113,9 @@ export default function PakistaniHomePage() {
         <div className="container">
           <div className="product-content">
             <div className="product-info">
-              <h2>Premium Shahada Metal Car Decal</h2>
+              <h2>{t('product.premium_title')}</h2>
               <p className="product-description">
-                Premium Shahada Metal Car Decal - High-quality metal material, 16*3.5CM size, Trunk Sticker style. 
-                Perfect for Body and Rear installation. Single Pack with detailed installation instructions. 
-                Durable Islamic car emblem for Muslim car accessories.
+                {t('product.detailed_description')}
               </p>
               
               <div className="product-price">
@@ -125,7 +125,7 @@ export default function PakistaniHomePage() {
 
               <div className="product-options">
                 <div className="color-selection">
-                  <h3>Select Color</h3>
+                  <h3>{t('product.select_color')}</h3>
                   <div className="color-options">
                     {Object.entries(colorImages).map(([color, image]) => (
                       <button
@@ -146,7 +146,7 @@ export default function PakistaniHomePage() {
                 </div>
 
                 <div className="quantity-selection">
-                  <h3>Quantity</h3>
+                  <h3>{t('product.quantity')}</h3>
                   <div className="quantity-controls">
                     <button onClick={() => setQuantity(Math.max(1, quantity - 1))}>-</button>
                     <span>{quantity}</span>
@@ -157,21 +157,21 @@ export default function PakistaniHomePage() {
 
               <button className="add-to-cart-btn" onClick={handleAddToCart}>
                 <i className="fas fa-shopping-cart"></i>
-                Add to Cart - PKR 6,950
+                {t('product.add_to_cart')} - PKR 6,950
               </button>
 
               <div className="product-features">
                 <div className="feature">
                   <i className="fas fa-shipping-fast"></i>
-                  <span>Free Shipping across Pakistan</span>
+                  <span>{t('product.free_shipping')}</span>
                 </div>
                 <div className="feature">
                   <i className="fas fa-shield-alt"></i>
-                  <span>30-Day Money Back Guarantee</span>
+                  <span>{t('product.money_back')}</span>
                 </div>
                 <div className="feature">
                   <i className="fas fa-star"></i>
-                  <span>Premium Quality Materials</span>
+                  <span>{t('product.premium_quality')}</span>
                 </div>
               </div>
             </div>
@@ -198,61 +198,62 @@ export default function PakistaniHomePage() {
               )}
               <div className="product-badge">
                 <i className="fas fa-star"></i>
-                <span>Premium Quality</span>
+                <span>{t('product.premium_badge')}</span>
               </div>
             </div>
-            <div className="thumbnail-gallery">
-              {Object.entries(colorImages).map(([color, image]) => (
-                <div
-                  key={color}
-                  className={`thumbnail ${selectedColor === color ? 'active' : ''}`}
-                  onClick={() => handleColorSelect(color)}
-                >
-                  <Image
-                    src={image}
-                    alt={`Premium Shahada Metal Car Decal - ${color} - Islamic Car Emblem`}
-                    width={80}
-                    height={80}
-                  />
-                  <div className="thumbnail-label">{color}</div>
-                </div>
-              ))}
-              <div className="thumbnail thumbnail-video" onClick={() => handleVideoSelect('/videos/tiktok_20250926_115253.mp4')}>
-                <video
-                  src="/videos/tiktok_20250926_115253.mp4"
-                  className="thumbnail-video"
-                  muted
-                  loop
-                  playsInline
-                  preload="metadata"
-                  poster="/images/video_installation_thumb.jpg"
+          </div>
+          
+          <div className="thumbnail-gallery">
+            {Object.entries(colorImages).map(([color, image]) => (
+              <div
+                key={color}
+                className={`thumbnail ${selectedColor === color ? 'active' : ''}`}
+                onClick={() => handleColorSelect(color)}
+              >
+                <Image
+                  src={image}
+                  alt={`Premium Shahada Metal Car Decal - ${color} - Islamic Car Emblem`}
+                  width={80}
+                  height={80}
                 />
-                <div className="thumbnail-label">Installation</div>
+                <div className="thumbnail-label">{color}</div>
               </div>
-              <div className="thumbnail thumbnail-video" onClick={() => handleVideoSelect('/videos/tiktok_20250926_120529.mp4')}>
-                <video
-                  src="/videos/tiktok_20250926_120529.mp4"
-                  className="thumbnail-video"
-                  muted
-                  loop
-                  playsInline
-                  preload="metadata"
-                  poster="/images/video_application_thumb.jpg"
-                />
-                <div className="thumbnail-label">Application</div>
-              </div>
-              <div className="thumbnail thumbnail-video" onClick={() => handleVideoSelect('/videos/tiktok_20250926_120542.mp4')}>
-                <video
-                  src="/videos/tiktok_20250926_120542.mp4"
-                  className="thumbnail-video"
-                  muted
-                  loop
-                  playsInline
-                  preload="metadata"
-                  poster="/images/video_final_thumb.jpg"
-                />
-                <div className="thumbnail-label">Final Result</div>
-              </div>
+            ))}
+            <div className="thumbnail thumbnail-video" onClick={() => handleVideoSelect('/videos/tiktok_20250926_115253.mp4')}>
+              <video
+                src="/videos/tiktok_20250926_115253.mp4"
+                className="thumbnail-video"
+                muted
+                loop
+                playsInline
+                preload="metadata"
+                poster="/images/video_installation_thumb.jpg"
+              />
+              <div className="thumbnail-label">{t('product.installation_video')}</div>
+            </div>
+            <div className="thumbnail thumbnail-video" onClick={() => handleVideoSelect('/videos/tiktok_20250926_120529.mp4')}>
+              <video
+                src="/videos/tiktok_20250926_120529.mp4"
+                className="thumbnail-video"
+                muted
+                loop
+                playsInline
+                preload="metadata"
+                poster="/images/video_application_thumb.jpg"
+              />
+              <div className="thumbnail-label">{t('product.application_video')}</div>
+            </div>
+            <div className="thumbnail thumbnail-video" onClick={() => handleVideoSelect('/videos/tiktok_20250926_120542.mp4')}>
+              <video
+                src="/videos/tiktok_20250926_120542.mp4"
+                className="thumbnail-video"
+                muted
+                loop
+                playsInline
+                preload="metadata"
+                poster="/images/video_final_thumb.jpg"
+              />
+              <div className="thumbnail-label">{t('product.final_result_video')}</div>
             </div>
           </div>
         </div>

@@ -32,6 +32,15 @@ const translations = {
     'product.add_to_cart': 'Add to Cart',
     'product.select_color': 'Select Color',
     'product.quantity': 'Quantity',
+    'product.premium_title': 'Premium Shahada Metal Car Decal',
+    'product.detailed_description': 'Premium Shahada Metal Car Decal - High-quality metal material, 16*3.5CM size, Trunk Sticker style. Perfect for Body and Rear installation. Single Pack with detailed installation instructions. Durable Islamic car emblem for Muslim car accessories.',
+    'product.free_shipping': 'Free Shipping across Pakistan',
+    'product.money_back': '30-Day Money Back Guarantee',
+    'product.premium_quality': 'Premium Quality Materials',
+    'product.premium_badge': 'Premium Quality',
+    'product.installation_video': 'Installation',
+    'product.application_video': 'Application',
+    'product.final_result_video': 'Final Result',
     
     // Cart
     'cart.title': 'Your Shopping Cart',
@@ -83,6 +92,15 @@ const translations = {
     'product.add_to_cart': 'ٹوکری میں شامل کریں',
     'product.select_color': 'رنگ منتخب کریں',
     'product.quantity': 'مقدار',
+    'product.premium_title': 'پریمیم شہادہ میٹل کار ڈیکل',
+    'product.detailed_description': 'پریمیم شہادہ میٹل کار ڈیکل - اعلیٰ معیار کا دھاتی مواد، 16*3.5CM سائز، ٹرنک اسٹیکر سٹائل۔ جسم اور پیچھے کی تنصیب کے لیے بہترین۔ تفصیلی تنصیبی ہدایات کے ساتھ سنگل پیک۔ مسلم کار کے لوازمات کے لیے پائیدار اسلامی کار کا نشان۔',
+    'product.free_shipping': 'پاکستان بھر میں مفت شپنگ',
+    'product.money_back': '30 دن کی رقم واپسی کی گارنٹی',
+    'product.premium_quality': 'پریمیم کوالٹی کے مواد',
+    'product.premium_badge': 'پریمیم کوالٹی',
+    'product.installation_video': 'تنصیب',
+    'product.application_video': 'استعمال',
+    'product.final_result_video': 'حتمی نتیجہ',
     
     // Cart
     'cart.title': 'آپ کی خریداری کی ٹوکری',
