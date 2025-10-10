@@ -15,6 +15,7 @@ STRIPE_WEBHOOK_SECRET=whsec_YOUR_WEBHOOK_SECRET_HERE
 # App Configuration
 NEXT_PUBLIC_APP_URL=https://deendecal.com
 NEXT_PUBLIC_DOMAIN=deendecal.com
+NEXT_PUBLIC_STRIPE_DOMAIN=pay.deendecal.com
 ```
 
 ### For Development (localhost)
@@ -28,7 +29,40 @@ STRIPE_WEBHOOK_SECRET=whsec_YOUR_WEBHOOK_SECRET_HERE
 # App Configuration
 NEXT_PUBLIC_APP_URL=http://localhost:3000
 NEXT_PUBLIC_DOMAIN=deendecal.com
+NEXT_PUBLIC_STRIPE_DOMAIN=pay.deendecal.com
 ```
+
+## Stripe Custom Domain Setup
+
+### DNS Configuration
+To use the custom domain `pay.deendecal.com` for Stripe checkout:
+
+1. **Add DNS Record:**
+   - Type: `CNAME`
+   - Name: `pay`
+   - Value: `checkout.stripe.com`
+   - TTL: `300` (5 minutes) or default
+
+2. **Configure in Stripe Dashboard:**
+   - Go to: https://dashboard.stripe.com/settings/domains
+   - Click "Add domain"
+   - Enter: `pay.deendecal.com`
+   - Wait for DNS verification
+
+3. **Environment Variable:**
+   ```bash
+   NEXT_PUBLIC_STRIPE_DOMAIN=pay.deendecal.com
+   ```
+
+4. **Test the Setup:**
+   ```bash
+   npm run test:stripe
+   ```
+
+### Custom Domain Benefits
+- **Checkout URLs:** `pay.deendecal.com/c/...`
+- **Payment Links:** `pay.deendecal.com/b/...`
+- **Customer Portal:** `pay.deendecal.com/p/...`
 
 ## Stripe Webhook Configuration
 

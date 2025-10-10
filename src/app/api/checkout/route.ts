@@ -129,6 +129,7 @@ export async function POST(req: NextRequest) {
     
     console.log('🔍 Environment check:', {
       NEXT_PUBLIC_APP_URL: process.env.NEXT_PUBLIC_APP_URL,
+      NEXT_PUBLIC_STRIPE_DOMAIN: process.env.NEXT_PUBLIC_STRIPE_DOMAIN,
       baseUrl,
       successUrl,
       cancelUrl
@@ -161,6 +162,10 @@ export async function POST(req: NextRequest) {
       cancel_url: cancelUrl,
       metadata: metadata,
       allow_promotion_codes: true,
+      // Custom domain configuration (if set)
+      ...(process.env.NEXT_PUBLIC_STRIPE_DOMAIN && {
+        domain: process.env.NEXT_PUBLIC_STRIPE_DOMAIN
+      }),
       custom_fields: [
         {
           key: 'special_instructions',
