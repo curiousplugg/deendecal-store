@@ -84,12 +84,15 @@ export default function CartPage() {
 
       console.log('🔄 Redirecting to Stripe checkout...');
       
-      // Temporary workaround: Use default Stripe domain until DNS propagates
-      const sessionId = data.sessionId;
-      const defaultStripeUrl = `https://checkout.stripe.com/c/pay/${sessionId}`;
+      // Use Stripe's built-in redirect which automatically handles custom domains
+      const { error } = await stripe.redirectToCheckout({ 
+        sessionId: data.sessionId 
+      });
       
-      console.log('🔄 Using default Stripe domain temporarily:', defaultStripeUrl);
-      window.location.href = defaultStripeUrl;
+      if (error) {
+        console.error('❌ Stripe redirect error:', error);
+        throw new Error(error.message || 'Failed to redirect to checkout');
+      }
     } catch (error) {
       console.error('❌ Error during checkout:', error);
       
