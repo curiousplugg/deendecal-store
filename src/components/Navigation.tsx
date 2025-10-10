@@ -3,9 +3,12 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { useCart } from '@/contexts/CartContext';
+import { useLanguage } from '@/contexts/LanguageContext';
+import LanguageSwitcher from './LanguageSwitcher';
 
 export default function Navigation() {
   const { state } = useCart();
+  const { t, isPakistaniVersion } = useLanguage();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isHydrated, setIsHydrated] = useState(false);
   
@@ -85,36 +88,38 @@ export default function Navigation() {
             <div className="hidden lg:flex items-center space-x-8">
               <button onClick={() => {
                 const currentPath = window.location.pathname;
-                if (currentPath === '/cart' || currentPath === '/faq' || currentPath === '/success') {
-                  window.location.href = '/';
+                const basePath = isPakistaniVersion ? '/pk' : '';
+                if (currentPath === `${basePath}/cart` || currentPath === `${basePath}/faq` || currentPath === `${basePath}/success`) {
+                  window.location.href = basePath || '/';
                 } else {
                   smoothScrollTo('home');
                 }
               }} className="text-gray-700 hover:text-gray-900 font-medium transition-colors duration-200 relative group">
-                Home
+                {t('nav.home')}
                 <span className="absolute bottom-0 left-0 w-0 h-0.5 transition-all duration-200 group-hover:w-full" style={{backgroundColor: '#c89d24'}}></span>
               </button>
               <button onClick={() => smoothScrollTo('product')} className="text-gray-700 hover:text-gray-900 font-medium transition-colors duration-200 relative group">
-                Products
+                {t('nav.products')}
                 <span className="absolute bottom-0 left-0 w-0 h-0.5 transition-all duration-200 group-hover:w-full" style={{backgroundColor: '#c89d24'}}></span>
               </button>
               <button onClick={() => smoothScrollTo('installation')} className="text-gray-700 hover:text-gray-900 font-medium transition-colors duration-200 relative group">
-                Installation
+                {t('nav.installation')}
                 <span className="absolute bottom-0 left-0 w-0 h-0.5 transition-all duration-200 group-hover:w-full" style={{backgroundColor: '#c89d24'}}></span>
               </button>
               <button onClick={() => smoothScrollTo('about')} className="text-gray-700 hover:text-gray-900 font-medium transition-colors duration-200 relative group">
-                About
+                {t('nav.about')}
                 <span className="absolute bottom-0 left-0 w-0 h-0.5 transition-all duration-200 group-hover:w-full" style={{backgroundColor: '#c89d24'}}></span>
               </button>
             </div>
 
-            {/* Desktop Cart */}
-            <div className="hidden lg:flex items-center">
-              <Link href="/cart" className="relative text-white px-6 py-3 rounded-full font-semibold transition-all duration-200 flex items-center space-x-2 shadow-lg hover:shadow-xl hover:bg-yellow-600" style={{backgroundColor: '#c89d24'}}>
+            {/* Desktop Cart and Language Switcher */}
+            <div className="hidden lg:flex items-center space-x-4">
+              <LanguageSwitcher />
+              <Link href={isPakistaniVersion ? "/pk/cart" : "/cart"} className="relative text-white px-6 py-3 rounded-full font-semibold transition-all duration-200 flex items-center space-x-2 shadow-lg hover:shadow-xl hover:bg-yellow-600" style={{backgroundColor: '#c89d24'}}>
                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.5 5M7 13l2.5 5" />
                 </svg>
-                <span>Cart</span>
+                <span>{t('nav.cart')}</span>
                 {isHydrated && totalItems > 0 && (
                   <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs font-bold rounded-full h-6 w-6 flex items-center justify-center">
                     {totalItems}
@@ -126,7 +131,7 @@ export default function Navigation() {
             {/* Mobile Cart & Menu Button */}
             <div className="lg:hidden flex items-center space-x-4">
               {/* Mobile Cart */}
-              <Link href="/cart" className="relative text-gray-700 hover:text-yellow-600 transition-colors duration-200 cursor-pointer">
+              <Link href={isPakistaniVersion ? "/pk/cart" : "/cart"} className="relative text-gray-700 hover:text-yellow-600 transition-colors duration-200 cursor-pointer">
                 <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.5 5M7 13l2.5 5" />
                 </svg>

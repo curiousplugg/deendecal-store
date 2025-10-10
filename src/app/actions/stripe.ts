@@ -11,20 +11,32 @@ interface CartItem {
   selectedColor?: string;
 }
 
-// Stripe price IDs for each color variant (LIVE MODE)
-const PRICE_IDS = {
+// Stripe price IDs for each color variant (LIVE MODE - USD)
+const PRICE_IDS_USD = {
   'Gold': 'price_1SCDmMBJjaZO6BBglBDEdWpB',
   'Black': 'price_1SCDmNBJjaZO6BBgwmbOsk9g', 
   'Red': 'price_1SCDmNBJjaZO6BBgwejHag8d',
   'Silver': 'price_1SCDmOBJjaZO6BBgFh2xylqB'
 };
 
+// Stripe price IDs for Pakistani version (PKR) - These need to be created in Stripe Dashboard
+const PRICE_IDS_PKR = {
+  'Gold': 'price_pk_gold_6950', // Replace with actual PKR price ID
+  'Black': 'price_pk_black_6950', // Replace with actual PKR price ID
+  'Red': 'price_pk_red_6950', // Replace with actual PKR price ID
+  'Silver': 'price_pk_silver_6950' // Replace with actual PKR price ID
+};
+
 export async function fetchClientSecret(items: CartItem[]) {
   const origin = (await headers()).get('origin') || 'http://localhost:3000'
+  const isPakistaniVersion = origin.includes('/pk') || items.some(item => item.price === 6950);
+
+  // Choose price IDs based on version
+  const priceIds = isPakistaniVersion ? PRICE_IDS_PKR : PRICE_IDS_USD;
 
   // Optimize line items creation
   const lineItems = items.map((item) => ({
-    price: PRICE_IDS[item.selectedColor as keyof typeof PRICE_IDS] || PRICE_IDS['Gold'],
+    price: priceIds[item.selectedColor as keyof typeof priceIds] || priceIds['Gold'],
     quantity: item.quantity,
   }));
 
@@ -46,7 +58,7 @@ export async function fetchClientSecret(items: CartItem[]) {
     ui_mode: 'embedded',
     line_items: lineItems,
     mode: 'payment',
-    return_url: `${origin}/return?session_id={CHECKOUT_SESSION_ID}`,
+    return_url: isPakistaniVersion ? `${origin}/pk/return?session_id={CHECKOUT_SESSION_ID}` : `${origin}/return?session_id={CHECKOUT_SESSION_ID}`,
     metadata: metadata,
     allow_promotion_codes: true,
     shipping_address_collection: {
