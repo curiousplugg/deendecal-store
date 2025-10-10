@@ -10,7 +10,8 @@
     "test:stripe": "node scripts/test-stripe.js",
     "test:stripe:prod": "node scripts/test-production-stripe.js",
     "test:domain": "node scripts/test-custom-domain.js",
-    "setup:domain": "node scripts/setup-custom-domain.js"
+    "setup:domain": "node scripts/setup-custom-domain.js",
+    "debug:dns": "node scripts/debug-dns.js"
   },
   "dependencies": {
     "@stripe/stripe-js": "^7.9.0",

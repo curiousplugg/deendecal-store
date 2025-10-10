@@ -84,15 +84,12 @@ export default function CartPage() {
 
       console.log('🔄 Redirecting to Stripe checkout...');
       
-      // Extract session ID from the response
+      // Temporary workaround: Use default Stripe domain until DNS propagates
       const sessionId = data.sessionId;
+      const defaultStripeUrl = `https://checkout.stripe.com/c/pay/${sessionId}`;
       
-      // Redirect directly to the custom domain checkout URL
-      const checkoutUrl = `https://pay.deendecal.com/c/${sessionId}`;
-      console.log('🌐 Redirecting to custom domain:', checkoutUrl);
-      
-      // Redirect to the custom domain
-      window.location.href = checkoutUrl;
+      console.log('🔄 Using default Stripe domain temporarily:', defaultStripeUrl);
+      window.location.href = defaultStripeUrl;
     } catch (error) {
       console.error('❌ Error during checkout:', error);
       
