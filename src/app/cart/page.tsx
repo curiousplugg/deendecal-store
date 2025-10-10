@@ -83,14 +83,16 @@ export default function CartPage() {
       }
 
       console.log('🔄 Redirecting to Stripe checkout...');
-      const { error } = await stripe.redirectToCheckout({ 
-        sessionId: data.sessionId 
-      });
       
-      if (error) {
-        console.error('❌ Stripe redirect error:', error);
-        throw new Error(error.message || 'Failed to redirect to checkout');
-      }
+      // Extract session ID from the response
+      const sessionId = data.sessionId;
+      
+      // Redirect directly to the custom domain checkout URL
+      const checkoutUrl = `https://pay.deendecal.com/c/${sessionId}`;
+      console.log('🌐 Redirecting to custom domain:', checkoutUrl);
+      
+      // Redirect to the custom domain
+      window.location.href = checkoutUrl;
     } catch (error) {
       console.error('❌ Error during checkout:', error);
       
