@@ -161,6 +161,9 @@ export async function POST(req: NextRequest) {
       cancel_url: cancelUrl,
       metadata: metadata,
       allow_promotion_codes: true,
+      // Enable embedded checkout
+      ui_mode: 'embedded' as const,
+      return_url: `${baseUrl}/success?session_id={CHECKOUT_SESSION_ID}`,
       // Promotion codes are case-sensitive by default in Stripe
       // Configure case sensitivity in Stripe Dashboard under Promotion Codes
       custom_fields: [
@@ -189,7 +192,12 @@ export async function POST(req: NextRequest) {
     const session = await stripe.checkout.sessions.create(sessionConfig as Parameters<typeof stripe.checkout.sessions.create>[0]);
 
     console.log('✅ Checkout session created:', session.id);
-    return NextResponse.json({ sessionId: session.id });
+    
+    // Return client secret for embedded checkout
+    return NextResponse.json({ 
+      sessionId: session.id,
+      clientSecret: session.client_secret 
+    });
   } catch (error) {
     console.error('❌ Error creating checkout session:', error);
     

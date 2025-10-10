@@ -1,30 +1,23 @@
 'use client';
 
-import React from 'react';
+import React, { useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useCart } from '@/contexts/CartContext';
-import getStripe from '@/lib/stripe-client';
 import Navigation from '@/components/Navigation';
-import { tiktokEvents } from '@/lib/tiktok-events';
+import EmbeddedCheckoutModal from '@/components/EmbeddedCheckout';
 
 export default function CartPage() {
   const { state, updateQuantity, removeItem, clearCart } = useCart();
+  const [isCheckoutOpen, setIsCheckoutOpen] = useState(false);
 
-  const handleCheckout = async () => {
-    console.log('🛒 Checkout button clicked');
-    console.log('📦 Cart items:', state.items);
-    
+  const handleCheckout = () => {
     if (state.items.length === 0) {
       alert('Your cart is empty. Please add items before checkout.');
       return;
     }
 
-    // Track InitiateCheckout event
-    const subtotal = state.items.reduce((sum, item) => sum + item.price * item.quantity, 0);
-    tiktokEvents.trackInitiateCheckout(state.items, subtotal);
-
-    // Validate cart items before sending
+    // Validate cart items
     const invalidItems = state.items.filter(item => 
       !item.selectedColor || !item.quantity || item.quantity <= 0
     );
@@ -34,72 +27,15 @@ export default function CartPage() {
       return;
     }
 
-    try {
-      console.log('🚀 Sending checkout request...');
-      
-      const response = await fetch('/api/checkout', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ items: state.items }),
-      });
-      
-      console.log('📥 Response status:', response.status);
+    // Open embedded checkout modal
+    setIsCheckoutOpen(true);
+  };
 
-      if (!response.ok) {
-        const errorData = await response.json();
-        console.error('❌ API Error:', errorData);
-        
-        // Show user-friendly error messages
-        let errorMessage = 'Checkout failed. Please try again.';
-        if (errorData.details) {
-          errorMessage = errorData.details;
-        } else if (errorData.error) {
-          errorMessage = errorData.error;
-        }
-        
-        throw new Error(errorMessage);
-      }
-
-      const data = await response.json();
-      console.log('✅ Checkout session created:', data.sessionId);
-      
-      if (!data.sessionId) {
-        throw new Error('No checkout session received');
-      }
-      
-      // Load Stripe with timeout
-      console.log('🔄 Loading Stripe...');
-      const stripe = await Promise.race([
-        getStripe(),
-        new Promise<never>((_, reject) => 
-          setTimeout(() => reject(new Error('Stripe loading timeout')), 10000)
-        )
-      ]);
-      
-      if (!stripe) {
-        throw new Error('Stripe failed to load. Please check your internet connection and try again.');
-      }
-
-      console.log('🔄 Redirecting to Stripe checkout...');
-      
-      // Use Stripe's built-in redirect which automatically handles custom domains
-      const { error } = await stripe.redirectToCheckout({ 
-        sessionId: data.sessionId 
-      });
-      
-      if (error) {
-        console.error('❌ Stripe redirect error:', error);
-        throw new Error(error.message || 'Failed to redirect to checkout');
-      }
-    } catch (error) {
-      console.error('❌ Error during checkout:', error);
-      
-      // Show user-friendly error message
-      const errorMessage = error instanceof Error ? error.message : 'Unknown error occurred';
-      alert(`Checkout error: ${errorMessage}`);
-    }
+  const handleCheckoutSuccess = () => {
+    // Clear cart after successful payment
+    clearCart();
+    // Close modal
+    setIsCheckoutOpen(false);
   };
 
   const subtotal = state.items.reduce(
@@ -209,6 +145,14 @@ export default function CartPage() {
           </div>
         )}
       </div>
+
+      {/* Embedded Checkout Modal */}
+      <EmbeddedCheckoutModal
+        isOpen={isCheckoutOpen}
+        onClose={() => setIsCheckoutOpen(false)}
+        items={state.items}
+        onSuccess={handleCheckoutSuccess}
+      />
     </div>
   );
 }

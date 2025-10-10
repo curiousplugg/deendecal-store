@@ -14,7 +14,8 @@
     "debug:dns": "node scripts/debug-dns.js"
   },
   "dependencies": {
-    "@stripe/stripe-js": "^7.9.0",
+    "@stripe/react-stripe-js": "^5.2.0",
+    "@stripe/stripe-js": "^8.0.0",
     "@vercel/analytics": "^1.5.0",
     "@vercel/speed-insights": "^1.2.0",
     "dotenv": "^17.2.2",
