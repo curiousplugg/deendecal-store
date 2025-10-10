@@ -23,7 +23,7 @@ export default function Home() {
 
   // Track ViewContent on page load
   useEffect(() => {
-    tiktokEvents.trackViewContent(product);
+    tiktokEvents.trackViewContent(product as unknown as Record<string, string | number | boolean | undefined>);
   }, [product]);
 
   const colorImages = {
@@ -55,7 +55,7 @@ export default function Home() {
     }
     
     // Track AddToCart event
-    tiktokEvents.trackAddToCart(productToAdd, quantity);
+    tiktokEvents.trackAddToCart(productToAdd as unknown as Record<string, string | number | boolean | undefined>, quantity);
     
     // Show notification
     setShowCartNotification(true);

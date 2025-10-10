@@ -118,7 +118,7 @@ export default function CartPage() {
 
     // Track InitiateCheckout event
     const subtotal = state.items.reduce((sum, item) => sum + item.price * item.quantity, 0);
-    tiktokEvents.trackInitiateCheckout(state.items, subtotal);
+    tiktokEvents.trackInitiateCheckout(state.items as unknown as Record<string, string | number | boolean | undefined>[], subtotal);
 
     // Show checkout and scroll to it
     setShowCheckout(true);

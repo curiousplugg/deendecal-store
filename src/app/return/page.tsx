@@ -1,4 +1,5 @@
 import { redirect } from 'next/navigation';
+import Link from 'next/link';
 import { stripe } from '@/lib/stripe';
 import Navigation from '@/components/Navigation';
 
@@ -40,12 +41,12 @@ export default async function ReturnPage({ searchParams }: ReturnPageProps) {
               </a>.
             </p>
             <div className="space-y-4">
-              <a
+              <Link
                 href="/"
                 className="inline-block bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-md font-medium transition-colors duration-200"
               >
                 Continue Shopping
-              </a>
+              </Link>
             </div>
           </div>
         </div>
@@ -64,14 +65,14 @@ export default async function ReturnPage({ searchParams }: ReturnPageProps) {
           </div>
           <h1 className="text-3xl font-bold text-gray-900 mb-4">Payment Status Unknown</h1>
           <p className="text-gray-700 text-lg mb-6">
-            We're not sure what happened with your payment. Please contact us if you have any questions.
+            We&apos;re not sure what happened with your payment. Please contact us if you have any questions.
           </p>
-          <a
+          <Link
             href="/cart"
             className="inline-block bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-md font-medium transition-colors duration-200"
           >
             Back to Cart
-          </a>
+          </Link>
         </div>
       </div>
     </div>

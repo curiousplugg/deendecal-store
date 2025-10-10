@@ -11,7 +11,7 @@ interface TikTokEvent {
     content_category?: string;
     value?: number;
     currency?: string;
-    [key: string]: any;
+    [key: string]: string | number | boolean | undefined;
   };
 }
 
@@ -36,8 +36,8 @@ class TikTokEvents {
     
     // Initialize TikTok Pixel
     if (this.config.pixelId) {
-      (window as any).ttq = (window as any).ttq || [];
-      (window as any).ttq.load(this.config.pixelId);
+      (window as unknown as Record<string, unknown>).ttq = (window as unknown as Record<string, unknown>).ttq || [];
+      (((window as unknown as Record<string, unknown>).ttq) as { load: (pixelId: string) => void }).load(this.config.pixelId);
       this.isInitialized = true;
     }
   }
@@ -46,7 +46,7 @@ class TikTokEvents {
     return `event_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
   }
 
-  private trackEvent(eventName: string, properties: any = {}) {
+  private trackEvent(eventName: string, properties: Record<string, string | number | boolean | undefined> = {}) {
     if (typeof window === 'undefined') return;
     
     this.initialize();
@@ -67,8 +67,8 @@ class TikTokEvents {
     };
 
     // Send to TikTok
-    if ((window as any).ttq) {
-      (window as any).ttq.track(eventName, properties);
+    if ((window as unknown as Record<string, unknown>).ttq) {
+      (((window as unknown as Record<string, unknown>).ttq) as { track: (eventName: string, properties: Record<string, unknown>) => void }).track(eventName, properties);
     }
 
     // Also send to our API for server-side tracking
@@ -95,30 +95,30 @@ class TikTokEvents {
   }
 
   // Track when user views a product
-  trackViewContent(product: any) {
+  trackViewContent(product: Record<string, string | number | boolean | undefined>) {
     this.trackEvent('ViewContent', {
       content_type: 'product',
       content_name: product.name,
       content_category: 'Islamic Car Emblems',
-      value: product.price,
+      value: Number(product.price),
       currency: 'USD'
     });
   }
 
   // Track when user adds item to cart
-  trackAddToCart(product: any, quantity: number = 1) {
+  trackAddToCart(product: Record<string, string | number | boolean | undefined>, quantity: number = 1) {
     this.trackEvent('AddToCart', {
       content_type: 'product',
       content_name: product.name,
       content_category: 'Islamic Car Emblems',
-      value: product.price * quantity,
+      value: Number(product.price) * quantity,
       currency: 'USD',
       quantity: quantity
     });
   }
 
   // Track when user initiates checkout
-  trackInitiateCheckout(items: any[], value: number) {
+  trackInitiateCheckout(items: Record<string, string | number | boolean | undefined>[], value: number) {
     this.trackEvent('InitiateCheckout', {
       content_type: 'product',
       content_name: 'Shopping Cart',
@@ -130,7 +130,7 @@ class TikTokEvents {
   }
 
   // Track when user completes purchase
-  trackPurchase(orderId: string, items: any[], value: number) {
+  trackPurchase(orderId: string, items: Record<string, string | number | boolean | undefined>[], value: number) {
     this.trackEvent('CompletePayment', {
       content_type: 'product',
       content_name: 'Order',
@@ -155,7 +155,7 @@ class TikTokEvents {
   }
 
   // Track custom events
-  trackCustomEvent(eventName: string, properties: any = {}) {
+  trackCustomEvent(eventName: string, properties: Record<string, string | number | boolean | undefined> = {}) {
     this.trackEvent(eventName, properties);
   }
 }
