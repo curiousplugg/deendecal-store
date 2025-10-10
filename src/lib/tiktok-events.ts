@@ -1,277 +1,164 @@
-// TikTok Event Tracking Utilities
-declare global {
-  interface Window {
-    ttq: {
-      track: (event: string, data: Record<string, unknown>, options?: Record<string, unknown>) => void;
-      identify: (data: Record<string, unknown>) => void;
+// TikTok Events API integration
+// This file provides functions to track TikTok conversion events
+
+interface TikTokEvent {
+  event: string;
+  event_id: string;
+  timestamp: string;
+  properties: {
+    content_type?: string;
+    content_name?: string;
+    content_category?: string;
+    value?: number;
+    currency?: string;
+    [key: string]: any;
+  };
+}
+
+interface TikTokConfig {
+  pixelId: string;
+  testEventCode?: string;
+}
+
+class TikTokEvents {
+  private config: TikTokConfig;
+  private isInitialized: boolean = false;
+
+  constructor() {
+    this.config = {
+      pixelId: process.env.NEXT_PUBLIC_TIKTOK_PIXEL_ID || '',
+      testEventCode: process.env.NEXT_PUBLIC_TIKTOK_TEST_EVENT_CODE
     };
+  }
+
+  private initialize() {
+    if (this.isInitialized || typeof window === 'undefined') return;
+    
+    // Initialize TikTok Pixel
+    if (this.config.pixelId) {
+      (window as any).ttq = (window as any).ttq || [];
+      (window as any).ttq.load(this.config.pixelId);
+      this.isInitialized = true;
+    }
+  }
+
+  private generateEventId(): string {
+    return `event_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
+  }
+
+  private trackEvent(eventName: string, properties: any = {}) {
+    if (typeof window === 'undefined') return;
+    
+    this.initialize();
+    
+    if (!this.isInitialized) {
+      console.warn('TikTok Pixel not initialized');
+      return;
+    }
+
+    const event: TikTokEvent = {
+      event: eventName,
+      event_id: this.generateEventId(),
+      timestamp: new Date().toISOString(),
+      properties: {
+        ...properties,
+        currency: 'USD'
+      }
+    };
+
+    // Send to TikTok
+    if ((window as any).ttq) {
+      (window as any).ttq.track(eventName, properties);
+    }
+
+    // Also send to our API for server-side tracking
+    this.sendToAPI(event);
+  }
+
+  private async sendToAPI(event: TikTokEvent) {
+    try {
+      await fetch('/api/tiktok-events', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(event),
+      });
+    } catch (error) {
+      console.error('Failed to send TikTok event to API:', error);
+    }
+  }
+
+  // Track page view
+  trackPageView() {
+    this.trackEvent('PageView');
+  }
+
+  // Track when user views a product
+  trackViewContent(product: any) {
+    this.trackEvent('ViewContent', {
+      content_type: 'product',
+      content_name: product.name,
+      content_category: 'Islamic Car Emblems',
+      value: product.price,
+      currency: 'USD'
+    });
+  }
+
+  // Track when user adds item to cart
+  trackAddToCart(product: any, quantity: number = 1) {
+    this.trackEvent('AddToCart', {
+      content_type: 'product',
+      content_name: product.name,
+      content_category: 'Islamic Car Emblems',
+      value: product.price * quantity,
+      currency: 'USD',
+      quantity: quantity
+    });
+  }
+
+  // Track when user initiates checkout
+  trackInitiateCheckout(items: any[], value: number) {
+    this.trackEvent('InitiateCheckout', {
+      content_type: 'product',
+      content_name: 'Shopping Cart',
+      content_category: 'Islamic Car Emblems',
+      value: value,
+      currency: 'USD',
+      num_items: items.length
+    });
+  }
+
+  // Track when user completes purchase
+  trackPurchase(orderId: string, items: any[], value: number) {
+    this.trackEvent('CompletePayment', {
+      content_type: 'product',
+      content_name: 'Order',
+      content_category: 'Islamic Car Emblems',
+      value: value,
+      currency: 'USD',
+      order_id: orderId,
+      num_items: items.length
+    });
+  }
+
+  // Track when user searches
+  trackSearch(searchTerm: string) {
+    this.trackEvent('Search', {
+      search_string: searchTerm
+    });
+  }
+
+  // Track when user contacts us
+  trackContact() {
+    this.trackEvent('Contact');
+  }
+
+  // Track custom events
+  trackCustomEvent(eventName: string, properties: any = {}) {
+    this.trackEvent(eventName, properties);
   }
 }
 
-// Generate unique event ID
-const generateEventId = (): string => {
-  return `${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
-};
-
-// Hash function for PII data (SHA-256)
-const hashData = async (data: string): Promise<string> => {
-  const encoder = new TextEncoder();
-  const dataBuffer = encoder.encode(data);
-  const hashBuffer = await crypto.subtle.digest('SHA-256', dataBuffer);
-  const hashArray = Array.from(new Uint8Array(hashBuffer));
-  return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
-};
-
-// Send event to server-side TikTok Events API
-const sendServerEvent = async (event: string, data: Record<string, unknown>) => {
-  try {
-    await fetch('/api/tiktok-events', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        event,
-        ...data,
-        url: window.location.href,
-      }),
-    });
-  } catch (error) {
-    console.error('Failed to send server-side TikTok event:', error);
-  }
-};
-
-// TikTok Event Tracking Functions
-export const tiktokEvents = {
-  // Track page view with product content
-  trackViewContent: (product: { id: string; name: string; price: number }) => {
-    // Client-side tracking
-    if (typeof window !== 'undefined' && window.ttq) {
-      window.ttq.track('ViewContent', {
-        contents: [
-          {
-            content_id: product.id,
-            content_type: 'product',
-            content_name: product.name,
-            num_items: 1
-          }
-        ],
-        value: product.price,
-        currency: 'USD'
-      }, {
-        event_id: generateEventId()
-      });
-    }
-
-    // Server-side tracking
-    sendServerEvent('ViewContent', { product });
-  },
-
-  // Track add to cart
-  trackAddToCart: (product: { id: string; name: string; price: number }, quantity: number = 1) => {
-    // Client-side tracking
-    if (typeof window !== 'undefined' && window.ttq) {
-      window.ttq.track('AddToCart', {
-        contents: [
-          {
-            content_id: product.id,
-            content_type: 'product',
-            content_name: product.name
-          }
-        ],
-        value: product.price * quantity,
-        currency: 'USD'
-      }, {
-        event_id: generateEventId()
-      });
-    }
-
-    // Server-side tracking
-    sendServerEvent('AddToCart', { product, quantity });
-  },
-
-  // Track checkout initiation
-  trackInitiateCheckout: (items: { id: string; name: string }[], totalValue: number) => {
-    // Client-side tracking
-    if (typeof window !== 'undefined' && window.ttq) {
-      window.ttq.track('InitiateCheckout', {
-        contents: items.map(item => ({
-          content_id: item.id,
-          content_type: 'product',
-          content_name: item.name
-        })),
-        value: totalValue,
-        currency: 'USD'
-      }, {
-        event_id: generateEventId()
-      });
-    }
-
-    // Server-side tracking
-    sendServerEvent('InitiateCheckout', { items, totalValue });
-  },
-
-  // Track purchase completion
-  trackPurchase: (items: { id: string; name: string }[], totalValue: number) => {
-    // Client-side tracking
-    if (typeof window !== 'undefined' && window.ttq) {
-      window.ttq.track('Purchase', {
-        contents: items.map(item => ({
-          content_id: item.id,
-          content_type: 'product',
-          content_name: item.name
-        })),
-        value: totalValue,
-        currency: 'USD'
-      }, {
-        event_id: generateEventId()
-      });
-    }
-
-    // Server-side tracking
-    sendServerEvent('Purchase', { items, totalValue });
-  },
-
-  // Track payment info addition
-  trackAddPaymentInfo: (items: { id: string; name: string }[], totalValue: number) => {
-    // Client-side tracking
-    if (typeof window !== 'undefined' && window.ttq) {
-      window.ttq.track('AddPaymentInfo', {
-        contents: items.map(item => ({
-          content_id: item.id,
-          content_type: 'product',
-          content_name: item.name
-        })),
-        value: totalValue,
-        currency: 'USD'
-      }, {
-        event_id: generateEventId()
-      });
-    }
-
-    // Server-side tracking
-    sendServerEvent('AddPaymentInfo', { items, totalValue });
-  },
-
-  // Track AddToWishlist event
-  trackAddToWishlist: (product: { id: string; name: string; price: number }) => {
-    // Client-side tracking
-    if (typeof window !== 'undefined' && window.ttq) {
-      window.ttq.track('AddToWishlist', {
-        contents: [
-          {
-            content_id: product.id,
-            content_type: 'product',
-            content_name: product.name
-          }
-        ],
-        value: product.price,
-        currency: 'USD'
-      }, {
-        event_id: generateEventId()
-      });
-    }
-
-    // Server-side tracking
-    sendServerEvent('AddToWishlist', { product });
-  },
-
-  // Track Search event
-  trackSearch: (searchString: string, product?: { id: string; name: string; price: number }) => {
-    // Client-side tracking
-    if (typeof window !== 'undefined' && window.ttq) {
-      const searchData: Record<string, unknown> = {
-        search_string: searchString,
-        value: product?.price || 0,
-        currency: 'USD'
-      };
-
-      if (product) {
-        searchData.contents = [
-          {
-            content_id: product.id,
-            content_type: 'product',
-            content_name: product.name
-          }
-        ];
-      }
-
-      window.ttq.track('Search', searchData, {
-        event_id: generateEventId()
-      });
-    }
-
-    // Server-side tracking
-    sendServerEvent('Search', { searchString, product });
-  },
-
-  // Track PlaceAnOrder event
-  trackPlaceAnOrder: (items: { id: string; name: string }[], totalValue: number) => {
-    // Client-side tracking
-    if (typeof window !== 'undefined' && window.ttq) {
-      window.ttq.track('PlaceAnOrder', {
-        contents: items.map(item => ({
-          content_id: item.id,
-          content_type: 'product',
-          content_name: item.name
-        })),
-        value: totalValue,
-        currency: 'USD'
-      }, {
-        event_id: generateEventId()
-      });
-    }
-
-    // Server-side tracking
-    sendServerEvent('PlaceAnOrder', { items, totalValue });
-  },
-
-  // Track CompleteRegistration event
-  trackCompleteRegistration: (product?: { id: string; name: string; price: number }) => {
-    // Client-side tracking
-    if (typeof window !== 'undefined' && window.ttq) {
-      const registrationData: Record<string, unknown> = {
-        value: product?.price || 0,
-        currency: 'USD'
-      };
-
-      if (product) {
-        registrationData.contents = [
-          {
-            content_id: product.id,
-            content_type: 'product',
-            content_name: product.name
-          }
-        ];
-      }
-
-      window.ttq.track('CompleteRegistration', registrationData, {
-        event_id: generateEventId()
-      });
-    }
-
-    // Server-side tracking
-    sendServerEvent('CompleteRegistration', { product });
-  },
-
-  // Identify user with hashed PII data
-  identifyUser: async (email?: string, phone?: string, externalId?: string) => {
-    if (typeof window !== 'undefined' && window.ttq) {
-      const identifyData: Record<string, string> = {};
-      
-      if (email) {
-        identifyData.email = await hashData(email);
-      }
-      if (phone) {
-        identifyData.phone_number = await hashData(phone);
-      }
-      if (externalId) {
-        identifyData.external_id = await hashData(externalId);
-      }
-
-      if (Object.keys(identifyData).length > 0) {
-        window.ttq.identify(identifyData);
-      }
-    }
-  }
-};
+// Export singleton instance
+export const tiktokEvents = new TikTokEvents();
