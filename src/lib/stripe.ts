@@ -3,27 +3,24 @@ import Stripe from 'stripe';
 // Sanitize and validate the Stripe secret key
 const stripeSecretKey = process.env.STRIPE_SECRET_KEY?.trim();
 
-// Only validate and create Stripe instance if we're not in build time
-let stripe: Stripe | null = null;
-
-if (stripeSecretKey) {
-  // Check for invalid characters that could cause header issues
-  const invalidChars = /[^\x20-\x7E]/;
-  if (invalidChars.test(stripeSecretKey)) {
-    throw new Error('STRIPE_SECRET_KEY contains invalid characters');
-  }
-
-  // Validate key format
-  if (!stripeSecretKey.startsWith('sk_')) {
-    throw new Error('Invalid Stripe secret key format');
-  }
-
-  stripe = new Stripe(stripeSecretKey, {
-    typescript: true,
-  });
+if (!stripeSecretKey) {
+  throw new Error('STRIPE_SECRET_KEY is not set');
 }
 
-export { stripe };
+// Check for invalid characters that could cause header issues
+const invalidChars = /[^\x20-\x7E]/;
+if (invalidChars.test(stripeSecretKey)) {
+  throw new Error('STRIPE_SECRET_KEY contains invalid characters');
+}
+
+// Validate key format
+if (!stripeSecretKey.startsWith('sk_')) {
+  throw new Error('Invalid Stripe secret key format');
+}
+
+export const stripe = new Stripe(stripeSecretKey, {
+  typescript: true,
+});
 
 export const formatAmountForDisplay = (
   amount: number,
