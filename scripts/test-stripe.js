@@ -44,10 +44,6 @@ async function testStripeConnection() {
         mode: 'payment',
         success_url: 'https://deendecal.com/success',
         cancel_url: 'https://deendecal.com/cart',
-        // Custom domain configuration (if set)
-        ...(process.env.NEXT_PUBLIC_STRIPE_DOMAIN && {
-          domain: process.env.NEXT_PUBLIC_STRIPE_DOMAIN
-        }),
       });
       console.log('✅ Checkout session created successfully:', session.id);
     } catch (error) {

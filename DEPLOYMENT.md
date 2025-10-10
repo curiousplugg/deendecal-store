@@ -15,7 +15,6 @@ STRIPE_WEBHOOK_SECRET=whsec_YOUR_WEBHOOK_SECRET_HERE
 # App Configuration
 NEXT_PUBLIC_APP_URL=https://deendecal.com
 NEXT_PUBLIC_DOMAIN=deendecal.com
-NEXT_PUBLIC_STRIPE_DOMAIN=pay.deendecal.com
 ```
 
 ### For Development (localhost)
@@ -29,10 +28,12 @@ STRIPE_WEBHOOK_SECRET=whsec_YOUR_WEBHOOK_SECRET_HERE
 # App Configuration
 NEXT_PUBLIC_APP_URL=http://localhost:3000
 NEXT_PUBLIC_DOMAIN=deendecal.com
-NEXT_PUBLIC_STRIPE_DOMAIN=pay.deendecal.com
 ```
 
 ## Stripe Custom Domain Setup
+
+### How Stripe Custom Domains Work
+Stripe custom domains are configured **only in the Stripe Dashboard**, not in your code. Once configured, all checkout sessions automatically use your custom domain.
 
 ### DNS Configuration
 To use the custom domain `pay.deendecal.com` for Stripe checkout:
@@ -49,10 +50,9 @@ To use the custom domain `pay.deendecal.com` for Stripe checkout:
    - Enter: `pay.deendecal.com`
    - Wait for DNS verification
 
-3. **Environment Variable:**
-   ```bash
-   NEXT_PUBLIC_STRIPE_DOMAIN=pay.deendecal.com
-   ```
+3. **No Code Changes Needed:**
+   - Once configured in Stripe Dashboard, all checkout sessions automatically use the custom domain
+   - Your existing code will work without any modifications
 
 4. **Test the Setup:**
    ```bash
@@ -60,9 +60,9 @@ To use the custom domain `pay.deendecal.com` for Stripe checkout:
    ```
 
 ### Custom Domain Benefits
-- **Checkout URLs:** `pay.deendecal.com/c/...`
-- **Payment Links:** `pay.deendecal.com/b/...`
-- **Customer Portal:** `pay.deendecal.com/p/...`
+- **Checkout URLs:** `pay.deendecal.com/c/...` (automatic)
+- **Payment Links:** `pay.deendecal.com/b/...` (automatic)
+- **Customer Portal:** `pay.deendecal.com/p/...` (automatic)
 
 ## Stripe Webhook Configuration
 
