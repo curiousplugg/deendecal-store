@@ -161,6 +161,8 @@ export async function POST(req: NextRequest) {
       cancel_url: cancelUrl,
       metadata: metadata,
       allow_promotion_codes: true,
+      // Promotion codes are case-sensitive by default in Stripe
+      // Configure case sensitivity in Stripe Dashboard under Promotion Codes
       custom_fields: [
         {
           key: 'special_instructions',
