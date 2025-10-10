@@ -139,14 +139,6 @@ export default function Home() {
             <div className="hero-text">
               <h1>Premium <span style={{color: '#c89d24'}}>Shahada</span> Metal Car Decal - Islamic Car Emblem</h1>
               <p>Premium Islamic car emblems and Shahada decals. Show your devotion with sophistication and grace.</p>
-              <div className="mb-4">
-                <Link 
-                  href="/pk" 
-                  className="inline-block bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-md text-sm font-medium transition-colors duration-200"
-                >
-                  🇵🇰 Pakistani Version (PKR 6,950)
-                </Link>
-              </div>
               <div className="hero-stats">
                 <div className="stat">
                   <span className="stat-number">10K+</span>

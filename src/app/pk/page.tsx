@@ -3,17 +3,20 @@
 import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
 import { useCart } from '@/contexts/CartContext';
-import { useLanguage } from '@/contexts/LanguageContext';
 import Navigation from '@/components/Navigation';
 import { products } from '@/data/products';
 import { tiktokEvents } from '@/lib/tiktok-events';
 
 export default function PakistaniHomePage() {
   const { addItem } = useCart();
-  const { t } = useLanguage();
   const [selectedColor, setSelectedColor] = useState('Gold');
   const [quantity, setQuantity] = useState(1);
+  const [currentImage, setCurrentImage] = useState('/images/goldIndy.jpg');
+  const [currentVideo, setCurrentVideo] = useState<string | null>(null);
   const [showCartNotification, setShowCartNotification] = useState(false);
+  const [showShippingPopup, setShowShippingPopup] = useState(false);
+  const [showCartActionPopup, setShowCartActionPopup] = useState(false);
+  const [isCartActionExiting, setIsCartActionExiting] = useState(false);
 
   const product = products[0]; // Single product
 
@@ -27,6 +30,16 @@ export default function PakistaniHomePage() {
     'Black': '/images/blackIndy.jpg',
     'Red': '/images/redIndy.jpg',
     'Silver': '/images/silverIndy.jpg'
+  };
+
+  const handleColorSelect = (color: string) => {
+    setSelectedColor(color);
+    setCurrentImage(colorImages[color as keyof typeof colorImages]);
+    setCurrentVideo(null);
+  };
+
+  const handleVideoSelect = (videoSrc: string) => {
+    setCurrentVideo(videoSrc);
   };
 
   const handleAddToCart = () => {
@@ -52,186 +65,405 @@ export default function PakistaniHomePage() {
     }, 3000);
   };
 
+
   return (
     <div className="min-h-screen bg-white">
       {/* Navigation */}
       <Navigation />
 
       {/* Hero Section */}
-      <section id="home" className="relative min-h-screen flex items-center justify-center bg-gradient-to-br from-green-50 to-yellow-50">
-        <div className="container mx-auto px-4 py-20">
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
-            {/* Left Column - Content */}
-            <div className="text-center lg:text-left">
-              <h1 className="text-4xl lg:text-6xl font-bold text-gray-900 mb-6 leading-tight">
-                {t('product.title')}
-              </h1>
-              <p className="text-xl text-gray-700 mb-8 leading-relaxed">
-                {t('product.description')}
+      <section id="home" className="hero">
+        <div className="container">
+          <div className="hero-content">
+            <div className="hero-text">
+              <h1>Premium <span style={{color: '#c89d24'}}>Shahada</span> Metal Car Decal - Islamic Car Emblem</h1>
+              <p>Premium Islamic car emblems and Shahada decals. Show your devotion with sophistication and grace.</p>
+              <div className="hero-stats">
+                <div className="stat">
+                  <span className="stat-number">10K+</span>
+                  <span className="stat-label">Happy Customers</span>
+                </div>
+                <div className="stat">
+                  <span className="stat-number">4.9</span>
+                  <span className="stat-label">Rating</span>
+                </div>
+                <div className="stat">
+                  <span className="stat-number">24/7</span>
+                  <span className="stat-label">Support</span>
+                </div>
+              </div>
+            </div>
+            <div className="hero-image">
+              <Image
+                src={currentImage}
+                alt="Premium Islamic Car Emblem"
+                width={500}
+                height={500}
+                className="hero-img"
+              />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Product Section */}
+      <section id="product" className="product-section">
+        <div className="container">
+          <div className="product-content">
+            <div className="product-info">
+              <h2>Premium Shahada Metal Car Decal</h2>
+              <p className="product-description">
+                Premium Shahada Metal Car Decal - High-quality metal material, 16*3.5CM size, Trunk Sticker style. 
+                Perfect for Body and Rear installation. Single Pack with detailed installation instructions. 
+                Durable Islamic car emblem for Muslim car accessories.
               </p>
               
-              {/* Price */}
-              <div className="mb-8">
-                <span className="text-4xl font-bold text-green-600">
-                  {t('product.price')}
-                </span>
-                <p className="text-gray-600 mt-2">
-                  {t('footer.shipping_info')}
-                </p>
+              <div className="product-price">
+                <span className="price">PKR 6,950</span>
+                <span className="original-price">PKR 6,950</span>
               </div>
 
-              {/* Color Selection */}
-              <div className="mb-8">
-                <h3 className="text-lg font-semibold text-gray-900 mb-4">
-                  {t('product.select_color')}
-                </h3>
-                <div className="flex flex-wrap gap-3 justify-center lg:justify-start">
-                  {['Gold', 'Black', 'Red', 'Silver'].map((color) => (
-                    <button
-                      key={color}
-                      onClick={() => setSelectedColor(color)}
-                      className={`px-6 py-3 rounded-full font-medium transition-all duration-200 ${
-                        selectedColor === color
-                          ? 'bg-yellow-500 text-white shadow-lg'
-                          : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
-                      }`}
-                    >
-                      {color}
-                    </button>
-                  ))}
-                </div>
-              </div>
-
-              {/* Quantity and Add to Cart */}
-              <div className="flex flex-col sm:flex-row gap-4 items-center justify-center lg:justify-start">
-                <div className="flex items-center space-x-4">
-                  <label className="text-lg font-medium text-gray-900">
-                    {t('product.quantity')}:
-                  </label>
-                  <div className="flex items-center border border-gray-300 rounded-lg">
-                    <button
-                      onClick={() => setQuantity(Math.max(1, quantity - 1))}
-                      className="px-4 py-2 text-gray-600 hover:text-gray-800"
-                    >
-                      -
-                    </button>
-                    <span className="px-4 py-2 text-lg font-medium">{quantity}</span>
-                    <button
-                      onClick={() => setQuantity(quantity + 1)}
-                      className="px-4 py-2 text-gray-600 hover:text-gray-800"
-                    >
-                      +
-                    </button>
+              <div className="product-options">
+                <div className="color-selection">
+                  <h3>Select Color</h3>
+                  <div className="color-options">
+                    {Object.entries(colorImages).map(([color, image]) => (
+                      <button
+                        key={color}
+                        className={`color-option ${selectedColor === color ? 'active' : ''}`}
+                        onClick={() => handleColorSelect(color)}
+                      >
+                        <Image
+                          src={image}
+                          alt={`${color} color`}
+                          width={60}
+                          height={60}
+                        />
+                        <span>{color}</span>
+                      </button>
+                    ))}
                   </div>
                 </div>
-                
-                <button
-                  onClick={handleAddToCart}
-                  className="bg-green-600 hover:bg-green-700 text-white px-8 py-4 rounded-full font-semibold text-lg transition-all duration-200 shadow-lg hover:shadow-xl flex items-center space-x-2"
-                >
-                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.5 5M7 13l2.5 5" />
-                  </svg>
-                  <span>{t('product.add_to_cart')}</span>
-                </button>
+
+                <div className="quantity-selection">
+                  <h3>Quantity</h3>
+                  <div className="quantity-controls">
+                    <button onClick={() => setQuantity(Math.max(1, quantity - 1))}>-</button>
+                    <span>{quantity}</span>
+                    <button onClick={() => setQuantity(quantity + 1)}>+</button>
+                  </div>
+                </div>
               </div>
 
-              {/* Cart Notification */}
-              {showCartNotification && (
-                <div className="fixed top-20 right-4 bg-green-500 text-white px-6 py-3 rounded-lg shadow-lg z-50 flex items-center space-x-2">
-                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                  </svg>
-                  <span>Added to cart!</span>
+              <button className="add-to-cart-btn" onClick={handleAddToCart}>
+                <i className="fas fa-shopping-cart"></i>
+                Add to Cart - PKR 6,950
+              </button>
+
+              <div className="product-features">
+                <div className="feature">
+                  <i className="fas fa-shipping-fast"></i>
+                  <span>Free Shipping across Pakistan</span>
                 </div>
-              )}
+                <div className="feature">
+                  <i className="fas fa-shield-alt"></i>
+                  <span>30-Day Money Back Guarantee</span>
+                </div>
+                <div className="feature">
+                  <i className="fas fa-star"></i>
+                  <span>Premium Quality Materials</span>
+                </div>
+              </div>
             </div>
 
-            {/* Right Column - Product Image */}
-            <div className="flex justify-center">
-              <div className="relative">
+            <div className="product-image">
+              {currentVideo ? (
+                <video
+                  src={currentVideo}
+                  className="main-product-video"
+                  controls
+                  autoPlay
+                  loop
+                  muted
+                  playsInline
+                />
+              ) : (
                 <Image
-                  src={colorImages[selectedColor as keyof typeof colorImages]}
-                  alt={`Islamic Car Emblem - ${selectedColor}`}
+                  src={currentImage}
+                  alt="Premium Islamic Car Emblem"
                   width={500}
                   height={500}
-                  className="rounded-lg shadow-2xl"
-                  priority
+                  className="main-product-image"
                 />
-                <div className="absolute -top-4 -right-4 bg-green-500 text-white px-4 py-2 rounded-full font-bold text-sm">
-                  {t('product.price')}
+              )}
+              <div className="product-badge">
+                <i className="fas fa-star"></i>
+                <span>Premium Quality</span>
+              </div>
+            </div>
+            <div className="thumbnail-gallery">
+              {Object.entries(colorImages).map(([color, image]) => (
+                <div
+                  key={color}
+                  className={`thumbnail ${selectedColor === color ? 'active' : ''}`}
+                  onClick={() => handleColorSelect(color)}
+                >
+                  <Image
+                    src={image}
+                    alt={`Premium Shahada Metal Car Decal - ${color} - Islamic Car Emblem`}
+                    width={80}
+                    height={80}
+                  />
+                  <div className="thumbnail-label">{color}</div>
                 </div>
+              ))}
+              <div className="thumbnail thumbnail-video" onClick={() => handleVideoSelect('/videos/tiktok_20250926_115253.mp4')}>
+                <video
+                  src="/videos/tiktok_20250926_115253.mp4"
+                  className="thumbnail-video"
+                  muted
+                  loop
+                  playsInline
+                  preload="metadata"
+                  poster="/images/video_installation_thumb.jpg"
+                />
+                <div className="thumbnail-label">Installation</div>
+              </div>
+              <div className="thumbnail thumbnail-video" onClick={() => handleVideoSelect('/videos/tiktok_20250926_120529.mp4')}>
+                <video
+                  src="/videos/tiktok_20250926_120529.mp4"
+                  className="thumbnail-video"
+                  muted
+                  loop
+                  playsInline
+                  preload="metadata"
+                  poster="/images/video_application_thumb.jpg"
+                />
+                <div className="thumbnail-label">Application</div>
+              </div>
+              <div className="thumbnail thumbnail-video" onClick={() => handleVideoSelect('/videos/tiktok_20250926_120542.mp4')}>
+                <video
+                  src="/videos/tiktok_20250926_120542.mp4"
+                  className="thumbnail-video"
+                  muted
+                  loop
+                  playsInline
+                  preload="metadata"
+                  poster="/images/video_final_thumb.jpg"
+                />
+                <div className="thumbnail-label">Final Result</div>
               </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Product Features Section */}
-      <section id="product" className="py-20 bg-gray-50">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">
-              {t('nav.products')}
-            </h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              Premium quality Islamic car emblems designed for Pakistani customers
-            </p>
+      {/* Installation Section */}
+      <section id="installation" className="installation-section">
+        <div className="container">
+          <div className="section-header">
+            <h2>Easy Installation</h2>
+            <p>Follow these simple steps to install your emblem</p>
           </div>
-
-          <div className="grid md:grid-cols-3 gap-8">
-            <div className="text-center p-6 bg-white rounded-lg shadow-lg">
-              <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                <svg className="w-8 h-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                </svg>
+          <div className="installation-steps">
+            {product.installationInstructions?.map((instruction, index) => (
+              <div key={index} className="step">
+                <div className="step-number">{index + 1}</div>
+                <div className="step-content">
+                  <h3>Step {index + 1}</h3>
+                  <p>{instruction}</p>
+                </div>
               </div>
-              <h3 className="text-xl font-semibold text-gray-900 mb-2">Premium Quality</h3>
-              <p className="text-gray-600">High-grade materials for durability</p>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* About Section */}
+      <section id="about" className="about-section">
+        <div className="container">
+          <div className="about-content">
+            <div className="about-text">
+              <h2>About DeenDecal</h2>
+              <p>We are passionate about creating beautiful, high-quality Islamic car emblems that allow you to express your faith with pride and elegance.</p>
+              <p>Our emblems are crafted using premium materials and advanced manufacturing techniques to ensure durability and beauty that lasts.</p>
+              <div className="about-features">
+                <div className="feature">
+                  <div className="feature-icon">
+                    <i className="fas fa-star"></i>
+                  </div>
+                  <div className="feature-content">
+                    <h4>Premium Materials</h4>
+                    <p>High-grade vinyl and adhesive</p>
+                  </div>
+                </div>
+                <div className="feature">
+                  <div className="feature-icon">
+                    <i className="fas fa-truck"></i>
+                  </div>
+                  <div className="feature-content">
+                    <h4>Fast Shipping</h4>
+                    <p>Free shipping across Pakistan • 1-2 weeks delivery</p>
+                  </div>
+                </div>
+                <div className="feature">
+                  <div className="feature-icon">
+                    <i className="fas fa-dollar-sign"></i>
+                  </div>
+                  <div className="feature-content">
+                    <h4>Money-Back Guarantee</h4>
+                    <p>Full refund within 30 days of purchase</p>
+                  </div>
+                </div>
+              </div>
+              <div className="about-transparency">
+                <p>If you&apos;re curious about how we operate and want to learn more about our business practices, you can <a href="/pk/faq#how-we-operate">read about our operations here</a>.</p>
+              </div>
             </div>
-
-            <div className="text-center p-6 bg-white rounded-lg shadow-lg">
-              <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                <svg className="w-8 h-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
-                </svg>
-              </div>
-              <h3 className="text-xl font-semibold text-gray-900 mb-2">Local Support</h3>
-              <p className="text-gray-600">Customer service in Pakistan</p>
-            </div>
-
-            <div className="text-center p-6 bg-white rounded-lg shadow-lg">
-              <div className="w-16 h-16 bg-yellow-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                <svg className="w-8 h-8 text-yellow-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" />
-                </svg>
-              </div>
-              <h3 className="text-xl font-semibold text-gray-900 mb-2">Free Shipping</h3>
-              <p className="text-gray-600">Across Pakistan</p>
+            <div className="about-img-container">
+              <Image
+                src="/images/measurements.jpg"
+                alt="About DeenDecal"
+                width={500}
+                height={400}
+                className="about-img"
+              />
             </div>
           </div>
         </div>
       </section>
 
       {/* Contact Section */}
-      <section className="py-16 bg-white">
-        <div className="container mx-auto px-4 text-center">
-          <h2 className="text-3xl font-bold text-gray-900 mb-8">
-            {t('footer.contact')}
-          </h2>
-          <div className="max-w-2xl mx-auto">
-            <p className="text-lg text-gray-600 mb-4">
-              {t('footer.email')}
-            </p>
-            <p className="text-gray-600 mb-4">
-              {t('footer.business_hours')}
-            </p>
-            <p className="text-gray-600">
-              {t('footer.hours')}
-            </p>
+      <section id="contact" className="contact-section">
+        <div className="container">
+          <div className="contact-content">
+            <div className="contact-card">
+              <div className="contact-icon">
+                <i className="fas fa-envelope"></i>
+              </div>
+              <div className="contact-info">
+                <h3>Get in Touch</h3>
+                <p>Have questions? We&apos;d love to hear from you. Send us a message and we&apos;ll respond as soon as possible.</p>
+                <a href="mailto:deendecal@gmail.com" className="contact-email">
+                  Contact Us
+                </a>
+              </div>
+            </div>
           </div>
         </div>
       </section>
+
+      {/* Cart Notification */}
+      {showCartNotification && (
+        <div className="cart-notification">
+          <div className="notification-content">
+            <i className="fas fa-check-circle"></i>
+            <span>Added to cart!</span>
+          </div>
+        </div>
+      )}
+
+      {/* Shipping Popup */}
+      {showShippingPopup && (
+        <div className="popup-overlay" onClick={() => setShowShippingPopup(false)}>
+          <div className="popup-content" onClick={(e) => e.stopPropagation()}>
+            <div className="popup-header">
+              <h3>Shipping Information</h3>
+              <button className="popup-close" onClick={() => setShowShippingPopup(false)}>
+                <i className="fas fa-times"></i>
+              </button>
+            </div>
+            <div className="popup-body">
+              <div className="shipping-info">
+                <div className="shipping-item">
+                  <i className="fas fa-truck"></i>
+                  <div>
+                    <h4>Free Shipping</h4>
+                    <p>Free shipping across Pakistan</p>
+                  </div>
+                </div>
+                <div className="shipping-item">
+                  <i className="fas fa-clock"></i>
+                  <div>
+                    <h4>Delivery Time</h4>
+                    <p>1-2 weeks delivery time</p>
+                  </div>
+                </div>
+                <div className="shipping-item">
+                  <i className="fas fa-shield-alt"></i>
+                  <div>
+                    <h4>Secure Packaging</h4>
+                    <p>Your emblem is carefully packaged to ensure safe delivery</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Cart Action Popup */}
+      {showCartActionPopup && (
+        <div className={`cart-action-popup ${isCartActionExiting ? 'exiting' : ''}`}>
+          <div className="popup-content">
+            <div className="popup-header">
+              <h3>Item Added to Cart!</h3>
+              <button 
+                className="popup-close" 
+                onClick={() => {
+                  setIsCartActionExiting(true);
+                  setTimeout(() => {
+                    setShowCartActionPopup(false);
+                    setIsCartActionExiting(false);
+                  }, 300);
+                }}
+              >
+                <i className="fas fa-times"></i>
+              </button>
+            </div>
+            <div className="popup-body">
+              <div className="cart-action-content">
+                <div className="cart-item-preview">
+                  <Image
+                    src={currentImage}
+                    alt="Product"
+                    width={60}
+                    height={60}
+                  />
+                  <div className="item-details">
+                    <h4>Premium Shahada Metal Car Decal</h4>
+                    <p>Color: {selectedColor}</p>
+                    <p>Quantity: {quantity}</p>
+                    <p className="price">PKR 6,950</p>
+                  </div>
+                </div>
+                <div className="cart-actions">
+                  <button 
+                    className="continue-shopping"
+                    onClick={() => {
+                      setIsCartActionExiting(true);
+                      setTimeout(() => {
+                        setShowCartActionPopup(false);
+                        setIsCartActionExiting(false);
+                      }, 300);
+                    }}
+                  >
+                    Continue Shopping
+                  </button>
+                  <button 
+                    className="view-cart"
+                    onClick={() => {
+                      window.location.href = '/pk/cart';
+                    }}
+                  >
+                    View Cart
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
