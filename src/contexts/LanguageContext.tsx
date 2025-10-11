@@ -24,6 +24,10 @@ const translations = {
     'nav.faq': 'FAQ',
     'nav.terms': 'Terms',
     'nav.privacy': 'Privacy',
+    'nav.tagline': 'Express Your Faith',
+    'nav.free_shipping': 'Free shipping on all orders!',
+    'nav.track_order': 'Track Order',
+    'nav.help': 'Help',
     
     // Product
     'product.title': 'Islamic Car Emblem',
@@ -66,6 +70,34 @@ const translations = {
     'success.contact': 'If you have any questions, please email',
     'success.back_home': 'Back to Home',
     
+    // Installation Section
+    'installation.title': 'Easy Installation',
+    'installation.subtitle': 'Follow these simple steps to install your emblem',
+    'installation.step': 'Step',
+    'installation.step1_title': 'Step 1',
+    'installation.step1_desc': 'Clean the area of the vehicle to be applied. Ensure the area is dry, clean, free of oil and moisture, and has not been waxed within three days.',
+    'installation.step2_title': 'Step 2',
+    'installation.step2_desc': 'Carefully peel off the protective film from the adhesive backing of the vehicle logo. Align the sticker with the desired area, pressing downward along the logo and pressing firmly.',
+    'installation.step3_title': 'Step 3',
+    'installation.step3_desc': 'Do not wash the vehicle within 48 hours of application.',
+
+    // About Section
+    'about.title': 'About DeenDecal',
+    'about.p1': 'We are passionate about creating beautiful, high-quality Islamic car emblems that allow you to express your faith with pride and elegance.',
+    'about.p2': 'Our emblems are crafted using premium materials and advanced manufacturing techniques to ensure durability and beauty that lasts.',
+    'about.feature1_title': 'Premium Materials',
+    'about.feature1_desc': 'High-grade vinyl and adhesive',
+    'about.feature2_title': 'Fast Shipping',
+    'about.feature2_desc': 'Free shipping across Pakistan • 1-2 weeks delivery',
+    'about.feature3_title': 'Money-Back Guarantee',
+    'about.feature3_desc': 'Full refund within 30 days of purchase',
+    'about.transparency': 'If you\'re curious about how we operate and want to learn more about our business practices, you can read about our operations here.',
+
+    // Contact Section
+    'contact.title': 'Get in Touch',
+    'contact.description': 'Have questions? We\'d love to hear from you. Send us a message and we\'ll respond as soon as possible.',
+    'contact.email': 'deendecal@gmail.com',
+    
     // Footer
     'footer.contact': 'Contact',
     'footer.email': 'deendecal@gmail.com',
@@ -84,6 +116,10 @@ const translations = {
     'nav.faq': 'سوالات',
     'nav.terms': 'شرائط',
     'nav.privacy': 'پرائیویسی',
+    'nav.tagline': 'اپنے ایمان کا اظہار کریں',
+    'nav.free_shipping': 'تمام آرڈرز پر مفت شپنگ!',
+    'nav.track_order': 'آرڈر ٹریک کریں',
+    'nav.help': 'مدد',
     
     // Product
     'product.title': 'اسلامی کار کا نشان',
@@ -125,6 +161,34 @@ const translations = {
     'success.subtitle': 'آپ کی خریداری کا شکریہ! تصدیقی ای میل آپ کو بھیجی جائے گی۔',
     'success.contact': 'اگر آپ کے کوئی سوالات ہیں، تو برائے کرم ای میل کریں',
     'success.back_home': 'واپس ہوم',
+    
+    // Installation Section
+    'installation.title': 'آسان انسٹالیشن',
+    'installation.subtitle': 'اپنے نشان کو انسٹال کرنے کے لیے ان آسان اقدامات پر عمل کریں',
+    'installation.step': 'مرحلہ',
+    'installation.step1_title': 'مرحلہ 1',
+    'installation.step1_desc': 'گاڑی کے اس حصے کو صاف کریں جہاں لگانا ہے۔ یقینی بنائیں کہ جگہ خشک، صاف، تیل اور نمی سے پاک ہے، اور تین دنوں کے اندر ویکس نہیں لگایا گیا۔',
+    'installation.step2_title': 'مرحلہ 2',
+    'installation.step2_desc': 'گاڑی کے لوگو کی چپکنے والی بیکنگ سے حفاظتی فلم کو احتیاط سے ہٹائیں۔ مطلوبہ جگہ کے ساتھ اسٹیکر کو سیدھا کریں، لوگو کے ساتھ نیچے دبائیں اور مضبوطی سے دبائیں۔',
+    'installation.step3_title': 'مرحلہ 3',
+    'installation.step3_desc': 'لگانے کے 48 گھنٹوں کے اندر گاڑی کو نہ دھوئیں۔',
+
+    // About Section
+    'about.title': 'ڈین ڈیکل کے بارے میں',
+    'about.p1': 'ہم خوبصورت، اعلیٰ معیار کے اسلامی کار کے نشانات بنانے کے لیے پرجوش ہیں جو آپ کو فخر اور خوبصورتی کے ساتھ اپنے ایمان کا اظہار کرنے کی اجازت دیتے ہیں۔',
+    'about.p2': 'ہمارے نشانات پریمیم مواد اور جدید مینوفیکچرنگ تکنیکوں کا استعمال کرتے ہوئے تیار کیے جاتے ہیں تاکہ پائیداری اور خوبصورتی کو یقینی بنایا جا سکے جو دیرپا ہو۔',
+    'about.feature1_title': 'پریمیم مواد',
+    'about.feature1_desc': 'اعلیٰ درجے کا ونائل اور چپکنے والا',
+    'about.feature2_title': 'تیز شپنگ',
+    'about.feature2_desc': 'پاکستان بھر میں مفت شپنگ • 1-2 ہفتوں میں ڈیلیوری',
+    'about.feature3_title': 'منی بیک گارنٹی',
+    'about.feature3_desc': 'خریداری کے 30 دنوں کے اندر مکمل رقم کی واپسی',
+    'about.transparency': 'اگر آپ یہ جاننا چاہتے ہیں کہ ہم کیسے کام کرتے ہیں اور ہماری کاروباری طریقوں کے بارے میں مزید جاننا چاہتے ہیں، تو آپ ہمارے آپریشنز کے بارے میں یہاں پڑھ سکتے ہیں۔',
+
+    // Contact Section
+    'contact.title': 'رابطہ کریں',
+    'contact.description': 'سوالات ہیں؟ ہم آپ سے سننا پسند کریں گے۔ ہمیں ایک پیغام بھیجیں اور ہم جلد از جلد جواب دیں گے۔',
+    'contact.email': 'deendecal@gmail.com',
     
     // Footer
     'footer.contact': 'رابطہ',
