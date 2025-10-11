@@ -93,20 +93,20 @@ export default function PakistaniHomePage() {
         <div className="container">
           <div className="hero-content">
             <div className="hero-text">
-              <h1>Premium <span style={{color: '#c89d24'}}>Shahada</span> Metal Car Decal - Islamic Car Emblem</h1>
-              <p>Premium Islamic car emblems and Shahada decals. Show your devotion with sophistication and grace.</p>
+              <h1>{t('hero.title')}</h1>
+              <p>{t('hero.description')}</p>
               <div className="hero-stats">
                 <div className="stat">
                   <span className="stat-number">10K+</span>
-                  <span className="stat-label">Happy Customers</span>
+                  <span className="stat-label">{t('hero.customers')}</span>
                 </div>
                 <div className="stat">
                   <span className="stat-number">4.9</span>
-                  <span className="stat-label">Rating</span>
+                  <span className="stat-label">{t('hero.rating')}</span>
                 </div>
                 <div className="stat">
                   <span className="stat-number">24/7</span>
-                  <span className="stat-label">Support</span>
+                  <span className="stat-label">{t('hero.support')}</span>
                 </div>
               </div>
             </div>

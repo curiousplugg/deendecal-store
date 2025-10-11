@@ -138,6 +138,13 @@ const translations = {
     'product.application_video': 'استعمال',
     'product.final_result_video': 'حتمی نتیجہ',
     
+    // Hero Section
+    'hero.title': 'پریمیم شہادہ میٹل کار ڈیکل - اسلامی کار کا نشان',
+    'hero.description': 'پریمیم اسلامی کار کے نشانات اور شہادہ ڈیکلز۔ اپنے ایمان کا اظہار خوبصورتی اور وقار کے ساتھ کریں۔',
+    'hero.customers': 'خوشگوار گاہک',
+    'hero.rating': 'ریٹنگ',
+    'hero.support': 'سپورٹ',
+    
     // Cart
     'cart.title': 'آپ کی خریداری کی ٹوکری',
     'cart.subtitle': 'اپنی اشیاء کا جائزہ لیں اور چیک آؤٹ کے لیے آگے بڑھیں',
