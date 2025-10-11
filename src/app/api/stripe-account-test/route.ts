@@ -3,26 +3,19 @@ import { stripe } from '@/lib/stripe';
 
 export async function GET() {
   try {
-    console.log('🔍 Testing Stripe account status...');
+    // Testing Stripe account status
     
     // Test 1: Get account details
     const account = await stripe.accounts.retrieve();
-    console.log('📊 Account details:', {
-      id: account.id,
-      country: account.country,
-      charges_enabled: account.charges_enabled,
-      payouts_enabled: account.payouts_enabled,
-      details_submitted: account.details_submitted,
-      capabilities: account.capabilities
-    });
+    // Account details retrieved
     
     // Test 2: List products to verify they exist
     const products = await stripe.products.list({ limit: 10 });
-    console.log('📦 Products found:', products.data.length);
+    // Products retrieved
     
     // Test 3: List prices to verify they exist
     const prices = await stripe.prices.list({ limit: 10 });
-    console.log('💰 Prices found:', prices.data.length);
+    // Prices retrieved
     
     // Test 4: Check if our specific price IDs exist
     const priceIds = [

@@ -4,8 +4,7 @@ export async function POST(request: NextRequest) {
   try {
     const event = await request.json();
 
-    // Log the event for debugging
-    console.log('TikTok Event:', event);
+    // Process the event
 
     // Here you would typically send the event to TikTok's Events API
     // For now, we'll just log it and return success

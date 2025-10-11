@@ -118,7 +118,7 @@ export const sendTikTokEvent = async (
       return false;
     }
 
-    console.log('TikTok Events API: Event sent successfully');
+    // Event sent successfully
     return true;
   } catch (error) {
     console.error('TikTok Events API error:', error);

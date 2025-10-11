@@ -31,7 +31,7 @@ interface CartItem {
 
 export async function POST(req: NextRequest) {
   try {
-    console.log('🔍 Checkout request received');
+    // Processing checkout request
     
     // Validate and sanitize environment variables
     const stripeSecretKey = process.env.STRIPE_SECRET_KEY?.trim();
@@ -65,23 +65,19 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: 'Invalid Stripe configuration' }, { status: 500 });
     }
     
-    // Debug: Check which Stripe account we're using
-    console.log('🔑 Stripe Secret Key (first 10 chars):', process.env.STRIPE_SECRET_KEY?.substring(0, 10));
-    console.log('🔑 Stripe Publishable Key (first 10 chars):', process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY?.substring(0, 10));
+    // Validate Stripe keys
     
     // Test Stripe connection and get account info
     try {
       const account = await stripe.accounts.retrieve();
-      console.log('🏢 Stripe Account ID:', account.id);
-      console.log('🏢 Stripe Account Type:', account.type);
-      console.log('🏢 Stripe Account Country:', account.country);
+      // Account info retrieved successfully
     } catch (error) {
       console.error('❌ Error getting Stripe account info:', error);
       return NextResponse.json({ error: 'Stripe connection failed' }, { status: 500 });
     }
     
     const { items } = await req.json();
-    console.log('📦 Items:', JSON.stringify(items, null, 2));
+    // Processing items
 
     if (!items || !Array.isArray(items) || items.length === 0) {
       console.error('❌ No items provided for checkout');
@@ -99,10 +95,7 @@ export async function POST(req: NextRequest) {
     // Create line items for Stripe with custom product information
     const lineItems = items.map((item: CartItem) => {
       const priceId = PRICE_IDS[item.selectedColor as keyof typeof PRICE_IDS] || PRICE_IDS['Gold'];
-      console.log(`🎨 Color: ${item.selectedColor}, Price ID: ${priceId}, Quantity: ${item.quantity}`);
-      console.log(`🖼️ Image: ${item.image}`);
-      console.log(`🔍 Available price IDs:`, PRICE_IDS);
-      console.log(`🔍 Selected color: "${item.selectedColor}"`);
+      // Processing item details
       
       // Validate price ID format
       if (!priceId.startsWith('price_')) {
@@ -120,7 +113,7 @@ export async function POST(req: NextRequest) {
       };
     });
     
-    console.log('📋 Line items:', JSON.stringify(lineItems, null, 2));
+    // Line items processed
     
     // Create Stripe checkout session with matching API version
     const baseUrl = (process.env.NEXT_PUBLIC_APP_URL || 'https://deendecal.com').trim();
@@ -146,12 +139,7 @@ export async function POST(req: NextRequest) {
       colors: items.map(item => item.selectedColor).join(', ')
     };
 
-    console.log('🛒 Creating Stripe session with:', {
-      line_items: lineItems,
-      success_url: successUrl,
-      cancel_url: cancelUrl,
-      metadata: metadata
-    });
+    // Creating Stripe session
 
     // Create Stripe checkout session with comprehensive error handling
     const sessionConfig = {
@@ -187,11 +175,11 @@ export async function POST(req: NextRequest) {
       }
     };
 
-    console.log('🛒 Creating Stripe session with config:', JSON.stringify(sessionConfig, null, 2));
+    // Creating Stripe session with configuration
 
     const session = await stripe.checkout.sessions.create(sessionConfig as Parameters<typeof stripe.checkout.sessions.create>[0]);
 
-    console.log('✅ Checkout session created:', session.id);
+    // Checkout session created successfully
     
     // Return client secret for embedded checkout
     return NextResponse.json({ 

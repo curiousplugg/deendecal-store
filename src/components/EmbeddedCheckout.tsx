@@ -46,9 +46,7 @@ export default function EmbeddedCheckoutComponent({ items }: EmbeddedCheckoutPro
 
   const fetchClientSecretWrapper = async (): Promise<string> => {
     try {
-      console.log('Fetching client secret for items:', items);
       const clientSecret = await fetchClientSecret(items);
-      console.log('Client secret received:', clientSecret ? 'Yes' : 'No');
       
       if (!clientSecret) {
         throw new Error('No client secret returned from server');

@@ -59,16 +59,13 @@ export default function StripeEmbeddedCheckoutComponent({
   const fetchClientSecretWrapper = useMemo(() => {
     return async (): Promise<string> => {
       try {
-        console.log('Fetching client secret for items:', items);
-        
         // Validate items
         if (!items || items.length === 0) {
           throw new Error('No items provided for checkout');
         }
-
+        
         // Create a fresh checkout session with current cart items
         const clientSecret = await fetchClientSecret(items);
-        console.log('Client secret received:', clientSecret ? 'Yes' : 'No');
         
         if (!clientSecret) {
           throw new Error('No client secret returned from server');
