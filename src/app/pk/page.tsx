@@ -20,6 +20,7 @@ export default function PakistaniHomePage() {
   const [showCartActionPopup, setShowCartActionPopup] = useState(false);
   const [isCartActionExiting, setIsCartActionExiting] = useState(false);
   const [showViewCartButton, setShowViewCartButton] = useState(false);
+  const [isViewCartAnimating, setIsViewCartAnimating] = useState(false);
 
   const product = products[0]; // Single product
 
@@ -61,12 +62,24 @@ export default function PakistaniHomePage() {
     // Track AddToCart event
     tiktokEvents.trackAddToCart(productToAdd as unknown as Record<string, string | number | boolean | undefined>, quantity);
     
-    // Show notification and view cart button
+    // Show notification and view cart button with animation
     setShowCartNotification(true);
     setShowViewCartButton(true);
+    setIsViewCartAnimating(true);
+    
+    // Hide notification after 3 seconds
     setTimeout(() => {
       setShowCartNotification(false);
     }, 3000);
+    
+    // Hide view cart button after 5 seconds with smooth animation
+    setTimeout(() => {
+      setIsViewCartAnimating(true);
+      setTimeout(() => {
+        setShowViewCartButton(false);
+        setIsViewCartAnimating(false);
+      }, 300); // Animation duration
+    }, 5000);
   };
 
 
@@ -278,15 +291,19 @@ export default function PakistaniHomePage() {
 
                 {/* View Cart Button - appears after adding to cart */}
                 {showViewCartButton && (
-                  <button
-                    onClick={() => window.location.href = '/pk/cart'}
-                    className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-6 rounded-lg transition-colors duration-200 flex items-center justify-center space-x-2 mb-6"
-                  >
-                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.5 5M7 13l2.5 5" />
-                    </svg>
-                    <span>ٹوکری دیکھیں</span>
-                  </button>
+                  <div className={`transition-all duration-300 ease-in-out transform ${
+                    isViewCartAnimating ? 'opacity-0 scale-95 translate-y-2' : 'opacity-100 scale-100 translate-y-0'
+                  }`}>
+                    <button
+                      onClick={() => window.location.href = '/pk/cart'}
+                      className="w-full bg-yellow-500 hover:bg-yellow-600 text-white font-semibold py-3 px-6 rounded-lg transition-all duration-200 flex items-center justify-center space-x-2 mb-6 shadow-lg hover:shadow-xl"
+                    >
+                      <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.5 5M7 13l2.5 5" />
+                      </svg>
+                      <span>ٹوکری دیکھیں</span>
+                    </button>
+                  </div>
                 )}
 
                 {/* Product Features */}
