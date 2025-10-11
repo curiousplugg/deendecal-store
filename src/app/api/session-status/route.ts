@@ -1,23 +1,22 @@
-import { NextRequest, NextResponse } from 'next/server'
-import { stripe } from '@/lib/stripe'
+import { NextRequest, NextResponse } from 'next/server';
+import { stripe } from '@/lib/stripe';
 
-export async function GET(req: NextRequest) {
+export async function GET(request: NextRequest) {
   try {
-    const { searchParams } = new URL(req.url)
-    const sessionId = searchParams.get('session_id')
+    const { searchParams } = new URL(request.url);
+    const sessionId = searchParams.get('session_id');
 
     if (!sessionId) {
-      return NextResponse.json({ error: 'Session ID is required' }, { status: 400 })
+      return NextResponse.json({ error: 'Session ID is required' }, { status: 400 });
     }
 
-    const session = await stripe.checkout.sessions.retrieve(sessionId)
+    const session = await stripe.checkout.sessions.retrieve(sessionId, {
+      expand: ['line_items', 'payment_intent']
+    });
 
-    return NextResponse.json({
-      status: session.status,
-      customer_email: session.customer_details?.email || ''
-    })
+    return NextResponse.json({ session });
   } catch (error) {
-    console.error('Error retrieving session:', error)
-    return NextResponse.json({ error: 'Failed to retrieve session' }, { status: 500 })
+    console.error('Error retrieving session:', error);
+    return NextResponse.json({ error: 'Failed to retrieve session' }, { status: 500 });
   }
 }

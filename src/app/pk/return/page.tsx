@@ -3,7 +3,6 @@
 import { useEffect, useState, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 import Link from 'next/link';
-import { stripe } from '@/lib/stripe';
 import Navigation from '@/components/Navigation';
 import { useLanguage } from '@/contexts/LanguageContext';
 
@@ -24,10 +23,12 @@ function PakistaniReturnPageContent() {
       }
 
       try {
-        const sessionData = await stripe.checkout.sessions.retrieve(session_id, {
-          expand: ['line_items', 'payment_intent']
-        });
-        setSession(sessionData);
+        const response = await fetch(`/api/session-status?session_id=${session_id}`);
+        if (!response.ok) {
+          throw new Error('Failed to fetch session');
+        }
+        const data = await response.json();
+        setSession(data.session);
       } catch {
         setError('Failed to retrieve session');
       } finally {
