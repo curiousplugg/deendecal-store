@@ -99,17 +99,10 @@ export default function Navigation() {
                 {t('nav.home')}
                 <span className="absolute bottom-0 left-0 w-0 h-0.5 transition-all duration-200 group-hover:w-full" style={{backgroundColor: '#c89d24'}}></span>
               </button>
-              {isPakistaniVersion ? (
-                <Link href="/pk/products" className="text-gray-700 hover:text-gray-900 font-medium transition-colors duration-200 relative group">
-                  {t('nav.products')}
-                  <span className="absolute bottom-0 left-0 w-0 h-0.5 transition-all duration-200 group-hover:w-full" style={{backgroundColor: '#c89d24'}}></span>
-                </Link>
-              ) : (
-                <button onClick={() => smoothScrollTo('product')} className="text-gray-700 hover:text-gray-900 font-medium transition-colors duration-200 relative group">
-                  {t('nav.products')}
-                  <span className="absolute bottom-0 left-0 w-0 h-0.5 transition-all duration-200 group-hover:w-full" style={{backgroundColor: '#c89d24'}}></span>
-                </button>
-              )}
+              <button onClick={() => smoothScrollTo('product')} className="text-gray-700 hover:text-gray-900 font-medium transition-colors duration-200 relative group">
+                {t('nav.products')}
+                <span className="absolute bottom-0 left-0 w-0 h-0.5 transition-all duration-200 group-hover:w-full" style={{backgroundColor: '#c89d24'}}></span>
+              </button>
               <button onClick={() => smoothScrollTo('installation')} className="text-gray-700 hover:text-gray-900 font-medium transition-colors duration-200 relative group">
                 {t('nav.installation')}
                 <span className="absolute bottom-0 left-0 w-0 h-0.5 transition-all duration-200 group-hover:w-full" style={{backgroundColor: '#c89d24'}}></span>
@@ -182,22 +175,12 @@ export default function Navigation() {
               >
                 Home
               </button>
-              {isPakistaniVersion ? (
-                <Link
-                  href="/pk/products"
-                  className="block w-full text-left px-4 py-3 text-base font-medium text-gray-700 hover:text-yellow-600 hover:bg-yellow-50 rounded-lg transition-all duration-200"
-                  onClick={() => setIsMenuOpen(false)}
-                >
-                  {t('nav.products')}
-                </Link>
-              ) : (
-                <button
-                  onClick={() => smoothScrollTo('product')}
-                  className="block w-full text-left px-4 py-3 text-base font-medium text-gray-700 hover:text-yellow-600 hover:bg-yellow-50 rounded-lg transition-all duration-200"
-                >
-                  {t('nav.products')}
-                </button>
-              )}
+              <button
+                onClick={() => smoothScrollTo('product')}
+                className="block w-full text-left px-4 py-3 text-base font-medium text-gray-700 hover:text-yellow-600 hover:bg-yellow-50 rounded-lg transition-all duration-200"
+              >
+                {t('nav.products')}
+              </button>
               <button
                 onClick={() => smoothScrollTo('installation')}
                 className="block w-full text-left px-4 py-3 text-base font-medium text-gray-700 hover:text-yellow-600 hover:bg-yellow-50 rounded-lg transition-all duration-200"
