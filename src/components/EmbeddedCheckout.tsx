@@ -6,7 +6,6 @@ import {
   EmbeddedCheckoutProvider
 } from '@stripe/react-stripe-js'
 import { loadStripe, Stripe } from '@stripe/stripe-js'
-import { fetchClientSecret } from '@/app/actions/stripe'
 
 interface CartItem {
   id: string;
@@ -46,7 +45,20 @@ export default function EmbeddedCheckoutComponent({ items }: EmbeddedCheckoutPro
 
   const fetchClientSecretWrapper = async (): Promise<string> => {
     try {
-      const clientSecret = await fetchClientSecret(items);
+      const response = await fetch('/api/client-secret', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ items }),
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.error || 'Failed to create checkout session');
+      }
+
+      const { clientSecret } = await response.json();
       
       if (!clientSecret) {
         throw new Error('No client secret returned from server');
