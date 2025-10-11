@@ -401,6 +401,9 @@ nav {
   gap: 6rem;
   align-items: start;
   min-height: 100vh;
+  /* Desktop layout: gallery left, info right */
+  grid-template-areas: 
+    "gallery info";
 }
 
 /* Product Gallery */
@@ -412,6 +415,7 @@ nav {
   height: fit-content;
   max-height: calc(100vh - 8rem);
   overflow-y: auto;
+  grid-area: gallery;
 }
 
 .main-image-container {
@@ -730,6 +734,7 @@ nav {
 /* Product Information */
 .product-info {
   padding: 2rem 0;
+  grid-area: info;
 }
 
 .product-header {
@@ -2351,6 +2356,18 @@ nav button:hover {
     padding: 0 1.5rem;
     width: 100%;
     max-width: 100%;
+    /* Reorder for mobile: media first, then info */
+    grid-template-areas: 
+      "gallery"
+      "info";
+  }
+  
+  .product-gallery {
+    grid-area: gallery;
+  }
+  
+  .product-info {
+    grid-area: info;
   }
   
   /* Override padding for thumbnail gallery to start from left edge */
