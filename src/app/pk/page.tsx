@@ -224,6 +224,10 @@ export default function PakistaniHomePage() {
                   <div className="text-3xl font-bold text-gray-900">
                     PKR 6,950
                   </div>
+                  <div className="shipping-info mt-2">
+                    <i className="fas fa-truck text-yellow-500 mr-2"></i>
+                    <span className="text-gray-600 text-sm">{t('shipping.free_shipping')}</span>
+                  </div>
                 </div>
 
                 {/* Color Selection */}

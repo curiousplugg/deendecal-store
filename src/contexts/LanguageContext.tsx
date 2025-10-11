@@ -145,6 +145,9 @@ const translations = {
     'hero.rating': 'ریٹنگ',
     'hero.support': 'سپورٹ',
     
+    // Shipping
+    'shipping.free_shipping': 'تمام آرڈرز پر مفت شپنگ! • 1-2 ہفتوں میں ڈیلیوری',
+    
     // Cart
     'cart.title': 'آپ کی خریداری کی ٹوکری',
     'cart.subtitle': 'اپنی اشیاء کا جائزہ لیں اور چیک آؤٹ کے لیے آگے بڑھیں',
