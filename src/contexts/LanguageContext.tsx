@@ -154,7 +154,7 @@ const translations = {
     
     // Checkout
     'checkout.title': 'اپنی خریداری مکمل کریں',
-    'checkout.subtitle': 'Stripe کے ذریعے محفوظ چیک آؤٹ',
+    'checkout.subtitle': 'براہ کرم نوٹ کریں کہ ادائیگی USD میں Stripe پیمنٹ سسٹم کے ذریعے کی جائے گی',
     
     // Success
     'success.title': 'ادائیگی کامیاب!',
