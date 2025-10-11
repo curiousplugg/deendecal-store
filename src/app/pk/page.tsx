@@ -65,7 +65,7 @@ export default function PakistaniHomePage() {
     // Show notification and view cart button with animation
     setShowCartNotification(true);
     setShowViewCartButton(true);
-    setIsViewCartAnimating(true);
+    setIsViewCartAnimating(false); // Start with visible state
     
     // Hide notification after 3 seconds
     setTimeout(() => {
