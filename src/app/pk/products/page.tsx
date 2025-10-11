@@ -13,6 +13,7 @@ export default function PakistaniProductsPage() {
   const { addItem } = useCart();
   const { t, language } = useLanguage();
   const [selectedProducts, setSelectedProducts] = useState<{[key: string]: {color: string, quantity: number}}>({});
+  const [showCartNotification, setShowCartNotification] = useState(false);
 
   const handleColorSelect = (productId: string, color: string) => {
     setSelectedProducts(prev => ({
@@ -69,7 +70,11 @@ export default function PakistaniProductsPage() {
     // Track AddToCart event
     tiktokEvents.trackAddToCart(productToAdd as unknown as Record<string, string | number | boolean | undefined>, selection.quantity);
 
-    alert('Product added to cart!');
+    // Show notification
+    setShowCartNotification(true);
+    setTimeout(() => {
+      setShowCartNotification(false);
+    }, 3000);
   };
 
   const getProductName = (product: PakistaniProduct) => {
@@ -83,6 +88,16 @@ export default function PakistaniProductsPage() {
   return (
     <div className="min-h-screen bg-white">
       <Navigation />
+      
+      {/* Cart Notification */}
+      {showCartNotification && (
+        <div className="fixed top-20 right-4 z-50 bg-green-500 text-white px-6 py-3 rounded-lg shadow-lg flex items-center space-x-2 animate-pulse">
+          <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+          </svg>
+          <span>{language === 'ur' ? 'مصنوعات ٹوکری میں شامل کر دی گئی!' : 'Product added to cart!'}</span>
+        </div>
+      )}
       
       <div className="pt-24 pb-16">
         <div className="container mx-auto px-4">

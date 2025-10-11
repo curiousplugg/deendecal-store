@@ -158,7 +158,7 @@ export default function PakistaniCartPage() {
       {showCheckout && state.items.length > 0 && (
         <div className="mt-12">
           <div className="bg-white rounded-lg shadow-lg overflow-hidden">
-            <div className="p-6 border-b border-gray-200">
+            <div className="p-6 border-b border-gray-200 text-center">
               <h1 className="text-2xl font-bold text-gray-900">{t('checkout.title')}</h1>
               <p className="text-gray-600 mt-2">
                 {t('checkout.subtitle')}
