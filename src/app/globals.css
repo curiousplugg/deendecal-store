@@ -2380,20 +2380,20 @@ nav button:hover {
   .product-gallery {
     position: static;
     margin-bottom: 2rem;
-    /* Reorder for mobile: thumbnails first, then main image */
+    /* Reorder for mobile: main image first, then thumbnails */
     display: flex;
     flex-direction: column;
   }
 
-  /* Mobile: Show thumbnails first */
-  .product-gallery .thumbnail-gallery {
+  /* Mobile: Show main image first */
+  .product-gallery .main-image-container {
     order: 1;
-    margin-bottom: 1rem;
   }
 
-  /* Mobile: Show main image second */
-  .product-gallery .main-image-container {
+  /* Mobile: Show thumbnails second */
+  .product-gallery .thumbnail-gallery {
     order: 2;
+    margin-top: 1rem;
   }
 
   .main-product-image,
