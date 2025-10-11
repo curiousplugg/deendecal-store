@@ -19,6 +19,7 @@ export default function PakistaniHomePage() {
   const [showShippingPopup, setShowShippingPopup] = useState(false);
   const [showCartActionPopup, setShowCartActionPopup] = useState(false);
   const [isCartActionExiting, setIsCartActionExiting] = useState(false);
+  const [showViewCartButton, setShowViewCartButton] = useState(false);
 
   const product = products[0]; // Single product
 
@@ -60,8 +61,9 @@ export default function PakistaniHomePage() {
     // Track AddToCart event
     tiktokEvents.trackAddToCart(productToAdd as unknown as Record<string, string | number | boolean | undefined>, quantity);
     
-    // Show notification
+    // Show notification and view cart button
     setShowCartNotification(true);
+    setShowViewCartButton(true);
     setTimeout(() => {
       setShowCartNotification(false);
     }, 3000);
@@ -273,6 +275,19 @@ export default function PakistaniHomePage() {
                   </svg>
                   <span>{t('product.add_to_cart')} - PKR 6,950</span>
                 </button>
+
+                {/* View Cart Button - appears after adding to cart */}
+                {showViewCartButton && (
+                  <button
+                    onClick={() => window.location.href = '/pk/cart'}
+                    className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-6 rounded-lg transition-colors duration-200 flex items-center justify-center space-x-2 mb-6"
+                  >
+                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.5 5M7 13l2.5 5" />
+                    </svg>
+                    <span>ٹوکری دیکھیں</span>
+                  </button>
+                )}
 
                 {/* Product Features */}
                 <div className="space-y-3">
