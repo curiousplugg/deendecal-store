@@ -26,10 +26,11 @@ export default function Navigation() {
   const smoothScrollTo = (elementId: string) => {
     // Check if we're on the cart page or other pages without the sections
     const currentPath = window.location.pathname;
+    const basePath = isPakistaniVersion ? '/pk' : '';
     
-    if (currentPath === '/cart' || currentPath === '/faq' || currentPath === '/success') {
+    if (currentPath === `${basePath}/cart` || currentPath === `${basePath}/faq` || currentPath === `${basePath}/success` || currentPath === `${basePath}/products`) {
       // Redirect to home page first, then scroll to section
-      window.location.href = `/#${elementId}`;
+      window.location.href = `${basePath || '/'}#${elementId}`;
     } else {
       // We're on the home page, scroll to the section
       const element = document.getElementById(elementId);
@@ -117,10 +118,6 @@ export default function Navigation() {
                 {t('nav.about')}
                 <span className="absolute bottom-0 left-0 w-0 h-0.5 transition-all duration-200 group-hover:w-full" style={{backgroundColor: '#c89d24'}}></span>
               </button>
-              <Link href={isPakistaniVersion ? "/pk/faq" : "/faq"} className="text-gray-700 hover:text-gray-900 font-medium transition-colors duration-200 relative group">
-                {t('nav.faq')}
-                <span className="absolute bottom-0 left-0 w-0 h-0.5 transition-all duration-200 group-hover:w-full" style={{backgroundColor: '#c89d24'}}></span>
-              </Link>
             </div>
 
             {/* Desktop Cart and Language Switcher */}
@@ -174,8 +171,9 @@ export default function Navigation() {
               <button
                 onClick={() => {
                   const currentPath = window.location.pathname;
-                  if (currentPath === '/cart' || currentPath === '/faq' || currentPath === '/success') {
-                    window.location.href = '/';
+                  const basePath = isPakistaniVersion ? '/pk' : '';
+                  if (currentPath === `${basePath}/cart` || currentPath === `${basePath}/faq` || currentPath === `${basePath}/success` || currentPath === `${basePath}/products`) {
+                    window.location.href = basePath || '/';
                   } else {
                     smoothScrollTo('home');
                   }
@@ -214,7 +212,7 @@ export default function Navigation() {
               </button>
               <div className="border-t border-gray-200 pt-3 mt-3">
                 <Link
-                  href="/cart"
+                  href={isPakistaniVersion ? "/pk/cart" : "/cart"}
                   className="block px-4 py-3 text-base font-medium text-white bg-yellow-600 hover:bg-yellow-700 rounded-lg transition-all duration-200 text-center"
                   onClick={() => setIsMenuOpen(false)}
                 >

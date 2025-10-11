@@ -93,6 +93,16 @@ const translations = {
     'about.feature3_desc': 'Full refund within 30 days of purchase',
     'about.transparency': 'If you\'re curious about how we operate and want to learn more about our business practices, you can read about our operations here.',
 
+    // Hero Section
+    'hero.title': 'Premium Shahada Metal Car Decal - Islamic Car Emblem',
+    'hero.description': 'Premium Islamic car emblems and Shahada decals. Show your devotion with sophistication and grace.',
+    'hero.customers': 'Happy Customers',
+    'hero.rating': 'Rating',
+    'hero.support': 'Support',
+    
+    // Shipping
+    'shipping.free_shipping': 'Free shipping on all orders! • 1-2 weeks delivery',
+    
     // Contact Section
     'contact.title': 'Get in Touch',
     'contact.description': 'Have questions? We\'d love to hear from you. Send us a message and we\'ll respond as soon as possible.',
