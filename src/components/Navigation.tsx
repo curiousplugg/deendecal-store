@@ -173,7 +173,7 @@ export default function Navigation() {
                 }}
                 className="block w-full text-left px-4 py-3 text-base font-medium text-gray-700 hover:text-yellow-600 hover:bg-yellow-50 rounded-lg transition-all duration-200"
               >
-                Home
+                {t('nav.home')}
               </button>
               <button
                 onClick={() => smoothScrollTo('product')}
@@ -185,13 +185,13 @@ export default function Navigation() {
                 onClick={() => smoothScrollTo('installation')}
                 className="block w-full text-left px-4 py-3 text-base font-medium text-gray-700 hover:text-yellow-600 hover:bg-yellow-50 rounded-lg transition-all duration-200"
               >
-                Installation
+                {t('nav.installation')}
               </button>
               <button
                 onClick={() => smoothScrollTo('about')}
                 className="block w-full text-left px-4 py-3 text-base font-medium text-gray-700 hover:text-yellow-600 hover:bg-yellow-50 rounded-lg transition-all duration-200"
               >
-                About
+                {t('nav.about')}
               </button>
               <div className="border-t border-gray-200 pt-3 mt-3">
                 <Link
@@ -199,7 +199,7 @@ export default function Navigation() {
                   className="block px-4 py-3 text-base font-medium text-white bg-yellow-600 hover:bg-yellow-700 rounded-lg transition-all duration-200 text-center"
                   onClick={() => setIsMenuOpen(false)}
                 >
-                  Cart {isHydrated && totalItems > 0 && `(${totalItems} items)`}
+                  {t('nav.cart')} {isHydrated && totalItems > 0 && `(${totalItems} items)`}
                 </Link>
               </div>
             </div>
