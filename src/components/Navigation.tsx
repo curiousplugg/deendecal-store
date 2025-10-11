@@ -47,7 +47,7 @@ export default function Navigation() {
   return (
     <>
       {/* Top Promo Bar */}
-      <div className="bg-blue-900 text-white text-sm py-2">
+      <div className="bg-gray-800 text-white text-sm py-2">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center">
             <div className="flex items-center space-x-4">
