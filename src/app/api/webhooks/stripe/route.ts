@@ -20,11 +20,11 @@ export async function POST(req: NextRequest) {
 
   switch (event.type) {
     case 'checkout.session.completed':
-      const checkoutSession = event.data.object as Stripe.Checkout.Session;
+      // const checkoutSession = event.data.object as Stripe.Checkout.Session;
       // Fulfill the purchase...
       break;
     case 'payment_intent.succeeded':
-      const paymentIntent = event.data.object as Stripe.PaymentIntent;
+      // const paymentIntent = event.data.object as Stripe.PaymentIntent;
       // Handle successful payment...
       break;
     default:

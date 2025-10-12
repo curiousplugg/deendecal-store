@@ -8,7 +8,7 @@ import Navigation from '@/components/Navigation';
 export default function ReturnPage() {
   const searchParams = useSearchParams();
   const session_id = searchParams.get('session_id');
-  const [session, setSession] = useState<any>(null);
+  const [session, setSession] = useState<any>(null); // eslint-disable-line @typescript-eslint/no-explicit-any
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 

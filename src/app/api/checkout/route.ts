@@ -69,7 +69,7 @@ export async function POST(req: NextRequest) {
     
     // Test Stripe connection and get account info
     try {
-      const account = await stripe.accounts.retrieve();
+      await stripe.accounts.retrieve();
       // Account info retrieved successfully
     } catch (error) {
       console.error('❌ Error getting Stripe account info:', error);
