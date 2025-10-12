@@ -151,6 +151,19 @@ function PakistaniReturnPageContent() {
                 {t('success.back_home')}
               </Link>
             </div>
+            
+            {/* X (Twitter) Event Tracking */}
+            <script
+              dangerouslySetInnerHTML={{
+                __html: `
+                  twq('event', 'tw-qm4yw-qm4yx', {
+                    conversion_id: '${session_id || 'unknown'}',
+                    email_address: '${session?.customer_details?.email || ''}',
+                    phone_number: null
+                  });
+                `,
+              }}
+            />
           </div>
         </div>
       </div>
