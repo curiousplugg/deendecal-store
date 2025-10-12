@@ -48,6 +48,19 @@ function SuccessContent() {
           </Link>
         </div>
       </div>
+      
+      {/* X (Twitter) Event Tracking */}
+      <script
+        dangerouslySetInnerHTML={{
+          __html: `
+            twq('event', 'tw-qm4yw-qm4yx', {
+              conversion_id: '${sessionId || 'unknown'}',
+              email_address: null,
+              phone_number: null
+            });
+          `,
+        }}
+      />
     </div>
   );
 }
