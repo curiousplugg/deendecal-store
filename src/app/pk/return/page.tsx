@@ -39,6 +39,27 @@ function PakistaniReturnPageContent() {
     fetchSession();
   }, [session_id]);
 
+  // Background success page trigger
+  useEffect(() => {
+    if (session && session.status === 'complete') {
+      // Create hidden iframe to trigger success page tracking
+      const iframe = document.createElement('iframe');
+      iframe.style.display = 'none';
+      iframe.style.width = '0';
+      iframe.style.height = '0';
+      iframe.style.border = 'none';
+      iframe.src = '/success';
+      document.body.appendChild(iframe);
+      
+      // Clean up after 5 seconds
+      setTimeout(() => {
+        if (document.body.contains(iframe)) {
+          document.body.removeChild(iframe);
+        }
+      }, 5000);
+    }
+  }, [session]);
+
   if (loading) {
     return (
       <div className="min-h-screen bg-gray-100">
