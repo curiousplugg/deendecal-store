@@ -21,15 +21,6 @@ function SuccessContent() {
     
     // Clear cart after successful payment
     clearCart();
-    
-    // Clean up URL by removing session_id parameter after a short delay
-    if (sessionId && typeof window !== 'undefined') {
-      setTimeout(() => {
-        const url = new URL(window.location.href);
-        url.searchParams.delete('session_id');
-        window.history.replaceState({}, '', url.toString());
-      }, 2000); // Wait 2 seconds to ensure tracking fires first
-    }
   }, [clearCart, state.items, sessionId]);
 
   return (
