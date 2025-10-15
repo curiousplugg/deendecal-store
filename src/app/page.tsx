@@ -67,7 +67,7 @@ export default function Home() {
     // Track Google Ads Add to Cart conversion
     if (typeof window !== 'undefined' && window.gtag) {
       window.gtag('event', 'conversion', {
-        'send_to': 'AW-17655278257/BiOmCK6M560bELHV2OJB',
+        'send_to': 'AW-17655278257/7343818286',
         'value': product.price * quantity,
         'currency': 'USD'
       });

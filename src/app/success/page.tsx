@@ -21,6 +21,15 @@ function SuccessContent() {
     
     // Clear cart after successful payment
     clearCart();
+    
+    // Clean up URL by removing session_id parameter after a short delay
+    if (sessionId && typeof window !== 'undefined') {
+      setTimeout(() => {
+        const url = new URL(window.location.href);
+        url.searchParams.delete('session_id');
+        window.history.replaceState({}, '', url.toString());
+      }, 2000); // Wait 2 seconds to ensure tracking fires first
+    }
   }, [clearCart, state.items, sessionId]);
 
   return (
@@ -35,11 +44,12 @@ function SuccessContent() {
           <p className="text-gray-700 text-lg mb-6">
             Thank you for your purchase. Your order has been placed successfully.
           </p>
-          {sessionId && (
-            <p className="text-gray-500 text-sm mb-6">
-              Order ID: {sessionId}
-            </p>
-          )}
+          <p className="text-gray-600 text-sm mb-6">
+            If you have any questions, please email{' '}
+            <a href="mailto:deendecal@gmail.com" className="text-blue-600 hover:text-blue-800">
+              deendecal@gmail.com
+            </a>
+          </p>
           <Link
             href="/"
             className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-md font-medium transition-colors duration-200"
@@ -67,7 +77,7 @@ function SuccessContent() {
         dangerouslySetInnerHTML={{
           __html: `
             gtag('event', 'conversion', {
-              'send_to': 'AW-17655278257/Sah2CPTV8a0bELHV2OJB',
+              'send_to': 'AW-17655278257/7343991540',
               'transaction_id': '${sessionId || 'unknown'}',
               'value': 24.99,
               'currency': 'USD'
