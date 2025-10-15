@@ -142,6 +142,20 @@ export default function RootLayout({
           }}
         />
         {/* End X (Twitter) Pixel Code */}
+        
+        {/* Google tag (gtag.js) */}
+        <script async src="https://www.googletagmanager.com/gtag/js?id=AW-17655278257"></script>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+              gtag('config', 'AW-17655278257');
+            `,
+          }}
+        />
+        {/* End Google tag */}
       </head>
       <body className={inter.className}>
         <LanguageProvider>
