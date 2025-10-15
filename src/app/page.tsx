@@ -11,7 +11,7 @@ import { tiktokEvents } from '@/lib/tiktok-events';
 // Declare gtag function for Google Ads
 declare global {
   interface Window {
-    gtag: (...args: any[]) => void;
+    gtag: (...args: any[]) => void; // eslint-disable-line @typescript-eslint/no-explicit-any
   }
 }
 
