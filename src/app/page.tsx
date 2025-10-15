@@ -8,6 +8,13 @@ import { useCart } from '@/contexts/CartContext';
 import Navigation from '@/components/Navigation';
 import { tiktokEvents } from '@/lib/tiktok-events';
 
+// Declare gtag function for Google Ads
+declare global {
+  interface Window {
+    gtag: (...args: any[]) => void;
+  }
+}
+
 export default function Home() {
   const { addItem } = useCart();
   const [selectedColor, setSelectedColor] = useState('Gold');
@@ -56,6 +63,15 @@ export default function Home() {
     
     // Track AddToCart event
     tiktokEvents.trackAddToCart(productToAdd as unknown as Record<string, string | number | boolean | undefined>, quantity);
+    
+    // Track Google Ads Add to Cart conversion
+    if (typeof window !== 'undefined' && window.gtag) {
+      window.gtag('event', 'conversion', {
+        'send_to': 'AW-17655278257/BiOmCK6M560bELHV2OJB',
+        'value': product.price * quantity,
+        'currency': 'USD'
+      });
+    }
     
     // Show notification
     setShowCartNotification(true);

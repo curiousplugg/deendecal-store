@@ -61,6 +61,20 @@ function SuccessContent() {
           `,
         }}
       />
+      
+      {/* Google Ads Conversion Tracking */}
+      <script
+        dangerouslySetInnerHTML={{
+          __html: `
+            gtag('event', 'conversion', {
+              'send_to': 'AW-17655278257/Sah2CPTV8a0bELHV2OJB',
+              'transaction_id': '${sessionId || 'unknown'}',
+              'value': 24.99,
+              'currency': 'USD'
+            });
+          `,
+        }}
+      />
     </div>
   );
 }
