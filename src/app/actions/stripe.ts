@@ -83,7 +83,7 @@ export async function fetchClientSecret(items: CartItem[]) {
       ui_mode: 'embedded',
       line_items: lineItems,
       mode: 'payment',
-      return_url: isPakistaniVersion ? `${origin}/pk/return?session_id={CHECKOUT_SESSION_ID}` : `${origin}/return?session_id={CHECKOUT_SESSION_ID}`,
+      return_url: isPakistaniVersion ? `${origin}/pk/return?session_id={CHECKOUT_SESSION_ID}` : `${origin}/success?session_id={CHECKOUT_SESSION_ID}`,
       metadata: metadata,
       allow_promotion_codes: true,
       currency: 'usd',
