@@ -177,6 +177,8 @@ export default function Home() {
                 width={500}
                 height={500}
                 className="hero-img"
+                loading="lazy"
+                quality={85}
               />
             </div>
           </div>
@@ -215,6 +217,7 @@ export default function Home() {
                     playsInline
                     width={500}
                     height={500}
+                    preload="metadata"
                     onClick={(e) => {
                       const video = e.currentTarget;
                       if (video.paused) {
@@ -231,6 +234,9 @@ export default function Home() {
                     width={500}
                     height={500}
                     className="main-product-image"
+                    priority
+                    quality={85}
+                    loading="eager"
                   />
                 )}
                 <div className="product-badge">
@@ -250,6 +256,8 @@ export default function Home() {
                       alt={`Premium Shahada Metal Car Decal - ${color} - Islamic Car Emblem`}
                       width={80}
                       height={80}
+                      loading="lazy"
+                      quality={75}
                     />
                     <div className="thumbnail-label">{color}</div>
                   </div>
@@ -750,6 +758,8 @@ export default function Home() {
                 width={500}
                 height={400}
                 className="about-img"
+                loading="lazy"
+                quality={80}
               />
             </div>
           </div>

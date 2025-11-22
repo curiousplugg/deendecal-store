@@ -484,6 +484,8 @@ export default function CartPage() {
                           alt={item.name}
                           width={120}
                           height={80}
+                          loading="lazy"
+                          quality={75}
                         />
                       ) : (
                         <div className="placeholder-image">

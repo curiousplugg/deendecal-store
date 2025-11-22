@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@400;500;600;700;800&display=swap');
+/* Fonts are now loaded via next/font in layout.tsx - removed blocking @import */
 
 @tailwind base;
 @tailwind components;
@@ -35,7 +35,7 @@
 
 /* Base Styles */
 body {
-  font-family: 'Inter', sans-serif;
+  font-family: var(--font-inter), sans-serif;
   line-height: 1.6;
   color: var(--text-dark);
   background-color: var(--white);
@@ -103,7 +103,7 @@ html {
 
 /* Typography */
 h1, h2, h3, h4, h5, h6 {
-  font-family: 'Playfair Display', serif;
+  font-family: var(--font-playfair), serif;
   font-weight: 600;
   line-height: 1.2;
 }
@@ -417,7 +417,7 @@ nav {
   font-size: 2.5rem;
   font-weight: 700;
   color: #c89d24;
-  font-family: 'Playfair Display', serif;
+  font-family: var(--font-playfair), serif;
 }
 
 .stat-label {
@@ -892,7 +892,7 @@ nav {
   font-size: 2.5rem;
   font-weight: 700;
   color: var(--primary-gold);
-  font-family: 'Playfair Display', serif;
+  font-family: var(--font-playfair), serif;
 }
 
 .original-price {
@@ -1655,7 +1655,7 @@ nav {
   font-size: 1.5rem;
   font-weight: 700;
   color: var(--primary-gold);
-  font-family: 'Playfair Display', serif;
+  font-family: var(--font-playfair), serif;
   line-height: 1.2;
   letter-spacing: -0.02em;
   white-space: nowrap;
@@ -1851,7 +1851,7 @@ nav {
   color: var(--text-dark);
   margin-bottom: 1.5rem;
   text-align: center;
-  font-family: 'Playfair Display', serif;
+  font-family: var(--font-playfair), serif;
 }
 
 .review-item {
@@ -2496,7 +2496,7 @@ nav {
   font-size: 1.5rem;
   font-weight: 700;
   color: var(--primary-gold);
-  font-family: 'Playfair Display', serif;
+  font-family: var(--font-playfair), serif;
 }
 
 .cart-item-controls {
@@ -2671,7 +2671,7 @@ nav {
   font-size: 1.5rem;
   color: var(--primary-gold);
   font-weight: 700;
-  font-family: 'Playfair Display', serif;
+  font-family: var(--font-playfair), serif;
 }
 
 /* Cart Social Proof */

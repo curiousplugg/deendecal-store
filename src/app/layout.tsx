@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Inter, Playfair_Display } from "next/font/google";
 import Script from "next/script";
 import "./globals.css";
 import { CartProvider } from '@/contexts/CartContext';
@@ -7,7 +7,20 @@ import { LanguageProvider } from '@/contexts/LanguageContext';
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 
-const inter = Inter({ subsets: ["latin"] });
+const inter = Inter({ 
+  subsets: ["latin"],
+  display: 'swap',
+  preload: true,
+  variable: '--font-inter',
+});
+
+const playfairDisplay = Playfair_Display({ 
+  subsets: ["latin"],
+  weight: ['400', '500', '600', '700', '800'],
+  display: 'swap',
+  preload: true,
+  variable: '--font-playfair',
+});
 
 export const metadata: Metadata = {
   title: "Shahada Car Decals | Premium Islamic Metal Emblems | DeenDecal",
@@ -76,7 +89,29 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+        {/* Resource hints for faster connections */}
+        <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com" />
+        <link rel="dns-prefetch" href="https://analytics.tiktok.com" />
+        <link rel="dns-prefetch" href="https://connect.facebook.net" />
+        <link rel="dns-prefetch" href="https://static.ads-twitter.com" />
+        <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        
+        {/* Defer Font Awesome - load after page load to improve FCP */}
+        <Script id="font-awesome-loader" strategy="lazyOnload">
+          {`
+            const link = document.createElement('link');
+            link.rel = 'stylesheet';
+            link.href = 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css';
+            link.crossOrigin = 'anonymous';
+            document.head.appendChild(link);
+          `}
+        </Script>
+        <noscript>
+          <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" crossOrigin="anonymous" />
+        </noscript>
+        
         <link rel="icon" href="/favicon.ico" sizes="any" />
         <link rel="icon" href="/DDlogo.png" type="image/png" />
         <link rel="shortcut icon" href="/favicon.ico" />
@@ -89,8 +124,10 @@ export default function RootLayout({
         <meta name="msapplication-TileColor" content="#000000" />
         <meta name="theme-color" content="#000000" />
         
-        {/* TikTok Pixel Code */}
-        <script
+        {/* Tracking scripts - loaded after page load to improve performance */}
+        <Script
+          id="tiktok-pixel"
+          strategy="lazyOnload"
           dangerouslySetInnerHTML={{
             __html: `
               !function (w, d, t) {
@@ -105,8 +142,9 @@ export default function RootLayout({
           }}
         />
         
-        {/* Meta Pixel Code */}
-        <script
+        <Script
+          id="meta-pixel"
+          strategy="lazyOnload"
           dangerouslySetInnerHTML={{
             __html: `
               !function(f,b,e,v,n,t,s)
@@ -129,10 +167,10 @@ export default function RootLayout({
             alt=""
           />
         </noscript>
-        {/* End Meta Pixel Code */}
         
-        {/* X (Twitter) Pixel Code */}
-        <script
+        <Script
+          id="twitter-pixel"
+          strategy="lazyOnload"
           dangerouslySetInnerHTML={{
             __html: `
               !function(e,t,n,s,u,a){e.twq||(s=e.twq=function(){s.exe?s.exe.apply(s,arguments):s.queue.push(arguments);
@@ -142,9 +180,8 @@ export default function RootLayout({
             `,
           }}
         />
-        {/* End X (Twitter) Pixel Code */}
         
-        {/* Google tag (gtag.js) */}
+        {/* Google tag (gtag.js) - already using afterInteractive */}
         <Script
           src="https://www.googletagmanager.com/gtag/js?id=AW-17655278257"
           strategy="afterInteractive"
@@ -157,9 +194,8 @@ export default function RootLayout({
             gtag('config', 'AW-17655278257');
           `}
         </Script>
-        {/* End Google tag */}
       </head>
-      <body className={inter.className}>
+      <body className={`${inter.variable} ${playfairDisplay.variable} ${inter.className}`}>
         <LanguageProvider>
           <CartProvider>
             {children}

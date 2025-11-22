@@ -1,7 +1,6 @@
 'use client';
 
 import React, { useEffect, Suspense, useRef } from 'react';
-import Link from 'next/link';
 import { useCart } from '@/contexts/CartContext';
 import { useSearchParams } from 'next/navigation';
 import Navigation from '@/components/Navigation';
@@ -27,7 +26,8 @@ function SuccessContent() {
       // Clear cart after successful payment
       clearCart();
     }
-  }, [sessionId]); // Only depend on sessionId
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [sessionId]); // Only depend on sessionId to prevent infinite loops
 
   return (
     <div className="min-h-screen bg-gray-100 flex flex-col">

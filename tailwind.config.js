@@ -14,4 +14,6 @@ module.exports = {
     },
   },
   plugins: [],
+  // Tailwind v3+ automatically purges unused styles based on content array above
+  // No need for separate purge config
 }
