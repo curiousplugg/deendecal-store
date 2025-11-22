@@ -80,6 +80,13 @@ export default function CartPage() {
     setIsClient(true);
   }, []);
 
+  // Automatically load checkout when cart has items
+  useEffect(() => {
+    if (isClient && state.items.length > 0 && !checkoutComplete) {
+      setShowCheckout(true);
+    }
+  }, [isClient, state.items.length, checkoutComplete]);
+
   // Countdown timer - counts down from 15 minutes and resets
   useEffect(() => {
     if (!isClient) return;
@@ -144,7 +151,7 @@ export default function CartPage() {
     const subtotal = state.items.reduce((sum, item) => sum + item.price * item.quantity, 0);
     tiktokEvents.trackInitiateCheckout(state.items as unknown as Record<string, string | number | boolean | undefined>[], subtotal);
 
-    // Show checkout and scroll to it
+    // Ensure checkout is shown (it should already be loaded automatically)
     setShowCheckout(true);
     
     // Smooth scroll to checkout section

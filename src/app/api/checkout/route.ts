@@ -2,11 +2,12 @@ import { NextRequest, NextResponse } from 'next/server';
 import { stripe } from '@/lib/stripe';
 
 // Stripe price IDs for each color variant (LIVE MODE) - Separate products for each color
+// Updated to $17.99 on 2025-01-27
 const PRICE_IDS = {
-  'Gold': 'price_1SCDmMBJjaZO6BBglBDEdWpB',
-  'Black': 'price_1SCDmNBJjaZO6BBgwmbOsk9g', 
-  'Red': 'price_1SCDmNBJjaZO6BBgwejHag8d',
-  'Silver': 'price_1SCDmOBJjaZO6BBgFh2xylqB'
+  'Gold': 'price_1SWHQDBJjaZO6BBghaw8E2Ee',      // prod_T8UlDxb1zIbuXY
+  'Silver': 'price_1SWHRcBJjaZO6BBgXmjCXoQG',   // prod_T8UlHlRq1EQ4Sy
+  'Black': 'price_1SWHR2BJjaZO6BBgVZ1iSYaM',    // prod_T8Ul5nZE1pn2SS
+  'Red': 'price_1SWHRHBJjaZO6BBgb7VR8gy8'        // prod_T8Ul4BeAqqpoyx
 };
 
 interface CartItem {

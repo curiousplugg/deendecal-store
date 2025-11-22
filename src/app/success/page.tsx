@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect, Suspense } from 'react';
+import React, { useEffect, Suspense, useRef } from 'react';
 import Link from 'next/link';
 import { useCart } from '@/contexts/CartContext';
 import { useSearchParams } from 'next/navigation';
@@ -11,17 +11,23 @@ function SuccessContent() {
   const { clearCart, state } = useCart();
   const searchParams = useSearchParams();
   const sessionId = searchParams.get('session_id');
+  const hasClearedCart = useRef(false);
 
   useEffect(() => {
-    // Track purchase before clearing cart
-    if (state.items.length > 0) {
-      const totalValue = state.items.reduce((sum, item) => sum + item.price * item.quantity, 0);
-      tiktokEvents.trackPurchase(`order_${Date.now()}`, state.items as unknown as Record<string, string | number | boolean | undefined>[], totalValue);
+    // Only run once when we have a sessionId
+    if (sessionId && !hasClearedCart.current) {
+      hasClearedCart.current = true;
+      
+      // Track purchase before clearing cart
+      if (state.items.length > 0) {
+        const totalValue = state.items.reduce((sum, item) => sum + item.price * item.quantity, 0);
+        tiktokEvents.trackPurchase(`order_${Date.now()}`, state.items as unknown as Record<string, string | number | boolean | undefined>[], totalValue);
+      }
+      
+      // Clear cart after successful payment
+      clearCart();
     }
-    
-    // Clear cart after successful payment
-    clearCart();
-  }, [clearCart, state.items, sessionId]);
+  }, [sessionId]); // Only depend on sessionId
 
   return (
     <div className="min-h-screen bg-gray-100 flex flex-col">
@@ -41,12 +47,12 @@ function SuccessContent() {
               deendecal@gmail.com
             </a>
           </p>
-          <Link
-            href="/"
-            className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-md font-medium transition-colors duration-200"
+          <a
+            href="https://deendecal.com"
+            className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-md font-medium transition-colors duration-200 inline-block"
           >
             Back to Home
-          </Link>
+          </a>
         </div>
       </div>
       
@@ -70,7 +76,7 @@ function SuccessContent() {
             gtag('event', 'conversion', {
               'send_to': 'AW-17655278257/7343991540',
               'transaction_id': '${sessionId || 'unknown'}',
-              'value': 24.99,
+              'value': 17.99,
               'currency': 'USD'
             });
           `,
