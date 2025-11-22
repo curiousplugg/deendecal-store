@@ -436,7 +436,7 @@ export default function CartPage() {
           <h1>Your Shopping Cart</h1>
           <p>Review your items and proceed to checkout</p>
         </div>
-        {state.items.length > 0 && (
+        {isClient && state.items.length > 0 && (
           <div className="cart-header-badges">
             <span className="header-badge">
               <i className="fas fa-shipping-fast"></i>
