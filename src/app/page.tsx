@@ -20,7 +20,7 @@ export default function Home() {
   const [selectedColor, setSelectedColor] = useState('Gold');
   const [quantity, setQuantity] = useState(1);
   const [currentImage, setCurrentImage] = useState('/images/goldIndy.jpg');
-  const [currentVideo, setCurrentVideo] = useState<string | null>(null);
+  const [currentVideo, setCurrentVideo] = useState<string | null>('/videos/tiktok_20250926_115253.mp4');
   const [showCartNotification, setShowCartNotification] = useState(false);
   const [showShippingPopup, setShowShippingPopup] = useState(false);
   const [showCartActionPopup, setShowCartActionPopup] = useState(false);
@@ -186,6 +186,22 @@ export default function Home() {
       {/* Product Section */}
       <section id="product" className="product-section">
         <div className="container">
+          {/* Product Header - Moved to top */}
+          <div className="product-header-top">
+            <div className="product-rating">
+              <div className="stars">
+                <i className="fas fa-star"></i>
+                <i className="fas fa-star"></i>
+                <i className="fas fa-star"></i>
+                <i className="fas fa-star"></i>
+                <i className="fas fa-star"></i>
+              </div>
+              <span className="rating-text">(127 reviews)</span>
+            </div>
+            <h1 className="product-title">{product.name}</h1>
+            <div className="new-badge">New Arrival</div>
+          </div>
+
           <div className="product-layout">
             <div className="product-gallery">
               <div className="main-image-container">
@@ -302,21 +318,6 @@ export default function Home() {
             </div>
 
             <div className="product-info">
-              <div className="product-header">
-                <div className="product-rating">
-                  <div className="stars">
-                    <i className="fas fa-star"></i>
-                    <i className="fas fa-star"></i>
-                    <i className="fas fa-star"></i>
-                    <i className="fas fa-star"></i>
-                    <i className="fas fa-star"></i>
-                  </div>
-                  <span className="rating-text">(127 reviews)</span>
-                </div>
-                <h1 className="product-title">{product.name}</h1>
-                <div className="new-badge">New Arrival</div>
-              </div>
-
               <div className="product-pricing">
                 <div className="price-container">
                   <span className="current-price">${product.price}</span>

@@ -431,23 +431,23 @@ export default function CartPage() {
         }
       `}</style>
 
-      <div className="cart-container" style={{ paddingTop: '8rem' }}>
+      <div className="cart-container" style={{ paddingTop: '2rem' }}>
         <div className="cart-header">
           <h1>Your Shopping Cart</h1>
           <p>Review your items and proceed to checkout</p>
-          {state.items.length > 0 && (
-            <div className="cart-header-badges">
-              <span className="header-badge">
-                <i className="fas fa-shipping-fast"></i>
-                Free Shipping Worldwide
-              </span>
-              <span className="header-badge">
-                <i className="fas fa-undo"></i>
-                30-Day Returns
-              </span>
-            </div>
-          )}
         </div>
+        {state.items.length > 0 && (
+          <div className="cart-header-badges">
+            <span className="header-badge">
+              <i className="fas fa-shipping-fast"></i>
+              Free Shipping Worldwide
+            </span>
+            <span className="header-badge">
+              <i className="fas fa-undo"></i>
+              30-Day Returns
+            </span>
+          </div>
+        )}
 
         {!isClient ? (
           <div className="empty-cart">
@@ -475,8 +475,8 @@ export default function CartPage() {
                         <Image
                           src={item.image}
                           alt={item.name}
-                          width={100}
-                          height={100}
+                          width={120}
+                          height={80}
                         />
                       ) : (
                         <div className="placeholder-image">
@@ -484,38 +484,38 @@ export default function CartPage() {
                         </div>
                       )}
                     </div>
-                    <div className="cart-item-details">
-                      <h3 className="cart-item-title">{item.name}</h3>
-                      {item.selectedColor && (
-                        <p className="cart-item-color">Color: {item.selectedColor}</p>
-                      )}
-                      <p className="cart-item-description">{item.description}</p>
-                      <p className="cart-item-price">${item.price.toFixed(2)}</p>
-                    </div>
-                    <div className="cart-item-controls">
-                      <div className="quantity-controls">
+                    <div className="cart-item-content">
+                      <div className="cart-item-details">
+                        <h3 className="cart-item-title">{item.name}</h3>
+                        {item.selectedColor && (
+                          <p className="cart-item-color">Color: {item.selectedColor}</p>
+                        )}
+                      </div>
+                      <div className="cart-item-controls">
+                        <div className="quantity-controls">
+                          <button
+                            className="quantity-btn"
+                            onClick={() => updateQuantity(itemKey, item.quantity - 1)}
+                            disabled={item.quantity <= 1}
+                          >
+                            -
+                          </button>
+                          <div className="quantity-display">{item.quantity}</div>
+                          <button
+                            className="quantity-btn"
+                            onClick={() => updateQuantity(itemKey, item.quantity + 1)}
+                          >
+                            +
+                          </button>
+                        </div>
                         <button
-                          className="quantity-btn"
-                          onClick={() => updateQuantity(itemKey, item.quantity - 1)}
-                          disabled={item.quantity <= 1}
+                          className="remove-btn"
+                          onClick={() => removeItem(itemKey)}
                         >
-                          -
-                        </button>
-                        <div className="quantity-display">{item.quantity}</div>
-                        <button
-                          className="quantity-btn"
-                          onClick={() => updateQuantity(itemKey, item.quantity + 1)}
-                        >
-                          +
+                          <i className="fas fa-trash"></i>
+                          Remove
                         </button>
                       </div>
-                      <button
-                        className="remove-btn"
-                        onClick={() => removeItem(itemKey)}
-                      >
-                        <i className="fas fa-trash"></i>
-                        Remove
-                      </button>
                     </div>
                   </div>
                 );

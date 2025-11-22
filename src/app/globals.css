@@ -782,10 +782,51 @@ nav {
   }
 }
 
+/* Product Header Top - Above Media Box */
+.product-header-top {
+  margin-bottom: 2rem;
+  text-align: center;
+  padding: 1.5rem 0;
+}
+
+.product-header-top .product-rating {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  margin-bottom: 1rem;
+  padding: 0.75rem;
+  background: linear-gradient(135deg, rgba(200, 157, 36, 0.1) 0%, rgba(200, 157, 36, 0.05) 100%);
+  border-radius: 8px;
+  border-left: 3px solid var(--primary-gold);
+}
+
+.product-header-top .product-title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--text-dark);
+  margin-bottom: 1rem;
+  line-height: 1.2;
+}
+
+.product-header-top .new-badge {
+  background: linear-gradient(135deg, var(--primary-gold), var(--secondary-gold));
+  color: var(--white);
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  display: inline-block;
+  margin-bottom: 0;
+}
+
 /* Product Information */
 .product-info {
   padding: 2rem 0;
   grid-area: info;
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
 }
 
 .product-header {
@@ -1590,18 +1631,24 @@ nav {
   right: 0;
   background: var(--white);
   box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.15);
-  padding: 1rem;
+  padding: 0.75rem;
   z-index: 1000;
   border-top: 2px solid var(--primary-gold);
   align-items: center;
   justify-content: space-between;
-  gap: 1rem;
+  gap: 0.5rem;
+  max-width: 100vw;
+  box-sizing: border-box;
 }
 
 .sticky-cart-info {
   display: flex;
   flex-direction: column;
-  flex: 1;
+  flex: 0 0 auto;
+  min-width: 0;
+  max-width: 35%;
+  justify-content: center;
+  gap: 0.25rem;
 }
 
 .sticky-price {
@@ -1609,33 +1656,60 @@ nav {
   font-weight: 700;
   color: var(--primary-gold);
   font-family: 'Playfair Display', serif;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .sticky-shipping {
   font-size: 0.8rem;
   color: var(--text-light);
   font-weight: 500;
+  line-height: 1.3;
+  letter-spacing: 0.01em;
+  white-space: nowrap;
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
 }
 
 .sticky-add-to-cart-btn {
-  flex: 1.2;
+  flex: 1 1 auto;
   background: linear-gradient(135deg, var(--primary-gold), var(--secondary-gold));
   color: var(--white);
   border: none;
-  padding: 1rem 1.5rem;
+  padding: 0.875rem 1rem;
   border-radius: 12px;
   font-weight: 700;
-  font-size: 1rem;
+  font-size: 0.9rem;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
   box-shadow: 0 4px 15px rgba(200, 157, 36, 0.4);
-  transition: flex 0.3s ease, transform 0.3s ease;
-  min-height: 56px;
+  transition: flex 0.3s ease, transform 0.3s ease, padding 0.3s ease;
+  min-height: 52px;
   white-space: nowrap;
   min-width: 0;
+  max-width: 100%;
+  overflow: hidden;
+  letter-spacing: 0.02em;
+  line-height: 1.2;
+}
+
+/* Reduce padding when View Cart button is visible */
+.sticky-cart-buttons:has(.sticky-cart-action-popup) .sticky-add-to-cart-btn {
+  flex: 0.45 1 auto;
+  padding: 0.55rem 0.5rem;
+  font-size: 0.85rem;
+}
+
+.sticky-add-to-cart-btn span {
+  font-weight: 700;
+  letter-spacing: 0.02em;
 }
 
 .sticky-add-to-cart-btn:hover {
@@ -1658,17 +1732,19 @@ nav {
 
 /* Sticky Mobile Cart Action Popup */
 .sticky-cart-buttons {
-  flex: 1;
+  flex: 1 1 auto;
   position: relative;
   min-height: 56px;
   display: flex;
   align-items: center;
-  gap: 0.75rem;
+  gap: 0.5rem;
+  min-width: 0;
+  max-width: 65%;
 }
 
 .sticky-cart-action-popup {
   animation: stickySlideInRight 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-  flex: 1;
+  flex: 1.55;
   min-width: 0;
   overflow: hidden;
   max-width: 100%;
@@ -1680,21 +1756,31 @@ nav {
   justify-content: center;
   gap: 0.5rem;
   width: 100%;
-  padding: 1rem 1.5rem;
+  padding: 0.875rem 1rem;
   background: linear-gradient(135deg, var(--primary-gold), var(--secondary-gold));
   color: white;
   border: none;
   border-radius: 12px;
-  font-size: 0.95rem;
-  font-weight: 600;
+  font-size: 0.9rem;
+  font-weight: 700;
   cursor: pointer;
   transition: all 0.3s ease;
   box-shadow: 0 4px 15px rgba(200, 157, 36, 0.3);
   position: relative;
   overflow: hidden;
   text-decoration: none;
-  min-height: 56px;
+  min-height: 52px;
   white-space: nowrap;
+  min-width: 0;
+  max-width: 100%;
+  flex-shrink: 1;
+  letter-spacing: 0.02em;
+  line-height: 1.2;
+}
+
+.sticky-cart-action-btn span {
+  font-weight: 700;
+  letter-spacing: 0.02em;
 }
 
 .sticky-cart-action-btn:hover {
@@ -2279,7 +2365,8 @@ nav {
 
 .cart-header {
   text-align: center;
-  margin-bottom: 3rem;
+  margin-bottom: 2rem;
+  padding-top: 0;
 }
 
 .cart-header h1 {
@@ -2300,7 +2387,9 @@ nav {
   justify-content: center;
   gap: 1rem;
   flex-wrap: wrap;
-  margin-top: 1rem;
+  margin: 1rem auto 2rem;
+  max-width: 100%;
+  padding: 0 1rem;
 }
 
 .header-badge {
@@ -2333,14 +2422,19 @@ nav {
   border-radius: 20px;
   padding: 2rem;
   box-shadow: 0 10px 30px var(--shadow);
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
 }
 
 .cart-item {
   display: flex;
   align-items: center;
-  padding: 1.5rem 0;
+  padding: 1rem 1.5rem;
   border-bottom: 1px solid var(--light-gray);
   transition: var(--transition);
+  flex-direction: row;
+  gap: 1rem;
 }
 
 .cart-item:last-child {
@@ -2350,16 +2444,13 @@ nav {
 .cart-item:hover {
   background: var(--light-gold);
   border-radius: 12px;
-  padding: 1.5rem;
-  margin: 0 -1.5rem;
 }
 
 .cart-item-image {
-  width: 100px;
-  height: 100px;
+  width: 120px;
+  height: 80px;
   border-radius: 12px;
   overflow: hidden;
-  margin-right: 1.5rem;
   flex-shrink: 0;
 }
 
@@ -2369,8 +2460,17 @@ nav {
   object-fit: cover;
 }
 
+.cart-item-content {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
 .cart-item-details {
   flex: 1;
+  min-width: 0;
 }
 
 .cart-item-title {
@@ -2403,6 +2503,8 @@ nav {
   display: flex;
   align-items: center;
   gap: 1rem;
+  flex-shrink: 0;
+  flex-wrap: wrap;
 }
 
 .quantity-controls {
@@ -2452,6 +2554,10 @@ nav {
   font-weight: 600;
   cursor: pointer;
   transition: var(--transition);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
 }
 
 .remove-btn:hover {
@@ -2953,98 +3059,225 @@ nav button:hover {
 
   /* Sticky mobile cart improvements */
   .sticky-mobile-cart {
-    padding: 0.875rem;
-    gap: 0.75rem;
+    padding: 0.75rem 0.5rem;
+    gap: 0.5rem;
+    max-width: 100vw;
+    box-sizing: border-box;
   }
 
   .sticky-cart-info {
-    min-width: 80px;
+    min-width: 0;
+    max-width: 30%;
+    flex: 0 0 auto;
+    gap: 0.2rem;
   }
 
   .sticky-price {
-    font-size: 1.3rem;
+    font-size: 1.1rem;
+    line-height: 1.2;
+    letter-spacing: -0.02em;
   }
 
   .sticky-shipping {
-    font-size: 0.75rem;
+    font-size: 0.7rem;
+    line-height: 1.3;
+    letter-spacing: 0.01em;
   }
 
   .sticky-cart-buttons {
-    gap: 0.5rem;
+    gap: 0.4rem;
+    flex: 1 1 auto;
+    min-width: 0;
+    max-width: 70%;
   }
 
   .sticky-add-to-cart-btn {
-    padding: 0.875rem 1rem;
-    font-size: 0.9rem;
-    min-height: 52px;
-    flex: 1.2;
+    padding: 0.75rem 0.75rem;
+    font-size: 0.85rem;
+    min-height: 48px;
+    flex: 1 1 auto;
+    gap: 0.4rem;
+    letter-spacing: 0.02em;
+  }
+
+  /* Reduce padding when View Cart button is visible on mobile */
+  .sticky-cart-buttons:has(.sticky-cart-action-popup) .sticky-add-to-cart-btn {
+    flex: 0.4 1 auto;
+    padding: 0.5rem 0.4rem;
+    font-size: 0.8rem;
+  }
+
+  .sticky-cart-buttons:has(.sticky-cart-action-popup) .sticky-add-to-cart-btn span {
+    font-size: 0.75rem;
+  }
+
+  .sticky-add-to-cart-btn span {
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+  }
+
+  .sticky-add-to-cart-btn i {
+    font-size: 1rem;
+    flex-shrink: 0;
+  }
+
+  .sticky-cart-action-popup {
+    flex: 1.6;
   }
 
   .sticky-cart-action-btn {
-    padding: 0.875rem 1.25rem;
-    font-size: 0.85rem;
-    min-height: 52px;
-    flex: 1;
+    font-size: 0.9rem;
   }
 
   .sticky-cart-action-btn span {
     font-size: 0.85rem;
   }
 
+  .sticky-cart-action-btn {
+    padding: 0.75rem 0.75rem;
+    font-size: 0.85rem;
+    min-height: 48px;
+    flex: 1 1 auto;
+    gap: 0.4rem;
+    letter-spacing: 0.02em;
+  }
+
+  .sticky-cart-action-btn span {
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+  }
+
   .sticky-cart-action-btn i {
     font-size: 0.9rem;
+    flex-shrink: 0;
+  }
+}
+
+/* Very small mobile devices (iPhone SE, etc.) */
+@media (max-width: 375px) {
+  .sticky-mobile-cart {
+    padding: 0.625rem 0.4rem;
+    gap: 0.4rem;
   }
 
-  /* Customer reviews mobile */
-  .customer-reviews-mobile {
-    padding: 1rem;
-    margin: 1.5rem 0;
+  .sticky-cart-info {
+    max-width: 28%;
+    gap: 0.15rem;
   }
 
-  .reviews-title {
-    font-size: 1.3rem;
-    margin-bottom: 1rem;
+  .sticky-price {
+    font-size: 1rem;
+    line-height: 1.2;
+    letter-spacing: -0.02em;
   }
 
-  .review-item {
-    padding: 1rem;
-    margin-bottom: 0.75rem;
+  .sticky-shipping {
+    font-size: 0.65rem;
+    line-height: 1.3;
+    letter-spacing: 0.01em;
   }
 
-  .review-text {
+  .sticky-cart-buttons {
+    max-width: 72%;
+    gap: 0.3rem;
+  }
+
+  .sticky-add-to-cart-btn {
+    padding: 0.7rem 0.6rem;
+    font-size: 0.75rem;
+    min-height: 46px;
+    gap: 0.3rem;
+    letter-spacing: 0.015em;
+  }
+
+  /* Reduce padding when View Cart button is visible on small mobile */
+  .sticky-cart-buttons:has(.sticky-cart-action-popup) .sticky-add-to-cart-btn {
+    flex: 0.35 1 auto;
+    padding: 0.45rem 0.35rem;
+    font-size: 0.7rem;
+  }
+
+  .sticky-cart-buttons:has(.sticky-cart-action-popup) .sticky-add-to-cart-btn span {
+    font-size: 0.7rem;
+  }
+
+  .sticky-cart-buttons:has(.sticky-cart-action-popup) .sticky-add-to-cart-btn i {
+    font-size: 0.85rem;
+  }
+
+  .sticky-add-to-cart-btn span {
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.015em;
+  }
+
+  .sticky-add-to-cart-btn i {
     font-size: 0.9rem;
   }
 
-  .review-date {
+  .sticky-cart-action-popup {
+    flex: 1.65;
+  }
+
+  .sticky-cart-action-btn {
+    font-size: 0.8rem;
+  }
+
+  .sticky-cart-action-btn span {
     font-size: 0.75rem;
   }
 
-  /* Ensure all elements fit within viewport */
-  * {
+  .sticky-cart-action-btn {
+    padding: 0.7rem 0.6rem;
+    font-size: 0.75rem;
+    min-height: 46px;
+    gap: 0.3rem;
+    letter-spacing: 0.015em;
+  }
+
+  .sticky-cart-action-btn span {
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.015em;
+  }
+
+  .sticky-cart-action-btn i {
+    font-size: 0.85rem;
+  }
+}
+
+/* Ensure mobile layout is correct - moved from 375px to 768px */
+@media (max-width: 768px) {
+  /* Product header top mobile */
+  .product-header-top {
+    margin-bottom: 1.5rem;
+    padding: 1rem 0;
+    text-align: center;
+    width: 100%;
     max-width: 100%;
     box-sizing: border-box;
   }
 
-  /* Fix image overflow issues */
-  img, video {
-    max-width: 100%;
-    height: auto;
-    object-fit: cover;
-  }
-
-  /* Fix container overflow */
-  .container, .cart-container {
+  .product-header-top .product-rating {
+    padding: 0.625rem;
+    margin-bottom: 0.75rem;
+    justify-content: center;
     width: 100%;
-    max-width: 100vw;
-    overflow-x: hidden;
-    padding-left: 1.5rem;
-    padding-right: 1.5rem;
+    max-width: 100%;
   }
 
-  /* Additional mobile padding for all sections */
-  .hero, .product-section, .installation-section, .about-section, .contact-section {
-    padding-left: 1.5rem;
-    padding-right: 1.5rem;
+  .product-header-top .product-title {
+    font-size: 1.75rem;
+    margin-bottom: 0.75rem;
+    line-height: 1.3;
+    padding: 0 1rem;
+    word-wrap: break-word;
+  }
+
+  .product-header-top .new-badge {
+    display: none;
   }
 
   /* Navigation improvements */
@@ -3080,14 +3313,17 @@ nav button:hover {
     padding: 2rem 0;
     width: 100%;
     overflow-x: hidden;
+    box-sizing: border-box;
   }
 
   .product-layout {
     grid-template-columns: 1fr;
     gap: 2rem;
-    padding: 0 1.5rem;
+    padding: 0;
     width: 100%;
     max-width: 100%;
+    box-sizing: border-box;
+    margin: 0;
     /* Reorder for mobile: media first, then info */
     grid-template-areas: 
       "gallery"
@@ -3100,6 +3336,10 @@ nav button:hover {
   
   .product-info {
     grid-area: info;
+    padding: 0;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
   }
   
   /* Override padding for thumbnail gallery to start from left edge */
@@ -3112,6 +3352,9 @@ nav button:hover {
   .product-gallery {
     position: static;
     margin-bottom: 2rem;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
     /* Reorder for mobile: main image first, then thumbnails */
     display: flex;
     flex-direction: column;
@@ -3143,6 +3386,9 @@ nav button:hover {
     border-radius: 16px;
     overflow: hidden;
     margin-bottom: 1rem;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
   }
 
   .product-badge {
@@ -3332,10 +3578,16 @@ nav button:hover {
 
   /* Cart page mobile improvements */
   .cart-container {
-    padding: 1rem;
+    padding: 0.75rem;
     width: 100%;
     max-width: 100vw;
     overflow-x: hidden;
+    box-sizing: border-box;
+  }
+
+  .cart-items {
+    padding: 1rem 0.75rem;
+    border-radius: 12px;
   }
 
   .cart-header-badges {
@@ -3364,16 +3616,21 @@ nav button:hover {
 
   .cart-item {
     flex-direction: column;
-    text-align: center;
-    padding: 1rem;
+    text-align: left;
+    padding: 0.75rem;
     width: 100%;
     max-width: 100%;
+    gap: 0.75rem;
+    align-items: stretch;
   }
 
   .cart-item-image {
-    width: 80px;
-    height: 80px;
-    margin: 0 auto 1rem;
+    width: 100%;
+    height: 120px;
+    margin: 0;
+    flex-shrink: 0;
+    align-self: center;
+    max-width: 200px;
   }
 
   .cart-item-image img {
@@ -3382,11 +3639,51 @@ nav button:hover {
     object-fit: cover;
   }
 
+  .cart-item-content {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    width: 100%;
+  }
+
+  .cart-item-details {
+    flex: 1;
+    min-width: 0;
+    width: 100%;
+  }
+
+  .cart-item-title {
+    font-size: 0.95rem;
+    margin-bottom: 0.25rem;
+    line-height: 1.3;
+    word-wrap: break-word;
+  }
+
+  .cart-item-color {
+    font-size: 0.8rem;
+    margin-bottom: 0;
+    line-height: 1.3;
+  }
+
   .cart-item-controls {
-    justify-content: center;
-    margin-top: 1rem;
+    justify-content: space-between;
+    margin-top: 0;
     flex-wrap: wrap;
     gap: 0.5rem;
+    flex-shrink: 0;
+    width: 100%;
+  }
+
+  .quantity-controls {
+    flex: 1;
+    min-width: 120px;
+    max-width: 150px;
+  }
+
+  .remove-btn {
+    flex: 1;
+    min-width: 100px;
+    max-width: 150px;
   }
 
   .cart-summary {
@@ -3584,20 +3881,33 @@ nav button:hover {
 
   /* Cart improvements for small screens */
   .cart-item {
-    padding: 0.75rem;
+    padding: 0.625rem;
+    gap: 0.625rem;
   }
 
   .cart-item-image {
-    width: 60px;
-    height: 60px;
+    height: 100px;
+    max-width: 180px;
   }
 
   .cart-item-title {
-    font-size: 1.1rem;
+    font-size: 0.9rem;
   }
 
-  .cart-item-price {
-    font-size: 1.2rem;
+  .cart-item-color {
+    font-size: 0.75rem;
+  }
+
+  .quantity-controls {
+    min-width: 100px;
+    max-width: 130px;
+  }
+
+  .remove-btn {
+    min-width: 90px;
+    max-width: 130px;
+    font-size: 0.8rem;
+    padding: 0.5rem 0.75rem;
   }
 
   /* Quantity controls mobile */
