@@ -617,6 +617,12 @@ nav {
   flex-shrink: 0;
 }
 
+/* Ensure Next.js Image component works correctly for video thumbnails */
+.thumbnail .thumbnail-video {
+  width: 100%;
+  height: 100%;
+}
+
 .thumbnail-video:hover {
   transform: scale(1.05);
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);

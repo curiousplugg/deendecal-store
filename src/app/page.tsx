@@ -153,7 +153,7 @@ export default function Home() {
         <div className="container">
           <div className="hero-content">
             <div className="hero-text">
-              <h1>Premium <span style={{color: '#c89d24'}}>Shahada</span> Metal Car Decal - Islamic Car Emblem</h1>
+              <h2>Premium <span style={{color: '#c89d24'}}>Shahada</span> Metal Car Decal - Islamic Car Emblem</h2>
               <p>Premium Islamic car emblems and Shahada decals. Show your devotion with sophistication and grace.</p>
               <div className="hero-stats">
                 <div className="stat">
@@ -178,7 +178,8 @@ export default function Home() {
                 height={500}
                 className="hero-img"
                 loading="lazy"
-                quality={85}
+                quality={75}
+                sizes="(max-width: 768px) 100vw, 500px"
               />
             </div>
           </div>
@@ -186,17 +187,17 @@ export default function Home() {
       </section>
 
       {/* Product Section */}
-      <section id="product" className="product-section">
+      <main id="product" className="product-section">
         <div className="container">
           {/* Product Header - Moved to top */}
           <div className="product-header-top">
             <div className="product-rating">
-              <div className="stars">
-                <i className="fas fa-star"></i>
-                <i className="fas fa-star"></i>
-                <i className="fas fa-star"></i>
-                <i className="fas fa-star"></i>
-                <i className="fas fa-star"></i>
+              <div className="stars" aria-label="5 out of 5 stars">
+                <i className="fas fa-star" aria-hidden="true"></i>
+                <i className="fas fa-star" aria-hidden="true"></i>
+                <i className="fas fa-star" aria-hidden="true"></i>
+                <i className="fas fa-star" aria-hidden="true"></i>
+                <i className="fas fa-star" aria-hidden="true"></i>
               </div>
               <span className="rating-text">(127 reviews)</span>
             </div>
@@ -217,7 +218,8 @@ export default function Home() {
                     playsInline
                     width={500}
                     height={500}
-                    preload="metadata"
+                    preload="auto"
+                    aria-label="Product demonstration video"
                     onClick={(e) => {
                       const video = e.currentTarget;
                       if (video.paused) {
@@ -226,7 +228,9 @@ export default function Home() {
                         video.pause();
                       }
                     }}
-                  />
+                  >
+                    <track kind="captions" srcLang="en" label="English captions" />
+                  </video>
                 ) : (
                   <Image
                     src={currentImage}
@@ -237,6 +241,7 @@ export default function Home() {
                     priority
                     quality={85}
                     loading="eager"
+                    sizes="(max-width: 768px) 100vw, 500px"
                   />
                 )}
                 <div className="product-badge">
@@ -257,68 +262,134 @@ export default function Home() {
                       width={80}
                       height={80}
                       loading="lazy"
-                      quality={75}
+                      quality={60}
+                      sizes="(max-width: 768px) 85px, 80px"
                     />
                     <div className="thumbnail-label">{color}</div>
                   </div>
                 ))}
-                <div className="thumbnail thumbnail-video" onClick={() => handleVideoSelect('/videos/tiktok_20250926_115253.mp4')}>
-                  <video
-                    src="/videos/tiktok_20250926_115253.mp4"
+                <div 
+                  className="thumbnail thumbnail-video" 
+                  onClick={() => handleVideoSelect('/videos/tiktok_20250926_115253.mp4')} 
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                      e.preventDefault();
+                      handleVideoSelect('/videos/tiktok_20250926_115253.mp4');
+                    }
+                  }}
+                  role="button" 
+                  tabIndex={0} 
+                  aria-label="Installation video thumbnail"
+                >
+                  <Image
+                    src="/images/video_installation_thumb.jpg"
+                    alt="Installation video thumbnail"
+                    width={80}
+                    height={80}
                     className="thumbnail-video"
-                    muted
-                    loop
-                    playsInline
-                    preload="metadata"
-                    poster="/images/video_installation_thumb.jpg"
+                    loading="lazy"
+                    quality={60}
+                    sizes="(max-width: 768px) 85px, 80px"
                   />
                   <div className="thumbnail-label">Installation</div>
                 </div>
-                <div className="thumbnail thumbnail-video" onClick={() => handleVideoSelect('/videos/tiktok_20250926_120529.mp4')}>
-                  <video
-                    src="/videos/tiktok_20250926_120529.mp4"
+                <div 
+                  className="thumbnail thumbnail-video" 
+                  onClick={() => handleVideoSelect('/videos/tiktok_20250926_120529.mp4')} 
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                      e.preventDefault();
+                      handleVideoSelect('/videos/tiktok_20250926_120529.mp4');
+                    }
+                  }}
+                  role="button" 
+                  tabIndex={0} 
+                  aria-label="Application video thumbnail"
+                >
+                  <Image
+                    src="/images/video_application_thumb.jpg"
+                    alt="Application video thumbnail"
+                    width={80}
+                    height={80}
                     className="thumbnail-video"
-                    muted
-                    loop
-                    playsInline
-                    preload="metadata"
-                    poster="/images/video_application_thumb.jpg"
+                    loading="lazy"
+                    quality={60}
+                    sizes="(max-width: 768px) 85px, 80px"
                   />
                   <div className="thumbnail-label">Application</div>
                 </div>
-                <div className="thumbnail thumbnail-video" onClick={() => handleVideoSelect('/videos/tiktok_20250926_120542.mp4')}>
-                  <video
-                    src="/videos/tiktok_20250926_120542.mp4"
+                <div 
+                  className="thumbnail thumbnail-video" 
+                  onClick={() => handleVideoSelect('/videos/tiktok_20250926_120542.mp4')} 
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                      e.preventDefault();
+                      handleVideoSelect('/videos/tiktok_20250926_120542.mp4');
+                    }
+                  }}
+                  role="button" 
+                  tabIndex={0} 
+                  aria-label="Final result video thumbnail"
+                >
+                  <Image
+                    src="/images/video_final_thumb.jpg"
+                    alt="Final result video thumbnail"
+                    width={80}
+                    height={80}
                     className="thumbnail-video"
-                    muted
-                    loop
-                    playsInline
-                    preload="metadata"
-                    poster="/images/video_final_thumb.jpg"
+                    loading="lazy"
+                    quality={60}
+                    sizes="(max-width: 768px) 85px, 80px"
                   />
                   <div className="thumbnail-label">Final Result</div>
                 </div>
-                <div className="thumbnail thumbnail-video" onClick={() => handleVideoSelect('/videos/MPEG-4 movie.mp4')}>
-                  <video
-                    src="/videos/MPEG-4 movie.mp4"
+                <div 
+                  className="thumbnail thumbnail-video" 
+                  onClick={() => handleVideoSelect('/videos/MPEG-4 movie.mp4')} 
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                      e.preventDefault();
+                      handleVideoSelect('/videos/MPEG-4 movie.mp4');
+                    }
+                  }}
+                  role="button" 
+                  tabIndex={0} 
+                  aria-label="Product video thumbnail"
+                >
+                  <Image
+                    src="/images/video_mpeg4_movie_thumb.jpg"
+                    alt="Product video thumbnail"
+                    width={80}
+                    height={80}
                     className="thumbnail-video"
-                    muted
-                    loop
-                    playsInline
-                    preload="metadata"
-                    poster="/images/video_mpeg4_movie_thumb.jpg"
+                    loading="lazy"
+                    quality={60}
+                    sizes="(max-width: 768px) 85px, 80px"
                   />
                   <div className="thumbnail-label">Product Video</div>
                 </div>
-                <div className="thumbnail thumbnail-video" onClick={() => handleVideoSelect('/videos/MPEG-4 movie 2.mp4')}>
-                  <video
-                    src="/videos/MPEG-4 movie 2.mp4"
+                <div 
+                  className="thumbnail thumbnail-video" 
+                  onClick={() => handleVideoSelect('/videos/MPEG-4 movie 2.mp4')} 
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                      e.preventDefault();
+                      handleVideoSelect('/videos/MPEG-4 movie 2.mp4');
+                    }
+                  }}
+                  role="button" 
+                  tabIndex={0} 
+                  aria-label="Product video 2 thumbnail"
+                >
+                  <Image
+                    src="/images/video_mpeg4_movie2_thumb.jpg"
+                    alt="Product video 2 thumbnail"
+                    width={80}
+                    height={80}
                     className="thumbnail-video"
-                    muted
-                    loop
-                    playsInline
-                    preload="metadata"
-                    poster="/images/video_mpeg4_movie2_thumb.jpg"
+                    loading="lazy"
+                    quality={60}
+                    sizes="(max-width: 768px) 85px, 80px"
                   />
                   <div className="thumbnail-label">Product Video 2</div>
                 </div>
@@ -376,13 +447,23 @@ export default function Home() {
 
               <div className="product-options">
                 <div className="option-group">
-                  <label className="option-label">Choose Color</label>
-                  <div className="color-options">
+                  <label className="option-label" htmlFor="color-selector">Choose Color</label>
+                  <div className="color-options" id="color-selector" role="radiogroup" aria-label="Choose product color">
                     {product.colors?.map((color) => (
                       <div
                         key={color}
                         className={`color-option ${selectedColor === color ? 'active' : ''}`}
                         onClick={() => handleColorSelect(color)}
+                        role="radio"
+                        aria-checked={selectedColor === color}
+                        aria-label={`Select ${color} color`}
+                        tabIndex={0}
+                        onKeyDown={(e) => {
+                          if (e.key === 'Enter' || e.key === ' ') {
+                            e.preventDefault();
+                            handleColorSelect(color);
+                          }
+                        }}
                       >
                         <div className={`color-preview ${color.toLowerCase()}`}></div>
                         <span>{color}</span>
@@ -392,24 +473,30 @@ export default function Home() {
                 </div>
 
                 <div className="option-group">
-                  <label className="option-label">Quantity</label>
+                  <label className="option-label" htmlFor="quantity-input">Quantity</label>
                   <div className="quantity-selector">
                     <button
                       className="quantity-btn"
                       onClick={() => setQuantity(Math.max(1, quantity - 1))}
+                      aria-label="Decrease quantity"
+                      type="button"
                     >
                       -
                     </button>
                     <input
                       type="number"
+                      id="quantity-input"
                       className="quantity-input"
                       value={quantity}
                       onChange={(e) => setQuantity(Math.max(1, parseInt(e.target.value) || 1))}
                       min="1"
+                      aria-label="Product quantity"
                     />
                     <button
                       className="quantity-btn"
                       onClick={() => setQuantity(quantity + 1)}
+                      aria-label="Increase quantity"
+                      type="button"
                     >
                       +
                     </button>
@@ -418,7 +505,7 @@ export default function Home() {
               </div>
 
               <div className="product-features">
-                <h3>Product Features</h3>
+                <h2>Product Features</h2>
                 <div className="features-list">
                   <div className="feature-item">
                     <i className="fas fa-shield-alt"></i>
@@ -446,24 +533,24 @@ export default function Home() {
               </div>
 
               <div className="add-to-cart-section">
-                <button className="add-to-cart-btn" onClick={handleAddToCart}>
-                  <i className="fas fa-shopping-cart"></i>
+                <button className="add-to-cart-btn" onClick={handleAddToCart} aria-label={`Add to cart - $${(product.price * quantity).toFixed(2)}`}>
+                  <i className="fas fa-shopping-cart" aria-hidden="true"></i>
                   Add to Cart - ${(product.price * quantity).toFixed(2)}
                 </button>
                 
                 {/* Cart Action Popup - Mobile: between buttons, Desktop: below both */}
                 {showCartActionPopup && (
                   <div className={`cart-action-popup ${isCartActionExiting ? 'cart-action-exit' : ''}`}>
-                    <Link href="/cart" className="cart-action-btn">
-                      <i className="fas fa-shopping-bag"></i>
+                    <Link href="/cart" className="cart-action-btn" aria-label="View shopping cart">
+                      <i className="fas fa-shopping-bag" aria-hidden="true"></i>
                       <span>View Cart</span>
-                      <i className="fas fa-arrow-right"></i>
+                      <i className="fas fa-arrow-right" aria-hidden="true"></i>
                     </Link>
                   </div>
                 )}
                 
-                <button className="shipping-countries-btn" onClick={() => setShowShippingPopup(true)}>
-                  <i className="fas fa-globe"></i>
+                <button className="shipping-countries-btn" onClick={() => setShowShippingPopup(true)} aria-label="View shipping countries">
+                  <i className="fas fa-globe" aria-hidden="true"></i>
                   Shipping Countries
                 </button>
               </div>
@@ -475,16 +562,16 @@ export default function Home() {
                   <span className="sticky-shipping">Free Shipping</span>
                 </div>
                 <div className="sticky-cart-buttons">
-                  <button className="sticky-add-to-cart-btn" onClick={handleAddToCart}>
-                    <i className="fas fa-shopping-cart"></i>
+                  <button className="sticky-add-to-cart-btn" onClick={handleAddToCart} aria-label="Add to cart">
+                    <i className="fas fa-shopping-cart" aria-hidden="true"></i>
                     <span>Add to Cart</span>
                   </button>
                   {showCartActionPopup && (
                     <div className={`sticky-cart-action-popup ${isCartActionExiting ? 'sticky-cart-action-exit' : ''}`}>
-                      <Link href="/cart" className="sticky-cart-action-btn">
-                        <i className="fas fa-shopping-bag"></i>
+                      <Link href="/cart" className="sticky-cart-action-btn" aria-label="View shopping cart">
+                        <i className="fas fa-shopping-bag" aria-hidden="true"></i>
                         <span>View Cart</span>
-                        <i className="fas fa-arrow-right"></i>
+                        <i className="fas fa-arrow-right" aria-hidden="true"></i>
                       </Link>
                     </div>
                   )}
@@ -687,7 +774,7 @@ export default function Home() {
             </div>
           </div>
         </div>
-      </section>
+      </main>
 
       {/* Installation Section */}
       <section id="installation" className="installation-section">
