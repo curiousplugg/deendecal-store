@@ -49,8 +49,6 @@ const nextConfig = {
   // experimental: {
   //   optimizeCss: true,
   // },
-  // Output file tracing for better optimization
-  outputFileTracingRoot: require('path').join(__dirname, '../../'),
 }
 
 module.exports = nextConfig
