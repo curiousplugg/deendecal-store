@@ -156,7 +156,7 @@ export default function CartPage() {
     track('Proceed to Checkout', {
       itemCount: state.items.length,
       subtotal: subtotal,
-      items: state.items.map(item => `${item.name} (${item.selectedColor})`).join(', ')
+      items: state.items.map(item => `${item.name} (${item.selectedColor || 'unknown'})`).join(', ')
     });
 
     // Ensure checkout is shown (it should already be loaded automatically)
@@ -521,7 +521,7 @@ export default function CartPage() {
                             className="quantity-btn"
                             onClick={() => {
                               updateQuantity(itemKey, item.quantity - 1);
-                              track('Cart Quantity Changed', { action: 'decrease', item: item.name, color: item.selectedColor, quantity: item.quantity - 1 });
+                              track('Cart Quantity Changed', { action: 'decrease', item: item.name, color: item.selectedColor || 'unknown', quantity: item.quantity - 1 });
                             }}
                             disabled={item.quantity <= 1}
                           >
@@ -532,7 +532,7 @@ export default function CartPage() {
                             className="quantity-btn"
                             onClick={() => {
                               updateQuantity(itemKey, item.quantity + 1);
-                              track('Cart Quantity Changed', { action: 'increase', item: item.name, color: item.selectedColor, quantity: item.quantity + 1 });
+                              track('Cart Quantity Changed', { action: 'increase', item: item.name, color: item.selectedColor || 'unknown', quantity: item.quantity + 1 });
                             }}
                           >
                             +
@@ -542,7 +542,7 @@ export default function CartPage() {
                           className="remove-btn"
                           onClick={() => {
                             removeItem(itemKey);
-                            track('Item Removed from Cart', { item: item.name, color: item.selectedColor, quantity: item.quantity, price: item.price });
+                            track('Item Removed from Cart', { item: item.name, color: item.selectedColor || 'unknown', quantity: item.quantity, price: item.price });
                           }}
                         >
                           <i className="fas fa-trash"></i>
