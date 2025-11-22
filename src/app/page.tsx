@@ -274,6 +274,30 @@ export default function Home() {
                   />
                   <div className="thumbnail-label">Final Result</div>
                 </div>
+                <div className="thumbnail thumbnail-video" onClick={() => handleVideoSelect('/videos/MPEG-4 movie.mp4')}>
+                  <video
+                    src="/videos/MPEG-4 movie.mp4"
+                    className="thumbnail-video"
+                    muted
+                    loop
+                    playsInline
+                    preload="metadata"
+                    poster="/images/video_mpeg4_movie_thumb.jpg"
+                  />
+                  <div className="thumbnail-label">Product Video</div>
+                </div>
+                <div className="thumbnail thumbnail-video" onClick={() => handleVideoSelect('/videos/MPEG-4 movie 2.mp4')}>
+                  <video
+                    src="/videos/MPEG-4 movie 2.mp4"
+                    className="thumbnail-video"
+                    muted
+                    loop
+                    playsInline
+                    preload="metadata"
+                    poster="/images/video_mpeg4_movie2_thumb.jpg"
+                  />
+                  <div className="thumbnail-label">Product Video 2</div>
+                </div>
               </div>
             </div>
 
@@ -302,6 +326,38 @@ export default function Home() {
                 <div className="shipping-info">
                   <i className="fas fa-truck"></i>
                   <span>Free shipping on all orders! • 1-2 weeks delivery</span>
+                </div>
+              </div>
+
+              {/* Trust Badges - Mobile Optimized */}
+              <div className="trust-badges-mobile">
+                <div className="trust-badge-item">
+                  <i className="fas fa-shield-alt"></i>
+                  <span>Secure Checkout</span>
+                </div>
+                <div className="trust-badge-item">
+                  <i className="fas fa-lock"></i>
+                  <span>SSL Protected</span>
+                </div>
+                <div className="trust-badge-item">
+                  <i className="fas fa-undo"></i>
+                  <span>30-Day Returns</span>
+                </div>
+                <div className="trust-badge-item">
+                  <i className="fas fa-shipping-fast"></i>
+                  <span>Free Shipping</span>
+                </div>
+              </div>
+
+              {/* Social Proof - Recent Purchases */}
+              <div className="social-proof-mobile">
+                <div className="social-proof-item">
+                  <i className="fas fa-user-circle"></i>
+                  <span><strong>Sarah M.</strong> from New York just purchased this</span>
+                </div>
+                <div className="social-proof-item">
+                  <i className="fas fa-user-circle"></i>
+                  <span><strong>Ahmed K.</strong> from Dubai purchased 2 hours ago</span>
                 </div>
               </div>
 
@@ -374,6 +430,12 @@ export default function Home() {
                 </div>
               </div>
 
+              {/* Urgency Message */}
+              <div className="urgency-message-mobile">
+                <i className="fas fa-fire"></i>
+                <span>🔥 <strong>Limited Stock!</strong> Only 12 left at this price</span>
+              </div>
+
               <div className="add-to-cart-section">
                 <button className="add-to-cart-btn" onClick={handleAddToCart}>
                   <i className="fas fa-shopping-cart"></i>
@@ -385,7 +447,7 @@ export default function Home() {
                   <div className={`cart-action-popup ${isCartActionExiting ? 'cart-action-exit' : ''}`}>
                     <Link href="/cart" className="cart-action-btn">
                       <i className="fas fa-shopping-bag"></i>
-                      <span>View Cart & Checkout</span>
+                      <span>View Cart</span>
                       <i className="fas fa-arrow-right"></i>
                     </Link>
                   </div>
@@ -395,6 +457,29 @@ export default function Home() {
                   <i className="fas fa-globe"></i>
                   Shipping Countries
                 </button>
+              </div>
+
+              {/* Sticky Mobile Add to Cart Button */}
+              <div className="sticky-mobile-cart">
+                <div className="sticky-cart-info">
+                  <span className="sticky-price">${(product.price * quantity).toFixed(2)}</span>
+                  <span className="sticky-shipping">Free Shipping</span>
+                </div>
+                <div className="sticky-cart-buttons">
+                  <button className="sticky-add-to-cart-btn" onClick={handleAddToCart}>
+                    <i className="fas fa-shopping-cart"></i>
+                    <span>Add to Cart</span>
+                  </button>
+                  {showCartActionPopup && (
+                    <div className={`sticky-cart-action-popup ${isCartActionExiting ? 'sticky-cart-action-exit' : ''}`}>
+                      <Link href="/cart" className="sticky-cart-action-btn">
+                        <i className="fas fa-shopping-bag"></i>
+                        <span>View Cart</span>
+                        <i className="fas fa-arrow-right"></i>
+                      </Link>
+                    </div>
+                  )}
+                </div>
               </div>
 
               {/* Cart Notification */}
@@ -541,6 +626,53 @@ export default function Home() {
                   <i className="fab fa-cc-amex"></i>
                   <i className="fab fa-cc-paypal"></i>
                   <i className="fab fa-apple-pay"></i>
+                </div>
+              </div>
+
+              {/* Customer Reviews Section - Mobile Optimized */}
+              <div className="customer-reviews-mobile">
+                <h3 className="reviews-title">What Our Customers Say</h3>
+                <div className="review-item">
+                  <div className="review-header">
+                    <div className="review-stars">
+                      <i className="fas fa-star"></i>
+                      <i className="fas fa-star"></i>
+                      <i className="fas fa-star"></i>
+                      <i className="fas fa-star"></i>
+                      <i className="fas fa-star"></i>
+                    </div>
+                    <span className="review-author">Mohammed A.</span>
+                  </div>
+                  <p className="review-text">"Excellent quality! The decal looks amazing on my car. Easy to install and very durable. Highly recommend!"</p>
+                  <span className="review-date">Verified Purchase • 2 days ago</span>
+                </div>
+                <div className="review-item">
+                  <div className="review-header">
+                    <div className="review-stars">
+                      <i className="fas fa-star"></i>
+                      <i className="fas fa-star"></i>
+                      <i className="fas fa-star"></i>
+                      <i className="fas fa-star"></i>
+                      <i className="fas fa-star"></i>
+                    </div>
+                    <span className="review-author">Fatima K.</span>
+                  </div>
+                  <p className="review-text">"Beautiful design and premium quality. Fast shipping and great customer service. Will order again!"</p>
+                  <span className="review-date">Verified Purchase • 5 days ago</span>
+                </div>
+                <div className="review-item">
+                  <div className="review-header">
+                    <div className="review-stars">
+                      <i className="fas fa-star"></i>
+                      <i className="fas fa-star"></i>
+                      <i className="fas fa-star"></i>
+                      <i className="fas fa-star"></i>
+                      <i className="fas fa-star"></i>
+                    </div>
+                    <span className="review-author">Ahmed S.</span>
+                  </div>
+                  <p className="review-text">"Perfect size and finish. The gold color is exactly as shown. Very satisfied with my purchase!"</p>
+                  <span className="review-date">Verified Purchase • 1 week ago</span>
                 </div>
               </div>
             </div>

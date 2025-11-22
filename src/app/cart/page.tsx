@@ -73,11 +73,35 @@ export default function CartPage() {
   const [isClient, setIsClient] = useState(false);
   const [checkoutKey, setCheckoutKey] = useState(0);
   const [isRefreshingCheckout, setIsRefreshingCheckout] = useState(false);
+  const [timeLeft, setTimeLeft] = useState(15 * 60); // 15 minutes in seconds
 
   // Prevent hydration mismatch by only rendering after client mount
   useEffect(() => {
     setIsClient(true);
   }, []);
+
+  // Countdown timer - counts down from 15 minutes and resets
+  useEffect(() => {
+    if (!isClient) return;
+
+    const timer = setInterval(() => {
+      setTimeLeft((prev) => {
+        if (prev <= 1) {
+          return 15 * 60; // Reset to 15 minutes
+        }
+        return prev - 1;
+      });
+    }, 1000);
+
+    return () => clearInterval(timer);
+  }, [isClient]);
+
+  // Format time as MM:SS
+  const formatTime = (seconds: number) => {
+    const mins = Math.floor(seconds / 60);
+    const secs = seconds % 60;
+    return `${mins}:${secs.toString().padStart(2, '0')}`;
+  };
 
   // Preload Stripe for faster checkout loading
   useEffect(() => {
@@ -411,6 +435,18 @@ export default function CartPage() {
         <div className="cart-header">
           <h1>Your Shopping Cart</h1>
           <p>Review your items and proceed to checkout</p>
+          {state.items.length > 0 && (
+            <div className="cart-header-badges">
+              <span className="header-badge">
+                <i className="fas fa-shipping-fast"></i>
+                Free Shipping Worldwide
+              </span>
+              <span className="header-badge">
+                <i className="fas fa-undo"></i>
+                30-Day Returns
+              </span>
+            </div>
+          )}
         </div>
 
         {!isClient ? (
@@ -488,27 +524,87 @@ export default function CartPage() {
 
             <div className="cart-summary">
               <h2>Order Summary</h2>
+              
+              {/* Trust Badges */}
+              <div className="cart-trust-badges">
+                <div className="cart-trust-item">
+                  <i className="fas fa-shield-alt"></i>
+                  <span>Secure Checkout</span>
+                </div>
+                <div className="cart-trust-item">
+                  <i className="fas fa-undo"></i>
+                  <span>30-Day Returns</span>
+                </div>
+                <div className="cart-trust-item">
+                  <i className="fas fa-truck"></i>
+                  <span>Free Shipping</span>
+                </div>
+              </div>
+
               <div className="summary-line">
                 <span className="summary-label">Subtotal</span>
                 <span className="summary-value">${subtotal.toFixed(2)}</span>
               </div>
               <div className="summary-line">
                 <span className="summary-label">Shipping</span>
-                <span className="summary-value">Free</span>
+                <span className="summary-value shipping-free">Free</span>
               </div>
               <div className="summary-line">
                 <span className="summary-label">Total</span>
-                <span className="summary-value">${subtotal.toFixed(2)}</span>
+                <span className="summary-value total-price">${subtotal.toFixed(2)}</span>
               </div>
+
+              {/* Social Proof */}
+              <div className="cart-social-proof">
+                <div className="social-proof-item">
+                  <i className="fas fa-user-check"></i>
+                  <span><strong>127+</strong> customers purchased today</span>
+                </div>
+                <div className="social-proof-item">
+                  <i className="fas fa-shopping-cart"></i>
+                  <span><strong>100+</strong> customers have items in cart now</span>
+                </div>
+              </div>
+
+              {/* Urgency Message with Countdown */}
+              <div className="cart-urgency">
+                <i className="fas fa-clock"></i>
+                <span>Complete your order in the next <strong className="countdown-timer">{formatTime(timeLeft)}</strong> to secure your items</span>
+              </div>
+
               <div className="checkout-buttons">
                 <button onClick={handleEmbeddedCheckout} className="proceed-checkout-btn">
                   <i className="fas fa-credit-card"></i>
-                  Proceed to Checkout
+                  Proceed to Secure Checkout
                 </button>
                 <button onClick={handleClearCart} className="clear-cart-btn">
                   <i className="fas fa-trash"></i>
                   Clear Cart
                 </button>
+              </div>
+
+              {/* Security & Guarantee */}
+              <div className="cart-security">
+                <div className="security-item">
+                  <i className="fas fa-lock"></i>
+                  <span>SSL Encrypted • Your payment is secure</span>
+                </div>
+                <div className="security-item">
+                  <i className="fas fa-dollar-sign"></i>
+                  <span>100% Money-Back Guarantee</span>
+                </div>
+              </div>
+
+              {/* Payment Methods */}
+              <div className="cart-payment-methods">
+                <p className="payment-methods-label">We accept:</p>
+                <div className="payment-icons-small">
+                  <i className="fab fa-cc-visa"></i>
+                  <i className="fab fa-cc-mastercard"></i>
+                  <i className="fab fa-cc-amex"></i>
+                  <i className="fab fa-cc-paypal"></i>
+                  <i className="fab fa-apple-pay"></i>
+                </div>
               </div>
             </div>
           </div>
