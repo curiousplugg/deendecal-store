@@ -7,6 +7,7 @@ import { products } from '@/data/products';
 import { useCart } from '@/contexts/CartContext';
 import Navigation from '@/components/Navigation';
 import { tiktokEvents } from '@/lib/tiktok-events';
+import { track } from '@vercel/analytics';
 
 // Declare gtag function for Google Ads
 declare global {
@@ -44,11 +45,14 @@ export default function Home() {
     setSelectedColor(color);
     setCurrentImage(colorImages[color as keyof typeof colorImages] || '/images/goldIndy.jpg');
     setCurrentVideo(null); // Clear video when selecting color
+    track('Color Selected', { color, product: product.name });
   };
 
   const handleVideoSelect = (videoSrc: string) => {
     setCurrentVideo(videoSrc);
     setCurrentImage('/images/goldIndy.jpg'); // Keep fallback image
+    const videoName = videoSrc.split('/').pop() || 'unknown';
+    track('Video Selected', { video: videoName, product: product.name });
   };
 
   const handleAddToCart = () => {
@@ -63,6 +67,15 @@ export default function Home() {
     
     // Track AddToCart event
     tiktokEvents.trackAddToCart(productToAdd as unknown as Record<string, string | number | boolean | undefined>, quantity);
+    
+    // Track Vercel Analytics
+    track('Add to Cart', {
+      product: product.name,
+      color: selectedColor,
+      quantity: quantity,
+      price: product.price,
+      total: product.price * quantity
+    });
     
     // Track Google Ads Add to Cart conversion
     if (typeof window !== 'undefined' && window.gtag) {
@@ -477,7 +490,11 @@ export default function Home() {
                   <div className="quantity-selector">
                     <button
                       className="quantity-btn"
-                      onClick={() => setQuantity(Math.max(1, quantity - 1))}
+                      onClick={() => {
+                        const newQuantity = Math.max(1, quantity - 1);
+                        setQuantity(newQuantity);
+                        track('Quantity Changed', { action: 'decrease', quantity: newQuantity, product: product.name });
+                      }}
                       aria-label="Decrease quantity"
                       type="button"
                     >
@@ -488,13 +505,21 @@ export default function Home() {
                       id="quantity-input"
                       className="quantity-input"
                       value={quantity}
-                      onChange={(e) => setQuantity(Math.max(1, parseInt(e.target.value) || 1))}
+                      onChange={(e) => {
+                        const newQuantity = Math.max(1, parseInt(e.target.value) || 1);
+                        setQuantity(newQuantity);
+                        track('Quantity Changed', { action: 'input', quantity: newQuantity, product: product.name });
+                      }}
                       min="1"
                       aria-label="Product quantity"
                     />
                     <button
                       className="quantity-btn"
-                      onClick={() => setQuantity(quantity + 1)}
+                      onClick={() => {
+                        const newQuantity = quantity + 1;
+                        setQuantity(newQuantity);
+                        track('Quantity Changed', { action: 'increase', quantity: newQuantity, product: product.name });
+                      }}
                       aria-label="Increase quantity"
                       type="button"
                     >
@@ -541,7 +566,12 @@ export default function Home() {
                 {/* Cart Action Popup - Mobile: between buttons, Desktop: below both */}
                 {showCartActionPopup && (
                   <div className={`cart-action-popup ${isCartActionExiting ? 'cart-action-exit' : ''}`}>
-                    <Link href="/cart" className="cart-action-btn" aria-label="View shopping cart">
+                    <Link 
+                      href="/cart" 
+                      className="cart-action-btn" 
+                      aria-label="View shopping cart"
+                      onClick={() => track('View Cart Clicked', { source: 'product_page', product: product.name })}
+                    >
                       <i className="fas fa-shopping-bag" aria-hidden="true"></i>
                       <span>View Cart</span>
                       <i className="fas fa-arrow-right" aria-hidden="true"></i>
@@ -549,7 +579,14 @@ export default function Home() {
                   </div>
                 )}
                 
-                <button className="shipping-countries-btn" onClick={() => setShowShippingPopup(true)} aria-label="View shipping countries">
+                <button 
+                  className="shipping-countries-btn" 
+                  onClick={() => {
+                    setShowShippingPopup(true);
+                    track('Shipping Info Clicked', { product: product.name });
+                  }} 
+                  aria-label="View shipping countries"
+                >
                   <i className="fas fa-globe" aria-hidden="true"></i>
                   Shipping Countries
                 </button>
@@ -568,7 +605,12 @@ export default function Home() {
                   </button>
                   {showCartActionPopup && (
                     <div className={`sticky-cart-action-popup ${isCartActionExiting ? 'sticky-cart-action-exit' : ''}`}>
-                      <Link href="/cart" className="sticky-cart-action-btn" aria-label="View shopping cart">
+                      <Link 
+                        href="/cart" 
+                        className="sticky-cart-action-btn" 
+                        aria-label="View shopping cart"
+                        onClick={() => track('View Cart Clicked', { source: 'sticky_mobile', product: product.name })}
+                      >
                         <i className="fas fa-shopping-bag" aria-hidden="true"></i>
                         <span>View Cart</span>
                         <i className="fas fa-arrow-right" aria-hidden="true"></i>
@@ -590,11 +632,23 @@ export default function Home() {
 
               {/* Shipping Countries Popup */}
               {showShippingPopup && (
-                <div className="shipping-popup-overlay" onClick={() => setShowShippingPopup(false)}>
+                <div 
+                  className="shipping-popup-overlay" 
+                  onClick={() => {
+                    setShowShippingPopup(false);
+                    track('Shipping Popup Closed', { method: 'overlay_click' });
+                  }}
+                >
                   <div className="shipping-popup" onClick={(e) => e.stopPropagation()}>
                     <div className="shipping-popup-header">
                       <h3>🌍 Countries We Ship To</h3>
-                      <button className="close-btn" onClick={() => setShowShippingPopup(false)}>
+                      <button 
+                        className="close-btn" 
+                        onClick={() => {
+                          setShowShippingPopup(false);
+                          track('Shipping Popup Closed', { method: 'close_button' });
+                        }}
+                      >
                         <i className="fas fa-times"></i>
                       </button>
                     </div>

@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { useCart } from '@/contexts/CartContext';
 import { useLanguage } from '@/contexts/LanguageContext';
 import LanguageSwitcher from './LanguageSwitcher';
+import { track } from '@vercel/analytics';
 
 export default function Navigation() {
   const { state } = useCart();
@@ -24,6 +25,9 @@ export default function Navigation() {
   };
 
   const smoothScrollTo = (elementId: string) => {
+    // Track navigation click
+    track('Navigation Clicked', { section: elementId, version: isPakistaniVersion ? 'pk' : 'en' });
+    
     // Check if we're on the cart page or other pages without the sections
     const currentPath = window.location.pathname;
     const basePath = isPakistaniVersion ? '/pk' : '';
@@ -116,7 +120,12 @@ export default function Navigation() {
             {/* Desktop Cart and Language Switcher */}
             <div className="hidden lg:flex items-center space-x-4">
               <LanguageSwitcher />
-              <Link href={isPakistaniVersion ? "/pk/cart" : "/cart"} className="relative text-white px-6 py-3 rounded-full font-semibold transition-all duration-200 flex items-center space-x-2 shadow-lg hover:shadow-xl hover:bg-yellow-600" style={{backgroundColor: '#c89d24'}}>
+              <Link 
+                href={isPakistaniVersion ? "/pk/cart" : "/cart"} 
+                className="relative text-white px-6 py-3 rounded-full font-semibold transition-all duration-200 flex items-center space-x-2 shadow-lg hover:shadow-xl hover:bg-yellow-600" 
+                style={{backgroundColor: '#c89d24'}}
+                onClick={() => track('Cart Icon Clicked', { source: 'desktop_nav', itemCount: totalItems })}
+              >
                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.5 5M7 13l2.5 5" />
                 </svg>
@@ -132,7 +141,11 @@ export default function Navigation() {
             {/* Mobile Cart & Menu Button */}
             <div className="lg:hidden flex items-center space-x-4">
               {/* Mobile Cart */}
-              <Link href={isPakistaniVersion ? "/pk/cart" : "/cart"} className="relative text-gray-700 hover:text-yellow-600 transition-colors duration-200 cursor-pointer">
+              <Link 
+                href={isPakistaniVersion ? "/pk/cart" : "/cart"} 
+                className="relative text-gray-700 hover:text-yellow-600 transition-colors duration-200 cursor-pointer"
+                onClick={() => track('Cart Icon Clicked', { source: 'mobile_nav', itemCount: totalItems })}
+              >
                 <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.5 5M7 13l2.5 5" />
                 </svg>
@@ -145,7 +158,10 @@ export default function Navigation() {
 
               {/* Hamburger Menu Button */}
               <button
-                onClick={toggleMenu}
+                onClick={() => {
+                  toggleMenu();
+                  track('Mobile Menu Toggled', { action: isMenuOpen ? 'close' : 'open' });
+                }}
                 className="text-gray-700 hover:text-yellow-600 transition-colors duration-200 p-2"
                 aria-label="Toggle menu"
               >
@@ -197,7 +213,10 @@ export default function Navigation() {
                 <Link
                   href={isPakistaniVersion ? "/pk/cart" : "/cart"}
                   className="block px-4 py-3 text-base font-medium text-white bg-yellow-600 hover:bg-yellow-700 rounded-lg transition-all duration-200 text-center"
-                  onClick={() => setIsMenuOpen(false)}
+                  onClick={() => {
+                    setIsMenuOpen(false);
+                    track('Cart Icon Clicked', { source: 'mobile_menu', itemCount: totalItems });
+                  }}
                 >
                   {t('nav.cart')} {isHydrated && totalItems > 0 && `(${totalItems} items)`}
                 </Link>

@@ -9,6 +9,7 @@ import Navigation from '@/components/Navigation';
 import { tiktokEvents } from '@/lib/tiktok-events';
 import { loadStripe } from '@stripe/stripe-js';
 import StripePreloader from '@/components/StripePreloader';
+import { track } from '@vercel/analytics';
 
 // Dynamically import Stripe's EmbeddedCheckout to prevent SSR issues
 const EmbeddedCheckoutComponent = dynamic(
@@ -151,6 +152,13 @@ export default function CartPage() {
     const subtotal = state.items.reduce((sum, item) => sum + item.price * item.quantity, 0);
     tiktokEvents.trackInitiateCheckout(state.items as unknown as Record<string, string | number | boolean | undefined>[], subtotal);
 
+    // Track Vercel Analytics
+    track('Proceed to Checkout', {
+      itemCount: state.items.length,
+      subtotal: subtotal,
+      items: state.items.map(item => `${item.name} (${item.selectedColor})`).join(', ')
+    });
+
     // Ensure checkout is shown (it should already be loaded automatically)
     setShowCheckout(true);
     
@@ -174,6 +182,9 @@ export default function CartPage() {
   };
 
   const handleClearCart = () => {
+    const itemCount = state.items.length;
+    const subtotal = state.items.reduce((sum, item) => sum + item.price * item.quantity, 0);
+    track('Cart Cleared', { itemCount, subtotal });
     if (showCheckout) {
       const confirmed = window.confirm(
         'You have an active checkout session. Clearing the cart will close the checkout. Are you sure you want to continue?'
@@ -465,7 +476,11 @@ export default function CartPage() {
           <div className="empty-cart">
             <h2>Your cart is empty</h2>
             <p>Add some beautiful Islamic car emblems to get started</p>
-            <Link href="/" className="continue-shopping-btn">
+            <Link 
+              href="/" 
+              className="continue-shopping-btn"
+              onClick={() => track('Continue Shopping Clicked', { source: 'empty_cart' })}
+            >
               <i className="fas fa-shopping-cart"></i>
               Continue Shopping
             </Link>
@@ -504,7 +519,10 @@ export default function CartPage() {
                         <div className="quantity-controls">
                           <button
                             className="quantity-btn"
-                            onClick={() => updateQuantity(itemKey, item.quantity - 1)}
+                            onClick={() => {
+                              updateQuantity(itemKey, item.quantity - 1);
+                              track('Cart Quantity Changed', { action: 'decrease', item: item.name, color: item.selectedColor, quantity: item.quantity - 1 });
+                            }}
                             disabled={item.quantity <= 1}
                           >
                             -
@@ -512,14 +530,20 @@ export default function CartPage() {
                           <div className="quantity-display">{item.quantity}</div>
                           <button
                             className="quantity-btn"
-                            onClick={() => updateQuantity(itemKey, item.quantity + 1)}
+                            onClick={() => {
+                              updateQuantity(itemKey, item.quantity + 1);
+                              track('Cart Quantity Changed', { action: 'increase', item: item.name, color: item.selectedColor, quantity: item.quantity + 1 });
+                            }}
                           >
                             +
                           </button>
                         </div>
                         <button
                           className="remove-btn"
-                          onClick={() => removeItem(itemKey)}
+                          onClick={() => {
+                            removeItem(itemKey);
+                            track('Item Removed from Cart', { item: item.name, color: item.selectedColor, quantity: item.quantity, price: item.price });
+                          }}
                         >
                           <i className="fas fa-trash"></i>
                           Remove
@@ -667,7 +691,11 @@ export default function CartPage() {
               <p className="success-text">
                 Thank you for your purchase. Your order has been placed successfully.
               </p>
-              <Link href="/" className="continue-shopping-btn">
+              <Link 
+                href="/" 
+                className="continue-shopping-btn"
+                onClick={() => track('Continue Shopping Clicked', { source: 'checkout_success' })}
+              >
                 <i className="fas fa-home"></i>
                 Continue Shopping
               </Link>
