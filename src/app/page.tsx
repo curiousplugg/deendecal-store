@@ -643,7 +643,7 @@ export default function Home() {
                     </div>
                     <span className="review-author">Mohammed A.</span>
                   </div>
-                  <p className="review-text">"Excellent quality! The decal looks amazing on my car. Easy to install and very durable. Highly recommend!"</p>
+                  <p className="review-text">&quot;Excellent quality! The decal looks amazing on my car. Easy to install and very durable. Highly recommend!&quot;</p>
                   <span className="review-date">Verified Purchase • 2 days ago</span>
                 </div>
                 <div className="review-item">
@@ -657,7 +657,7 @@ export default function Home() {
                     </div>
                     <span className="review-author">Fatima K.</span>
                   </div>
-                  <p className="review-text">"Beautiful design and premium quality. Fast shipping and great customer service. Will order again!"</p>
+                  <p className="review-text">&quot;Beautiful design and premium quality. Fast shipping and great customer service. Will order again!&quot;</p>
                   <span className="review-date">Verified Purchase • 5 days ago</span>
                 </div>
                 <div className="review-item">
@@ -671,7 +671,7 @@ export default function Home() {
                     </div>
                     <span className="review-author">Ahmed S.</span>
                   </div>
-                  <p className="review-text">"Perfect size and finish. The gold color is exactly as shown. Very satisfied with my purchase!"</p>
+                  <p className="review-text">&quot;Perfect size and finish. The gold color is exactly as shown. Very satisfied with my purchase!&quot;</p>
                   <span className="review-date">Verified Purchase • 1 week ago</span>
                 </div>
               </div>
