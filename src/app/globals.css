@@ -388,19 +388,22 @@ nav {
   align-items: center;
 }
 
-.hero-text h1 {
-  font-size: 3.5rem;
-  font-weight: 700;
+.hero-text h1,
+.hero-text h2 {
+  font-size: 4rem;
+  font-weight: 800;
   color: var(--text-dark);
   margin-bottom: 1.5rem;
   line-height: 1.1;
+  letter-spacing: -0.02em;
 }
 
 .hero-text p {
-  font-size: 1.25rem;
+  font-size: 1.5rem;
   color: var(--text-light);
   margin-bottom: 3rem;
   line-height: 1.6;
+  font-weight: 400;
 }
 
 .hero-stats {
@@ -3817,9 +3820,14 @@ nav button:hover {
   }
 
   /* Typography for small screens */
-  .hero-text h1 {
+  .hero-text h1,
+  .hero-text h2 {
     font-size: 2rem;
     line-height: 1.1;
+  }
+  
+  .hero-text p {
+    font-size: 1rem;
   }
 
   .product-title {
