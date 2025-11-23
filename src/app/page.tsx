@@ -135,7 +135,7 @@ export default function Home() {
         ],
         "offers": {
           "@type": "Offer",
-          "price": "17.99",
+          "price": "24.99",
           "priceCurrency": "USD",
           "availability": "https://schema.org/InStock",
           "shippingDetails": {

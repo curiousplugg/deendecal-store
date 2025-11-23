@@ -76,7 +76,7 @@ function SuccessContent() {
             gtag('event', 'conversion', {
               'send_to': 'AW-17655278257/7343991540',
               'transaction_id': '${sessionId || 'unknown'}',
-              'value': 17.99,
+              'value': 24.99,
               'currency': 'USD'
             });
           `,

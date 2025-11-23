@@ -12,22 +12,22 @@ interface CartItem {
 }
 
 // Stripe price IDs for each color variant (LIVE MODE - USD)
-// Updated to $17.99 on 2025-01-27
+// Updated to $24.99 on 2025-01-27
 const PRICE_IDS_USD = {
-  'Gold': 'price_1SWHQDBJjaZO6BBghaw8E2Ee',      // prod_T8UlDxb1zIbuXY
-  'Silver': 'price_1SWHRcBJjaZO6BBgXmjCXoQG',   // prod_T8UlHlRq1EQ4Sy
-  'Black': 'price_1SWHR2BJjaZO6BBgVZ1iSYaM',    // prod_T8Ul5nZE1pn2SS
-  'Red': 'price_1SWHRHBJjaZO6BBgb7VR8gy8'        // prod_T8Ul4BeAqqpoyx
+  'Gold': 'price_1SCDmMBJjaZO6BBglBDEdWpB',      // prod_T8UlDxb1zIbuXY
+  'Silver': 'price_1SCDmOBJjaZO6BBgFh2xylqB',   // prod_T8UlHlRq1EQ4Sy
+  'Black': 'price_1SCDmNBJjaZO6BBgwmbOsk9g',    // prod_T8Ul5nZE1pn2SS
+  'Red': 'price_1SCDmNBJjaZO6BBgwejHag8d'        // prod_T8Ul4BeAqqpoyx
 };
 
 // For Pakistani customers, we'll use USD pricing converted from PKR
 // PKR 6,950 ≈ USD 25 (approximate conversion rate)
-// Updated to $17.99 on 2025-01-27
+// Updated to $24.99 on 2025-01-27
 const PRICE_IDS_PKR = {
-  'Gold': 'price_1SWHQDBJjaZO6BBghaw8E2Ee',      // prod_T8UlDxb1zIbuXY
-  'Silver': 'price_1SWHRcBJjaZO6BBgXmjCXoQG',   // prod_T8UlHlRq1EQ4Sy
-  'Black': 'price_1SWHR2BJjaZO6BBgVZ1iSYaM',    // prod_T8Ul5nZE1pn2SS
-  'Red': 'price_1SWHRHBJjaZO6BBgb7VR8gy8'        // prod_T8Ul4BeAqqpoyx
+  'Gold': 'price_1SCDmMBJjaZO6BBglBDEdWpB',      // prod_T8UlDxb1zIbuXY
+  'Silver': 'price_1SCDmOBJjaZO6BBgFh2xylqB',   // prod_T8UlHlRq1EQ4Sy
+  'Black': 'price_1SCDmNBJjaZO6BBgwmbOsk9g',    // prod_T8Ul5nZE1pn2SS
+  'Red': 'price_1SCDmNBJjaZO6BBgwejHag8d'        // prod_T8Ul4BeAqqpoyx
 };
 
 export async function fetchClientSecret(items: CartItem[]) {
