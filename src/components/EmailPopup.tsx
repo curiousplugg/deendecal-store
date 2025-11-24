@@ -14,19 +14,29 @@ export default function EmailPopup({ onClose, productImage = '/images/goldIndy.j
   const [isLoading, setIsLoading] = useState(false);
   const [status, setStatus] = useState<'idle' | 'success' | 'error' | 'duplicate'>('idle');
   const [errorMessage, setErrorMessage] = useState('');
+  const [isClosing, setIsClosing] = useState(false);
   const popupRef = useRef<HTMLDivElement>(null);
+
+  // Handle smooth close
+  const handleClose = () => {
+    setIsClosing(true);
+    // Wait for animation to complete before calling onClose
+    setTimeout(() => {
+      onClose();
+    }, 300); // Match animation duration
+  };
 
   // Handle click outside to close
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
       if (popupRef.current && !popupRef.current.contains(event.target as Node)) {
-        onClose();
+        handleClose();
       }
     }
 
     document.addEventListener('mousedown', handleClickOutside);
     return () => document.removeEventListener('mousedown', handleClickOutside);
-  }, [onClose]);
+  }, []);
 
   // Prevent body scroll when popup is open
   useEffect(() => {
@@ -60,7 +70,7 @@ export default function EmailPopup({ onClose, productImage = '/images/goldIndy.j
 
       const data = await response.json();
 
-      if (data.success) {
+      if (data.success && data.emailSent) {
         // Mark as subscribed in localStorage (only on client)
         if (typeof window !== 'undefined') {
           localStorage.setItem('email_popup_subscribed', 'true');
@@ -75,8 +85,13 @@ export default function EmailPopup({ onClose, productImage = '/images/goldIndy.j
         }
       } else {
         setStatus('error');
-        setErrorMessage(data.error || 'Something went wrong. Please try again.');
-        track('Email Subscription', { status: 'error', error: data.error });
+        // Show specific error message if email wasn't sent
+        if (data.emailSent === false) {
+          setErrorMessage(data.error || 'Unable to send email. Please check that your email address is valid and try again. If the problem persists, contact support at deendecal@gmail.com.');
+        } else {
+          setErrorMessage(data.error || 'Something went wrong. Please try again.');
+        }
+        track('Email Subscription', { status: 'error', error: data.error, emailSent: data.emailSent });
       }
     } catch {
       setStatus('error');
@@ -88,12 +103,12 @@ export default function EmailPopup({ onClose, productImage = '/images/goldIndy.j
   };
 
   return (
-    <div className="email-popup-overlay">
-      <div className="email-popup" ref={popupRef}>
+    <div className={`email-popup-overlay ${isClosing ? 'email-popup-closing' : ''}`}>
+      <div className={`email-popup ${isClosing ? 'email-popup-closing' : ''}`} ref={popupRef}>
         {/* Close button */}
         <button
           className="email-popup-close"
-          onClick={onClose}
+          onClick={handleClose}
           aria-label="Close popup"
         >
           <i className="fas fa-times"></i>
@@ -126,7 +141,7 @@ export default function EmailPopup({ onClose, productImage = '/images/goldIndy.j
               </p>
               <button
                 className="email-popup-button"
-                onClick={onClose}
+                onClick={handleClose}
               >
                 Continue Shopping
               </button>
@@ -143,7 +158,7 @@ export default function EmailPopup({ onClose, productImage = '/images/goldIndy.j
               </p>
               <button
                 className="email-popup-button"
-                onClick={onClose}
+                onClick={handleClose}
               >
                 Continue Shopping
               </button>
@@ -197,7 +212,7 @@ export default function EmailPopup({ onClose, productImage = '/images/goldIndy.j
               </form>
               <button
                 className="email-popup-dismiss"
-                onClick={onClose}
+                onClick={handleClose}
               >
                 No thanks, I&apos;d rather pay at full price.
               </button>

@@ -48,6 +48,7 @@ export default function Home() {
     setShowCornerButton(!hasSubscribed);
   }, []);
 
+
   // Email popup trigger logic
   useEffect(() => {
     // Only run on client side
@@ -115,10 +116,12 @@ export default function Home() {
   // Handle popup close
   const handlePopupClose = () => {
     setShowEmailPopup(false);
-    // Show corner button after closing (if not subscribed)
-    if (isClient && localStorage.getItem('email_popup_subscribed') !== 'true') {
-      setShowCornerButton(true);
-    }
+    // Show corner button after closing (if not subscribed) with smooth animation
+    setTimeout(() => {
+      if (isClient && localStorage.getItem('email_popup_subscribed') !== 'true') {
+        setShowCornerButton(true);
+      }
+    }, 300); // Wait for popup closing animation to complete
   };
 
   // Handle corner button click
@@ -262,10 +265,13 @@ export default function Home() {
         />
       )}
 
-      {/* Corner Button (show when popup is not visible and not subscribed) */}
+      {/* Corner Button for Desktop (show when popup is not visible and not subscribed) */}
       {isClient && !showEmailPopup && showCornerButton && (
-        <CornerButton onClick={handleCornerButtonClick} />
+        <div className="desktop-corner-button-wrapper">
+          <CornerButton onClick={handleCornerButtonClick} />
+        </div>
       )}
+
 
       {/* Hero Section */}
       <section id="home" className="hero">
@@ -700,6 +706,10 @@ export default function Home() {
 
               {/* Sticky Mobile Add to Cart Button */}
               <div className="sticky-mobile-cart">
+                {/* Triangle Discount Button */}
+                {isClient && !showEmailPopup && showCornerButton && (
+                  <CornerButton onClick={handleCornerButtonClick} />
+                )}
                 <div className="sticky-cart-info">
                   <span className="sticky-price">${(product.price * quantity).toFixed(2)}</span>
                   <span className="sticky-shipping">Free Shipping</span>

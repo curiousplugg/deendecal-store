@@ -3,6 +3,11 @@ import { supabaseAdmin } from '@/lib/supabase';
 import { resend } from '@/lib/resend';
 import { stripe } from '@/lib/stripe';
 
+const FROM_EMAIL =
+  process.env.RESEND_FROM_EMAIL?.trim() || 'DeenDecal <noreply@deendecal.com>';
+const REPLY_TO_EMAIL =
+  process.env.RESEND_REPLY_TO_EMAIL?.trim() || 'support@deendecal.com';
+
 // Rate limiting: max 3 attempts per IP per hour
 const RATE_LIMIT_ATTEMPTS = 3;
 const RATE_LIMIT_WINDOW = 60 * 60 * 1000; // 1 hour in milliseconds
@@ -68,10 +73,10 @@ async function getPromotionCode(): Promise<{ code: string; id: string }> {
 async function sendCouponEmail(email: string, couponCode: string): Promise<boolean> {
   try {
     const { error } = await resend.emails.send({
-      from: 'DeenDecal <noreply@deendecal.com>',
+      from: FROM_EMAIL,
       to: [email],
       subject: '🎉 Your 20% Off Discount Code!',
-      replyTo: 'support@deendecal.com',
+      replyTo: REPLY_TO_EMAIL,
       html: `
         <!DOCTYPE html>
         <html>
@@ -241,14 +246,22 @@ export async function POST(request: NextRequest) {
             email_sent: true,
           })
           .eq('email', trimmedEmail);
-      }
 
-      return NextResponse.json({
-        success: true,
-        message: 'This email is already subscribed! Check your inbox for your discount code.',
-        alreadySubscribed: true,
-        emailSent,
-      });
+        return NextResponse.json({
+          success: true,
+          message: 'This email is already subscribed! Check your inbox for your discount code.',
+          alreadySubscribed: true,
+          emailSent: true,
+        });
+      } else {
+        // Email sending failed
+        return NextResponse.json({
+          success: false,
+          error: 'Unable to send email. Please check that your email address is valid and try again. If the problem persists, contact support.',
+          alreadySubscribed: true,
+          emailSent: false,
+        }, { status: 500 });
+      }
     }
 
     // Insert new subscription
@@ -284,13 +297,27 @@ export async function POST(request: NextRequest) {
           last_email_sent_at: new Date().toISOString(),
         })
         .eq('id', newSubscription.id);
-    }
 
-    return NextResponse.json({
-      success: true,
-      message: 'Success! Check your email for your 20% off discount code.',
-      emailSent,
-    });
+      return NextResponse.json({
+        success: true,
+        message: 'Success! Check your email for your 20% off discount code.',
+        emailSent: true,
+      });
+    } else {
+      // Email sending failed - update database to reflect this
+      await supabaseAdmin
+        .from('email_subscriptions')
+        .update({
+          email_sent: false,
+        })
+        .eq('id', newSubscription.id);
+
+      return NextResponse.json({
+        success: false,
+        error: 'Unable to send email. Please check that your email address is valid and try again. If the problem persists, contact support at deendecal@gmail.com.',
+        emailSent: false,
+      }, { status: 500 });
+    }
   } catch (error) {
     console.error('Subscribe API error:', error);
     return NextResponse.json(

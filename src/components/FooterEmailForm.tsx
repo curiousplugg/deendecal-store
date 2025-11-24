@@ -33,7 +33,7 @@ export default function FooterEmailForm() {
 
       const data = await response.json();
 
-      if (data.success) {
+      if (data.success && data.emailSent) {
         // Mark as subscribed in localStorage (only on client)
         if (typeof window !== 'undefined') {
           localStorage.setItem('email_popup_subscribed', 'true');
@@ -51,8 +51,13 @@ export default function FooterEmailForm() {
         setEmail(''); // Clear input on success
       } else {
         setStatus('error');
-        setMessage(data.error || 'Something went wrong. Please try again.');
-        track('Footer Email Subscription', { status: 'error', error: data.error });
+        // Show specific error message if email wasn't sent
+        if (data.emailSent === false) {
+          setMessage(data.error || 'Unable to send email. Please check that your email address is valid and try again. If the problem persists, contact support at deendecal@gmail.com.');
+        } else {
+          setMessage(data.error || 'Something went wrong. Please try again.');
+        }
+        track('Footer Email Subscription', { status: 'error', error: data.error, emailSent: data.emailSent });
       }
     } catch {
       setStatus('error');

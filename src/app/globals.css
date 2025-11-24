@@ -143,15 +143,15 @@ h1, h2, h3, h4, h5, h6 {
   z-index: 1000;
 }
 
-/* Ensure sticky navigation works on desktop */
+/* Navigation styles - sticky positioning */
 nav {
-  position: sticky;
-  top: 0;
-  z-index: 1000;
-  width: 100%;
-  background: white;
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
+  position: sticky !important;
+  top: 0 !important;
+  z-index: 1000 !important;
+  width: 100% !important;
+  background: white !important;
+  backdrop-filter: blur(10px) !important;
+  -webkit-backdrop-filter: blur(10px) !important;
 }
 
 /* Desktop sticky positioning */
@@ -173,6 +173,11 @@ nav {
   /* Hide sticky mobile cart on desktop */
   .sticky-mobile-cart {
     display: none !important;
+  }
+
+  /* Hide desktop corner button wrapper on desktop (triangle is in sticky cart on mobile) */
+  .desktop-corner-button-wrapper {
+    display: block !important;
   }
 
   /* Show regular add to cart button on desktop */
@@ -1655,9 +1660,11 @@ nav {
   flex-direction: column;
   flex: 0 0 auto;
   min-width: 0;
-  max-width: 35%;
+  max-width: 30%;
   justify-content: center;
   gap: 0.25rem;
+  margin-left: 80px; /* Space for triangle button */
+  padding-left: 0.5rem; /* Additional left padding */
 }
 
 .sticky-price {
@@ -3015,6 +3022,11 @@ nav button:hover {
     display: flex !important;
   }
 
+  /* Hide desktop corner button on mobile (triangle is in sticky cart) */
+  .desktop-corner-button-wrapper {
+    display: none !important;
+  }
+
   /* Hide regular add to cart button on mobile (sticky version replaces it) */
   .add-to-cart-section .add-to-cart-btn {
     display: none;
@@ -3076,9 +3088,10 @@ nav button:hover {
 
   .sticky-cart-info {
     min-width: 0;
-    max-width: 30%;
+    max-width: 28%;
     flex: 0 0 auto;
     gap: 0.2rem;
+    margin-left: 70px; /* Space for triangle button */
   }
 
   .sticky-price {
@@ -3172,8 +3185,23 @@ nav button:hover {
   }
 
   .sticky-cart-info {
-    max-width: 28%;
+    max-width: 25%;
     gap: 0.15rem;
+    margin-left: 80px; /* Space for triangle button on small mobile */
+  }
+
+  .corner-discount-button {
+    width: 80px;
+    height: 80px;
+    bottom: -3px;
+  }
+
+  .corner-discount-button-content {
+    font-size: 0.7rem;
+    top: 50px;
+    left: 6px;
+    right: 6px;
+    text-align: center;
   }
 
   .sticky-price {
@@ -4055,6 +4083,10 @@ nav button:hover {
   animation: fadeIn 0.3s ease;
 }
 
+.email-popup-overlay.email-popup-closing {
+  animation: fadeOut 0.3s ease forwards;
+}
+
 .email-popup {
   position: relative;
   width: 100%;
@@ -4067,6 +4099,10 @@ nav button:hover {
   max-height: 90vh;
   display: flex;
   flex-direction: column;
+}
+
+.email-popup.email-popup-closing {
+  animation: slideDown 0.3s ease forwards;
 }
 
 .email-popup-close {
@@ -4252,44 +4288,103 @@ nav button:hover {
   margin-top: 1rem !important;
 }
 
-/* Corner Button Styles */
+/* Desktop Corner Button Wrapper - Hidden on mobile */
+.desktop-corner-button-wrapper {
+  display: none;
+}
+
+/* Corner Button Styles - Triangle Banner */
 .corner-discount-button {
-  position: fixed;
-  bottom: 1rem;
-  left: 1rem;
-  width: 70px;
-  height: 70px;
-  border-radius: 50%;
+  position: absolute;
+  bottom: -3px;
+  left: 0;
+  width: 80px;
+  height: 80px;
   background: linear-gradient(135deg, var(--primary-gold), var(--secondary-gold));
   border: none;
   cursor: pointer;
-  box-shadow: 0 4px 16px rgba(200, 157, 36, 0.4);
-  z-index: 9998;
+  z-index: 10;
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: var(--transition);
+  transition: opacity 0.4s ease, transform 0.4s ease;
   animation: pulse 2s infinite;
+  overflow: hidden;
+  clip-path: polygon(0 0, 0 100%, 100% 100%);
+  flex-shrink: 0;
+  box-shadow: 0 2px 8px rgba(200, 157, 36, 0.3);
+  transform: rotate(-90deg);
+  transform-origin: bottom left;
+  opacity: 1;
+  transform: rotate(-90deg) scale(1);
+}
+
+.corner-discount-button.triangle-visible {
+  opacity: 1;
+  transform: rotate(-90deg) scale(1);
+}
+
+/* Desktop: Fixed position at bottom of screen */
+@media (min-width: 769px) {
+  .desktop-corner-button-wrapper {
+    display: block;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    z-index: 9998;
+  }
+
+  .desktop-corner-button-wrapper .corner-discount-button {
+    position: relative;
+    width: 100px;
+    height: 100px;
+    bottom: 0;
+    background: linear-gradient(135deg, var(--primary-gold), var(--secondary-gold));
+    clip-path: polygon(0 0, 0 100%, 100% 100%);
+    transform: rotate(-90deg);
+    transform-origin: bottom left;
+  }
+
+  .desktop-corner-button-wrapper .corner-discount-button-content {
+    font-size: 0.85rem;
+    top: 55px;
+    left: 40px;
+    right: 70px;
+    transform: rotate(45deg);
+  }
 }
 
 .corner-discount-button:hover {
-  transform: scale(1.1);
-  box-shadow: 0 6px 20px rgba(200, 157, 36, 0.6);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
 }
 
 .corner-discount-button-content {
+  position: absolute;
+  top: 25px;
+  left: 8px;
+  right: 8px;
+  z-index: 11;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: center;
   justify-content: center;
   color: var(--white);
   font-weight: 700;
-  font-size: 0.75rem;
-  gap: 0.25rem;
+  font-size: 0.85rem;
+  line-height: 1.1;
+  text-align: center;
+  transform: rotate(45deg);
+  transform-origin: center;
+  pointer-events: none;
+  white-space: nowrap;
 }
 
-.corner-discount-button-content i {
-  font-size: 1.5rem;
+.corner-discount-button-content span {
+  display: inline;
+  letter-spacing: 0.5px;
+  color: var(--white);
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+  font-weight: 800;
 }
 
 @keyframes pulse {
@@ -4298,6 +4393,26 @@ nav button:hover {
   }
   50% {
     transform: scale(1.05);
+  }
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes slideDown {
+  from {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  to {
+    transform: translateY(30px);
+    opacity: 0;
   }
 }
 
@@ -4349,12 +4464,18 @@ nav button:hover {
   transition: var(--transition);
   font-family: inherit;
   background: var(--white);
+  color: var(--dark-gray);
+}
+
+.footer-email-input::placeholder {
+  color: var(--medium-gray);
 }
 
 .footer-email-input:focus {
   outline: none;
   border-color: var(--primary-gold);
   box-shadow: 0 0 0 3px rgba(200, 157, 36, 0.1);
+  color: var(--dark-gray);
 }
 
 .footer-email-submit {
@@ -4424,18 +4545,22 @@ nav button:hover {
   }
 
   .corner-discount-button {
-    width: 60px;
-    height: 60px;
-    bottom: 1rem;
-    left: 1rem;
+    width: 80px;
+    height: 80px;
+    bottom: -3px;
   }
 
   .corner-discount-button-content {
-    font-size: 0.65rem;
+    font-size: 0.80rem;
+    top: 45px;
+    left: 15px;
+    right: 35px;
+    text-align: center;
   }
 
-  .corner-discount-button-content i {
-    font-size: 1.25rem;
+  .sticky-cart-info {
+    margin-left: 80px; /* Space for triangle button on mobile */
+    max-width: 28%;
   }
 
   .footer-email-form-container {
