@@ -78,7 +78,7 @@ export default function EmailPopup({ onClose, productImage = '/images/goldIndy.j
         setErrorMessage(data.error || 'Something went wrong. Please try again.');
         track('Email Subscription', { status: 'error', error: data.error });
       }
-    } catch (error) {
+    } catch {
       setStatus('error');
       setErrorMessage('Connection failed. Please try again.');
       track('Email Subscription', { status: 'error', error: 'network_error' });

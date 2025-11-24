@@ -54,7 +54,7 @@ export default function FooterEmailForm() {
         setMessage(data.error || 'Something went wrong. Please try again.');
         track('Footer Email Subscription', { status: 'error', error: data.error });
       }
-    } catch (error) {
+    } catch {
       setStatus('error');
       setMessage('Connection failed. Please try again.');
       track('Footer Email Subscription', { status: 'error', error: 'network_error' });
