@@ -8,6 +8,9 @@ import { useCart } from '@/contexts/CartContext';
 import Navigation from '@/components/Navigation';
 import { tiktokEvents } from '@/lib/tiktok-events';
 import { track } from '@vercel/analytics';
+import EmailPopup from '@/components/EmailPopup';
+import CornerButton from '@/components/CornerButton';
+import FooterEmailForm from '@/components/FooterEmailForm';
 
 // Declare gtag function for Google Ads
 declare global {
@@ -26,6 +29,10 @@ export default function Home() {
   const [showShippingPopup, setShowShippingPopup] = useState(false);
   const [showCartActionPopup, setShowCartActionPopup] = useState(false);
   const [isCartActionExiting, setIsCartActionExiting] = useState(false);
+  const [showEmailPopup, setShowEmailPopup] = useState(false);
+  const [popupShown, setPopupShown] = useState(false);
+  const [isClient, setIsClient] = useState(false);
+  const [showCornerButton, setShowCornerButton] = useState(false);
 
   const product = products[0]; // Single product
 
@@ -33,6 +40,92 @@ export default function Home() {
   useEffect(() => {
     tiktokEvents.trackViewContent(product as unknown as Record<string, string | number | boolean | undefined>);
   }, [product]);
+
+  // Set client-side flag and check subscription status
+  useEffect(() => {
+    setIsClient(true);
+    const hasSubscribed = localStorage.getItem('email_popup_subscribed') === 'true';
+    setShowCornerButton(!hasSubscribed);
+  }, []);
+
+  // Email popup trigger logic
+  useEffect(() => {
+    // Only run on client side
+    if (!isClient) return;
+    
+    const hasSeenPopup = localStorage.getItem('email_popup_shown') === 'true';
+    const hasSubscribed = localStorage.getItem('email_popup_subscribed') === 'true';
+    
+    if (hasSubscribed || popupShown || hasSeenPopup) {
+      // Update corner button visibility
+      setShowCornerButton(!hasSubscribed);
+      return; // Don't show if already subscribed or shown
+    }
+
+    let triggerFired = false;
+
+    // Trigger 1: Time delay (8 seconds)
+    const timeDelay = setTimeout(() => {
+      if (!triggerFired) {
+        triggerFired = true;
+        setShowEmailPopup(true);
+        setPopupShown(true);
+        localStorage.setItem('email_popup_shown', 'true');
+        track('Email Popup Triggered', { trigger: 'time_delay' });
+      }
+    }, 8000);
+
+    // Trigger 2: Exit intent (desktop only)
+    const handleMouseLeave = (e: MouseEvent) => {
+      if (!triggerFired && e.clientY <= 0 && window.innerWidth > 768) {
+        triggerFired = true;
+        setShowEmailPopup(true);
+        setPopupShown(true);
+        localStorage.setItem('email_popup_shown', 'true');
+        track('Email Popup Triggered', { trigger: 'exit_intent' });
+        document.removeEventListener('mouseleave', handleMouseLeave);
+      }
+    };
+    document.addEventListener('mouseleave', handleMouseLeave);
+
+    // Trigger 3: Scroll percentage (10%)
+    const handleScroll = () => {
+      if (!triggerFired) {
+        const scrollPercent = (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100;
+        if (scrollPercent >= 10) {
+          triggerFired = true;
+          setShowEmailPopup(true);
+          setPopupShown(true);
+          localStorage.setItem('email_popup_shown', 'true');
+          track('Email Popup Triggered', { trigger: 'scroll' });
+          window.removeEventListener('scroll', handleScroll);
+        }
+      }
+    };
+    window.addEventListener('scroll', handleScroll);
+
+    // Cleanup
+    return () => {
+      clearTimeout(timeDelay);
+      document.removeEventListener('mouseleave', handleMouseLeave);
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, [popupShown, isClient]);
+
+  // Handle popup close
+  const handlePopupClose = () => {
+    setShowEmailPopup(false);
+    // Show corner button after closing (if not subscribed)
+    if (isClient && localStorage.getItem('email_popup_subscribed') !== 'true') {
+      setShowCornerButton(true);
+    }
+  };
+
+  // Handle corner button click
+  const handleCornerButtonClick = () => {
+    setShowEmailPopup(true);
+    track('Email Popup Opened', { source: 'corner_button' });
+  };
 
   const colorImages = {
     'Gold': '/images/goldIndy.jpg',
@@ -160,6 +253,19 @@ export default function Home() {
       
       {/* Navigation */}
       <Navigation />
+
+      {/* Email Popup */}
+      {showEmailPopup && (
+        <EmailPopup
+          onClose={handlePopupClose}
+          productImage={currentImage}
+        />
+      )}
+
+      {/* Corner Button (show when popup is not visible and not subscribed) */}
+      {isClient && !showEmailPopup && showCornerButton && (
+        <CornerButton onClick={handleCornerButtonClick} />
+      )}
 
       {/* Hero Section */}
       <section id="home" className="hero">
@@ -934,6 +1040,8 @@ export default function Home() {
             <div className="footer-logo">
               <h3>DeenDecal</h3>
               <p>Express your faith with beautifully crafted Islamic car emblems. Premium quality, easy installation, and designed to last.</p>
+              <p className="footer-email-description">Join our email list to receive updates, access exclusive deals, learn product launch details, and more.</p>
+              <FooterEmailForm />
               <div className="social-links">
                 <a href="https://www.instagram.com/deendecal/" target="_blank" rel="noopener noreferrer"><i className="fab fa-instagram"></i></a>
                 <a href="https://www.tiktok.com/@deendecal" target="_blank" rel="noopener noreferrer"><i className="fab fa-tiktok"></i></a>
