@@ -46,10 +46,54 @@ async function checkRateLimit(ipAddress: string): Promise<{ allowed: boolean; re
   return { allowed: true };
 }
 
-// Validate email format
+// Allow common TLDs plus any two-letter country code
+const ALLOWED_TLDS = new Set([
+  'com',
+  'org',
+  'net',
+  'edu',
+  'gov',
+  'info',
+  'biz',
+  'io',
+  'ai',
+  'app',
+  'dev',
+  'store',
+  'shop',
+  'co',
+]);
+
+// Validate email format with stricter domain rules
 function validateEmail(email: string): boolean {
-  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  return emailRegex.test(email) && email.length <= 255;
+  if (email.length > 255) {
+    return false;
+  }
+
+  const emailRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[A-Za-z0-9-]+(\.[A-Za-z0-9-]+)+$/;
+  if (!emailRegex.test(email)) {
+    return false;
+  }
+
+  const [, domain] = email.split('@');
+
+  if (!domain || domain.includes('..')) {
+    return false;
+  }
+
+  const domainParts = domain.split('.');
+  if (domainParts.some((part) => !part || part.startsWith('-') || part.endsWith('-'))) {
+    return false;
+  }
+
+  const tld = domainParts[domainParts.length - 1].toLowerCase();
+
+  const isTwoLetterTld = /^[a-z]{2}$/.test(tld);
+  if (!ALLOWED_TLDS.has(tld) && !isTwoLetterTld) {
+    return false;
+  }
+
+  return true;
 }
 
 // Get promotion code details from Stripe

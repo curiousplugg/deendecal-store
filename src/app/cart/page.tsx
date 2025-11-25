@@ -450,20 +450,40 @@ export default function CartPage() {
       `}</style>
 
       <div className="cart-container" style={{ paddingTop: '2rem' }}>
-        <div className="cart-header">
-          <h1>Your Shopping Cart</h1>
-          <p>Review your items and proceed to checkout</p>
-        </div>
-        {isClient && state.items.length > 0 && (
-          <div className="cart-header-badges">
-            <span className="header-badge">
-              <i className="fas fa-shipping-fast"></i>
-              Free Shipping Worldwide
-            </span>
-            <span className="header-badge">
-              <i className="fas fa-undo"></i>
-              30-Day Returns
-            </span>
+        {/* Embedded Checkout Section - Moved to top */}
+        {showCheckout && !checkoutComplete && (
+          <div id="embedded-checkout-section" className="embedded-checkout-section">
+            <div className="checkout-container">
+              <div className="checkout-header">
+                <h2 className="checkout-title">
+                  <i className="fas fa-credit-card"></i>
+                  Complete Your Purchase
+                </h2>
+                <p className="checkout-subtitle">
+                  Complete your purchase below
+                </p>
+              </div>
+              
+              <div className="checkout-content">
+                {isRefreshingCheckout ? (
+                  <div className="flex items-center justify-center p-8">
+                    <div className="text-center">
+                      <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600 mx-auto mb-4"></div>
+                      <p className="text-gray-600">Updating checkout...</p>
+                    </div>
+                  </div>
+                ) : (
+                  <ErrorBoundary>
+                    <EmbeddedCheckoutComponent
+                      key={checkoutKey}
+                      items={state.items}
+                      onSuccess={handleCheckoutSuccess}
+                      onError={(error) => console.error('Checkout error:', error)}
+                    />
+                  </ErrorBoundary>
+                )}
+              </div>
+            </div>
           </div>
         )}
 
@@ -553,129 +573,6 @@ export default function CartPage() {
                   </div>
                 );
               })}
-            </div>
-
-            <div className="cart-summary">
-              <h2>Order Summary</h2>
-              
-              {/* Trust Badges */}
-              <div className="cart-trust-badges">
-                <div className="cart-trust-item">
-                  <i className="fas fa-shield-alt"></i>
-                  <span>Secure Checkout</span>
-                </div>
-                <div className="cart-trust-item">
-                  <i className="fas fa-undo"></i>
-                  <span>30-Day Returns</span>
-                </div>
-                <div className="cart-trust-item">
-                  <i className="fas fa-truck"></i>
-                  <span>Free Shipping</span>
-                </div>
-              </div>
-
-              <div className="summary-line">
-                <span className="summary-label">Subtotal</span>
-                <span className="summary-value">${subtotal.toFixed(2)}</span>
-              </div>
-              <div className="summary-line">
-                <span className="summary-label">Shipping</span>
-                <span className="summary-value shipping-free">Free</span>
-              </div>
-              <div className="summary-line">
-                <span className="summary-label">Total</span>
-                <span className="summary-value total-price">${subtotal.toFixed(2)}</span>
-              </div>
-
-              {/* Social Proof */}
-              <div className="cart-social-proof">
-                <div className="social-proof-item">
-                  <i className="fas fa-user-check"></i>
-                  <span><strong>127+</strong> customers purchased today</span>
-                </div>
-                <div className="social-proof-item">
-                  <i className="fas fa-shopping-cart"></i>
-                  <span><strong>100+</strong> customers have items in cart now</span>
-                </div>
-              </div>
-
-              {/* Urgency Message with Countdown */}
-              <div className="cart-urgency">
-                <i className="fas fa-clock"></i>
-                <span>Complete your order in the next <strong className="countdown-timer">{formatTime(timeLeft)}</strong> to secure your items</span>
-              </div>
-
-              <div className="checkout-buttons">
-                <button onClick={handleEmbeddedCheckout} className="proceed-checkout-btn">
-                  <i className="fas fa-credit-card"></i>
-                  Proceed to Secure Checkout
-                </button>
-                <button onClick={handleClearCart} className="clear-cart-btn">
-                  <i className="fas fa-trash"></i>
-                  Clear Cart
-                </button>
-              </div>
-
-              {/* Security & Guarantee */}
-              <div className="cart-security">
-                <div className="security-item">
-                  <i className="fas fa-lock"></i>
-                  <span>SSL Encrypted • Your payment is secure</span>
-                </div>
-                <div className="security-item">
-                  <i className="fas fa-dollar-sign"></i>
-                  <span>100% Money-Back Guarantee</span>
-                </div>
-              </div>
-
-              {/* Payment Methods */}
-              <div className="cart-payment-methods">
-                <p className="payment-methods-label">We accept:</p>
-                <div className="payment-icons-small">
-                  <i className="fab fa-cc-visa"></i>
-                  <i className="fab fa-cc-mastercard"></i>
-                  <i className="fab fa-cc-amex"></i>
-                  <i className="fab fa-cc-paypal"></i>
-                  <i className="fab fa-apple-pay"></i>
-                </div>
-              </div>
-            </div>
-          </div>
-        )}
-        
-        {/* Embedded Checkout Section */}
-        {showCheckout && !checkoutComplete && (
-          <div id="embedded-checkout-section" className="embedded-checkout-section">
-            <div className="checkout-container">
-              <div className="checkout-header">
-                <h2 className="checkout-title">
-                  <i className="fas fa-credit-card"></i>
-                  Complete Your Purchase
-                </h2>
-                <p className="checkout-subtitle">
-                  Complete your purchase below
-                </p>
-              </div>
-              
-              <div className="checkout-content">
-                {isRefreshingCheckout ? (
-                  <div className="flex items-center justify-center p-8">
-                    <div className="text-center">
-                      <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600 mx-auto mb-4"></div>
-                      <p className="text-gray-600">Updating checkout...</p>
-                    </div>
-                  </div>
-                ) : (
-                  <ErrorBoundary>
-                    <EmbeddedCheckoutComponent
-                      key={checkoutKey}
-                      items={state.items}
-                      onSuccess={handleCheckoutSuccess}
-                      onError={(error) => console.error('Checkout error:', error)}
-                    />
-                  </ErrorBoundary>
-                )}
-              </div>
             </div>
           </div>
         )}
