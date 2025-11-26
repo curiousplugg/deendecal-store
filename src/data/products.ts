@@ -23,7 +23,7 @@ export const products: Product[] = [
         name: 'Shahada Metal Car Decal - Islamic Car Emblem',
         description: 'Premium Shahada Metal Car Decal - High-quality metal material, 16*3.5CM size, Trunk Sticker style. Perfect for Body and Rear installation. Single Pack with detailed installation instructions. Durable Islamic car emblem for Muslim car accessories.',
     price: 24.99,
-    originalPrice: 45.00,
+    originalPrice: 70.00,
     image: '/images/goldIndy.jpg',
     category: 'Decals',
     inStock: true,

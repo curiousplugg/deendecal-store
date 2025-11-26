@@ -910,7 +910,7 @@ nav {
 }
 
 .original-price {
-  font-size: 1.5rem;
+  font-size: 2rem;
   color: var(--text-light);
   text-decoration: line-through;
 }
@@ -2427,10 +2427,10 @@ nav {
 }
 
 .cart-content {
-  display: flex;
-  justify-content: center;
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 3rem;
   align-items: start;
-  width: 100%;
 }
 
 .cart-items {
@@ -2439,9 +2439,8 @@ nav {
   padding: 2rem;
   box-shadow: 0 10px 30px var(--shadow);
   width: 100%;
-  max-width: 800px;
+  max-width: 100%;
   box-sizing: border-box;
-  margin: 0 auto;
 }
 
 .cart-item {
@@ -2594,15 +2593,6 @@ nav {
 
 /* Desktop sticky elements */
 @media (min-width: 1024px) {
-  .cart-content {
-    justify-content: center;
-  }
-  
-  .cart-items {
-    max-width: 800px;
-    margin: 0 auto;
-  }
-  
   .cart-summary {
     position: sticky;
     top: 8rem;
